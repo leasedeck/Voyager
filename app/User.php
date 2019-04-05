@@ -43,7 +43,7 @@ class User extends UserRepository implements BannableContract
 
 
     /**
-     * Method for tracking if the user or not.
+     * Method for tracking if the user online or not.
      *
      * @return bool
      */
