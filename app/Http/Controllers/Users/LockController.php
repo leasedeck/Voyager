@@ -37,7 +37,7 @@ class LockController extends Controller
 
         // Check if the user is actually banned in the application.
         if ($user->isBanned()) {
-            $banInfo = auth()->user()->bans()->latest()->first();
+            $banInfo = $user->bans()->latest()->first();
             return view('errors.deactivated', compact('banInfo'));
         }
 
