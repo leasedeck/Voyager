@@ -6,6 +6,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Users\AccountController;
 use App\Http\Controllers\Users\IndexController;
 use App\Http\Controllers\Users\LockController;
+use App\Http\Controllers\Auth\PasswordSecurityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,3 +52,8 @@ Route::patch('/gebruikers/{user}', [IndexController::class, 'update'])->name('us
 Route::get('/gebruikers/nieuw', [IndexController::class, 'create'])->name('users.create');
 Route::post('/gebruikers/nieuw', [IndexController::class, 'store'])->name('users.store');
 Route::get('/gebruikers/{filter?}', [IndexController::class, 'index'])->name('users.index');
+
+// 2FA routes
+Route::post('/gebruiker/genereer-2fa-token', [PasswordSecurityController::class, 'generate2faSecret'])->name('generate2faSecret');
+Route::post('/gebruiker/2fa', [PasswordSecurityController::class, 'enable2fa'])->name('enable2fa');
+Route::post('/gebruiker/deactiveer-2fa', [PasswordSecurityController::class, 'disable2fa'])->name('disable2fa');
