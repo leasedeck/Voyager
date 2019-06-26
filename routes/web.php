@@ -40,7 +40,8 @@ Route::get('/{userEntity}/activeer', [LockController::class, 'destroy'])->name('
 Route::post('/{userEntity}/deactiveer', [LockController::class, 'store'])->name('users.lock.store');
 
 // User Settings routes
-Route::get('/account/{type?}', [AccountController::class, 'index'])->name('account.settings');
+Route::get('/account', [AccountController::class, 'index'])->name('account.settings');
+Route::get('/account/beveiliging', [AccountController::class, 'indexSecurity'])->name('account.security');
 Route::patch('/account/informatie', [AccountController::class, 'updateInformation'])->name('account.settings.info');
 Route::patch('/account/beveiliging', [AccountController::class, 'updateSecurity'])->name('account.settings.security');
 

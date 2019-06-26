@@ -8,7 +8,7 @@
             <i class="text-secondary fe fe-info mr-1"></i> Account informatie
         </a>
 
-        <a href="{{ route('account.settings', ['type' => 'beveiliging']) }}" class="list-group-item list-group-item-action">
+        <a href="{{ route('account.security') }}" class="list-group-item list-group-item-action">
             <i class="text-secondary fe fe-shield mr-1"></i> Account beveiliging
         </a>
     </div>

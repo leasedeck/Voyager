@@ -33,13 +33,13 @@ class AccountController extends Controller
      * @return Renderable
      */
     public function index(Request $request): Renderable
+    { 
+        return view('users.settings.information');
+    }
+
+    public function indexSecurity(): Renderable 
     {
-        // Determine on the switch statement which vierw the user wants to display
-        // for modifying this account settings
-        switch ($request->type) {
-            case 'beveiliging': return view('users.settings.security');
-            default:            return view('users.settings.information');
-        }
+        return view('users.settings.security');
     }
 
     /**
