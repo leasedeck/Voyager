@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use App\Repositories\TwoFactorAuth\Repository as TwoFactorAuthRepository;
 
 /**
  * Class AccountController
@@ -17,17 +18,26 @@ use Illuminate\Http\Request;
 class AccountController extends Controller
 {
     /**
+     * 2FA Repository variable 
+     * 
+     * @var TwoFactorAuthRepository $twoFactorAuthRepository
+     */
+    private $twoFactorAuthRepository; 
+
+    /**
      * AccountConstroller constructor
      *
+     * @param  TwoFactorAuthRepository $twoFactorAuthRepository 2fa method layer.  
      * @return void
      */
-    public function __construct()
+    public function __construct(TwoFactorAuthRepository $twoFactorAuthRepository)
     {
-        $this->middleware(['auth', 'forbid-banned-user']);
+        $this->middleware(['auth', '2fa', 'forbid-banned-user']);
+        $this->twoFactorAuthRepository = $twoFactorAuthRepository;
     }
 
     /**
-     * Method for displaying the account seetings vie.
+     * Method for displaying the account settings view. (info)
      *
      * @param  Request $request The instance that holds all the request information.
      * @return Renderable
@@ -37,9 +47,14 @@ class AccountController extends Controller
         return view('users.settings.information');
     }
 
+    /**
+     * Method for displaying the account settings view. (Security)
+     * @return Renderable 
+     */
     public function indexSecurity(): Renderable 
     {
-        return view('users.settings.security');
+        $google2faUrl = $this->twoFactorAuthRepository->getGoogle2FaUrl();
+        return view('users.settings.security', compact('google2faUrl'));
     }
 
     /**

@@ -23,7 +23,7 @@ class LockController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth', 'forbid-banned-user'])->except(['index']);
+        $this->middleware(['auth', '2fa', 'forbid-banned-user'])->except(['index']);
     }
 
     /**

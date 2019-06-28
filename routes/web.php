@@ -58,3 +58,7 @@ Route::get('/gebruikers/{filter?}', [IndexController::class, 'index'])->name('us
 Route::post('/gebruiker/genereer-2fa-token', [PasswordSecurityController::class, 'generate2faSecret'])->name('generate2faSecret');
 Route::post('/gebruiker/2fa', [PasswordSecurityController::class, 'enable2fa'])->name('enable2fa');
 Route::post('/gebruiker/deactiveer-2fa', [PasswordSecurityController::class, 'disable2fa'])->name('disable2fa');
+
+Route::post('/2faVerify', function () {
+    return redirect()->route('home');
+})->name('2faVerify')->middleware('2fa');
