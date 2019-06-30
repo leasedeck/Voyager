@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "94c2f95245cf164e1b46361a0daa2201",
+    "content-hash": "e97f20ac06c10955f6a431e8386b9e12",
     "packages": [
         {
             "name": "actb/laravel-form-helpers",
@@ -5064,16 +5064,16 @@
         },
         {
             "name": "league/container",
-            "version": "3.2.2",
+            "version": "3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/container.git",
-                "reference": "fa38155fa392ad2ed05fb6418e9d9d58064c7e76"
+                "reference": "235cc528636833fbf0d771ad0e2410d345e1096e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/container/zipball/fa38155fa392ad2ed05fb6418e9d9d58064c7e76",
-                "reference": "fa38155fa392ad2ed05fb6418e9d9d58064c7e76",
+                "url": "https://api.github.com/repos/thephpleague/container/zipball/235cc528636833fbf0d771ad0e2410d345e1096e",
+                "reference": "235cc528636833fbf0d771ad0e2410d345e1096e",
                 "shasum": ""
             },
             "require": {
@@ -5126,7 +5126,7 @@
                 "provider",
                 "service"
             ],
-            "time": "2018-09-28T13:24:15+00:00"
+            "time": "2019-06-30T10:51:38+00:00"
         },
         {
             "name": "maximebf/debugbar",
@@ -7338,7 +7338,6 @@
             "time": "2018-01-24T12:46:19+00:00"
         },
         {
-<<<<<<< HEAD
             "name": "seld/phar-utils",
             "version": "1.0.1",
             "source": {
@@ -7350,19 +7349,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/Seldaek/phar-utils/zipball/7009b5139491975ef6486545a39f3e6dad5ac30a",
                 "reference": "7009b5139491975ef6486545a39f3e6dad5ac30a",
-=======
-            "name": "symfony/filesystem",
-            "version": "v4.3.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/filesystem.git",
-                "reference": "b9896d034463ad6fd2bf17e2bf9418caecd6313d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/b9896d034463ad6fd2bf17e2bf9418caecd6313d",
-                "reference": "b9896d034463ad6fd2bf17e2bf9418caecd6313d",
->>>>>>> two-factor-authentication
                 "shasum": ""
             },
             "require": {
@@ -7389,7 +7375,6 @@
                     "email": "j.boggiano@seld.be"
                 }
             ],
-<<<<<<< HEAD
             "description": "PHAR file format utilities, for when PHP phars you up",
             "keywords": [
                 "phra"
@@ -7408,24 +7393,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/sensiolabs/security-checker/zipball/ce8d0552dcb8d3677ab9adb6d19a5837949bfec4",
                 "reference": "ce8d0552dcb8d3677ab9adb6d19a5837949bfec4",
-=======
-            "description": "Symfony Filesystem Component",
-            "homepage": "https://symfony.com",
-            "time": "2019-06-23T08:51:25+00:00"
-        },
-        {
-            "name": "symfony/options-resolver",
-            "version": "v4.3.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/options-resolver.git",
-                "reference": "40762ead607c8f792ee4516881369ffa553fee6f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/40762ead607c8f792ee4516881369ffa553fee6f",
-                "reference": "40762ead607c8f792ee4516881369ffa553fee6f",
->>>>>>> two-factor-authentication
                 "shasum": ""
             },
             "require": {
@@ -7459,19 +7426,8 @@
                     "email": "fabien.potencier@gmail.com"
                 }
             ],
-<<<<<<< HEAD
             "description": "A security checker for your composer.lock",
             "time": "2019-06-08T06:46:26+00:00"
-=======
-            "description": "Symfony OptionsResolver Component",
-            "homepage": "https://symfony.com",
-            "keywords": [
-                "config",
-                "configuration",
-                "options"
-            ],
-            "time": "2019-06-13T11:01:17+00:00"
->>>>>>> two-factor-authentication
         },
         {
             "name": "slevomat/coding-standard",
