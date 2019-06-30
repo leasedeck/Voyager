@@ -6,6 +6,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Users\AccountController;
 use App\Http\Controllers\Users\IndexController;
 use App\Http\Controllers\Users\LockController;
+use App\Http\Controllers\Auth\PasswordSecurityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,7 +40,8 @@ Route::get('/{userEntity}/activeer', [LockController::class, 'destroy'])->name('
 Route::post('/{userEntity}/deactiveer', [LockController::class, 'store'])->name('users.lock.store');
 
 // User Settings routes
-Route::get('/account/{type?}', [AccountController::class, 'index'])->name('account.settings');
+Route::get('/account', [AccountController::class, 'index'])->name('account.settings');
+Route::get('/account/beveiliging', [AccountController::class, 'indexSecurity'])->name('account.security');
 Route::patch('/account/informatie', [AccountController::class, 'updateInformation'])->name('account.settings.info');
 Route::patch('/account/beveiliging', [AccountController::class, 'updateSecurity'])->name('account.settings.security');
 
@@ -51,3 +53,12 @@ Route::patch('/gebruikers/{user}', [IndexController::class, 'update'])->name('us
 Route::get('/gebruikers/nieuw', [IndexController::class, 'create'])->name('users.create');
 Route::post('/gebruikers/nieuw', [IndexController::class, 'store'])->name('users.store');
 Route::get('/gebruikers/{filter?}', [IndexController::class, 'index'])->name('users.index');
+
+// 2FA routes
+Route::post('/gebruiker/genereer-2fa-token', [PasswordSecurityController::class, 'generate2faSecret'])->name('generate2faSecret');
+Route::post('/gebruiker/2fa', [PasswordSecurityController::class, 'enable2fa'])->name('enable2fa');
+Route::post('/gebruiker/deactiveer-2fa', [PasswordSecurityController::class, 'disable2fa'])->name('disable2fa');
+
+Route::post('/2faVerify', function () {
+    return redirect()->route('home');
+})->name('2faVerify')->middleware('2fa');

@@ -26,7 +26,7 @@ class IndexController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth', 'role:admin', 'forbid-banned-user']);
+        $this->middleware(['auth', '2fa', 'role:admin', 'forbid-banned-user']);
     }
 
     /**

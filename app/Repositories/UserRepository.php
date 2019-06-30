@@ -16,6 +16,8 @@ class UserRepository extends Authenticatable
     /**
      * Method for securing the request by confirming the password hash.
      *
+     * @todo refactor to custom validation rule 
+     * 
      * @param  string $password The authenticated user password;
      * @return bool
      */

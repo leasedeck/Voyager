@@ -29,7 +29,7 @@ class NotificationController extends Controller
      */
     public function __construct(NotificationsRepository $notificationsRepository)
     {
-        $this->middleware(['auth', 'forbid-banned-user']);
+        $this->middleware(['auth', '2fa', 'forbid-banned-user']);
         $this->notificationsRepository = $notificationsRepository;
     }
 

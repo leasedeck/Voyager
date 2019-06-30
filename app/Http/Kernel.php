@@ -63,6 +63,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'role'       => \Spatie\Permission\Middlewares\RoleMiddleware::class,
         'forbid-banned-user' => \App\Http\Middleware\ForbidBannedUser::class,
+        '2fa' => \App\Http\Middleware\Google2FAMiddleware::class,
     ];
 
     /**
