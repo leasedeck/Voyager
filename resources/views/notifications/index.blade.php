@@ -28,7 +28,7 @@
 
             <div class="col-9"> {{-- Content --}}
                 @if ($unreadCount > 0) {{-- There are notifications found in the application --}}
-                    <div class="card card-body">
+                    <div class="card border-0 shadow-sm card-body">
                         <h6 class="border-bottom border-gray pb-1 mb-2">
                             @if ($type === 'alle')
                                 Alle notificaties
