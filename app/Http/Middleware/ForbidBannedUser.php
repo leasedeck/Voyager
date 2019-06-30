@@ -5,7 +5,6 @@ namespace App\Http\Middleware;
 use Closure;
 use Cog\Contracts\Ban\Bannable as BannableContract;
 use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Http\Request;
 
 /**
  * Class ForbidBannedUser
