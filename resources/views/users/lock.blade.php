@@ -21,7 +21,7 @@
             </div> {{-- /// End sidenav --}}
 
             <div class="col-9"> {{-- Content --}}
-                <form action="{{ route('users.lock.store', $userEntity) }}" method="POST" class="card card-body">
+                <form action="{{ route('users.lock.store', $userEntity) }}" method="POST" class="card border-0 shadow-sm card-body">
                     @csrf {{-- Form field protection --}}
                     <h6 class="border-bottom border-gray pb-1 mb-3">Deactiveer login van <strong>{{ $userEntity->name }}</strong></h6>
 
