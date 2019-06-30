@@ -18,11 +18,6 @@ use App\Http\Controllers\Auth\PasswordSecurityController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Auth::routes(['register' => false]);
-
-// Home routes
-Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
 Route::get('/home', 'HomeController@index')->name('home');
 
 // Activity routes
