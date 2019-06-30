@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\InformationValidator;
-use App\User;
+use App\Models\User;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use App\Repositories\TwoFactorAuth\Repository as TwoFactorAuthRepository;
 
 /**
  * Class AccountController
@@ -17,29 +18,43 @@ use Illuminate\Http\Request;
 class AccountController extends Controller
 {
     /**
+     * 2FA Repository variable 
+     * 
+     * @var TwoFactorAuthRepository $twoFactorAuthRepository
+     */
+    private $twoFactorAuthRepository; 
+
+    /**
      * AccountConstroller constructor
      *
+     * @param  TwoFactorAuthRepository $twoFactorAuthRepository 2fa method layer.  
      * @return void
      */
-    public function __construct()
+    public function __construct(TwoFactorAuthRepository $twoFactorAuthRepository)
     {
-        $this->middleware(['auth', 'forbid-banned-user']);
+        $this->middleware(['auth', '2fa', 'forbid-banned-user']);
+        $this->twoFactorAuthRepository = $twoFactorAuthRepository;
     }
 
     /**
-     * Method for displaying the account seetings vie.
+     * Method for displaying the account settings view. (info)
      *
      * @param  Request $request The instance that holds all the request information.
      * @return Renderable
      */
     public function index(Request $request): Renderable
+    { 
+        return view('users.settings.information');
+    }
+
+    /**
+     * Method for displaying the account settings view. (Security)
+     * @return Renderable 
+     */
+    public function indexSecurity(): Renderable 
     {
-        // Determine on the switch statement which vierw the user wants to display
-        // for modifying this account settings
-        switch ($request->type) {
-            case 'beveiliging': return view('users.settings.security');
-            default:            return view('users.settings.information');
-        }
+        $google2faUrl = $this->twoFactorAuthRepository->getGoogle2FaUrl();
+        return view('users.settings.security', compact('google2faUrl'));
     }
 
     /**
@@ -61,10 +76,9 @@ class AccountController extends Controller
      * Method for update the account security from the authenticated used.
      *
      * @param  Request $request The instance that holds all the request information.
-     * @param  User    $user    The database model for the login in the application
      * @return RedirectResponse
      */
-    public function updateSecurity(Request $request, User $user): RedirectResponse
+    public function updateSecurity(Request $request): RedirectResponse
     {
         $request->validate(['wachtwoord' => ['required', 'string', 'min:8', 'confirmed'], 'huidig_wachtwoord' => ['required', 'string']]);
 

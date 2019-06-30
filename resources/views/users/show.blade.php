@@ -21,7 +21,7 @@
             </div> {{-- /// END sidenav --}}        
         
             <div class="col-9"> {{-- Page content --}}
-                <form method="POST" action="{{ route('users.update', $user) }}" class="card card-body">
+                <form method="POST" action="{{ route('users.update', $user) }}" class="card border-0 shadow-sm card-body">
                     @csrf               {{-- Form field protection --}}
                     @method('PATCH')    {{-- HTTP method spoofing --}}
                     @form($user)        {{-- Bind user data to the form --}}

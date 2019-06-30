@@ -23,15 +23,15 @@
                     </div>
                 </div>
 
-                <form method="GET" action="{{ route('users.search') }}" class="w-100 ml-2">
-                    <input type="text" class="form-control" @input('term') placeholder="Zoeken">
+                <form method="GET" action="{{ route('users.search') }}" class="border-0 shadow-sm form-search ml-2">
+                    <input type="text" class="form-search border-0 form-control" @input('term') placeholder="Zoeken">
                 </form>
             </div>
         </div>
     </div>
 
     <div class="container-fluid pb-3">
-        <div class="card card-body">
+        <div class="card border-0 shadow-sm card-body">
             @include ('flash::message') {{-- Flash session view partial --}}
             
             <div class="table-responsive">

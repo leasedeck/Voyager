@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use App\Repositories\UserRepository;
 use App\Traits\ActivityLog;
@@ -10,6 +10,8 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Cache;
 use Spatie\Activitylog\Traits\CausesActivity;
 use Spatie\Permission\Traits\HasRoles;
+use App\Models\PasswordSecurity;
+use Illuminate\Database\Eloquent\Relations\hasOne;
 
 /**
  * Class User
@@ -61,6 +63,16 @@ class User extends UserRepository implements BannableContract
     public function setPasswordAttribute(string $password): void
     {
         $this->attributes['password'] = bcrypt($password);
+    }
+
+    /**
+     * Data relation for the 2FA password securities. 
+     * 
+     * @return HasOne
+     */
+    public function passwordSecurity(): HasOne
+    {
+        return $this->hasOne(PasswordSecurity::class);
     }
 
     /**

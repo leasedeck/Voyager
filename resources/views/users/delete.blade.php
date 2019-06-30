@@ -21,7 +21,7 @@
             </div> {{-- /// END sidenav --}}
 
             <div class="col-md-9">
-                <form method="POST" action="{{ route('users.destroy', $user) }}" class="card card-body">
+                <form method="POST" action="{{ route('users.destroy', $user) }}" class="card border-0 shadow-sm card-body">
                     @csrf {{-- Form field protection --}}
                     @method ('DELETE') {{-- HTTP method spoofing --}}
 

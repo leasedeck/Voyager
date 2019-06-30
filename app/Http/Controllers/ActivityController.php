@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Models\User;
 use Illuminate\Contracts\Support\Renderable;
 
 /**
@@ -19,7 +19,7 @@ class ActivityController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth', 'role:admin', 'forbid-banned-user']);
+        $this->middleware(['auth', '2fa', 'role:admin', 'forbid-banned-user']);
     }
 
     /**

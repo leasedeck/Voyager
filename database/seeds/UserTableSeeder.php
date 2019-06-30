@@ -1,6 +1,6 @@
 <?php
 
-use App\User;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Seeders\Faker;
 
@@ -22,7 +22,7 @@ class UserTableSeeder extends Seeder
         collect($this->organisationMembers())->each(function (array $name): void {
             [$firstName, $lastName] = $name;
 
-            $data = ['voornaam' => $name[0], 'achternaam' => $name[1], 'email' => strtolower($name[0]) . '@activisme.be', 'password' => 'secret'];
+            $data = ['voornaam' => $name[0], 'achternaam' => $name[1], 'email' => strtolower($name[0]) . '@activisme.be', 'password' => 'password'];
             $user = $this->createBackUser($data);
 
             if ($this->isInWebmasterArray($user->email)) {

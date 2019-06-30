@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\LockValidator;
-use App\User;
+use App\Models\User;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
@@ -23,7 +23,7 @@ class LockController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth', 'forbid-banned-user'])->except(['index']);
+        $this->middleware(['auth', '2fa', 'forbid-banned-user'])->except(['index']);
     }
 
     /**

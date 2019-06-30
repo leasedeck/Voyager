@@ -29,7 +29,7 @@ class NotificationController extends Controller
      */
     public function __construct(NotificationsRepository $notificationsRepository)
     {
-        $this->middleware(['auth', 'forbid-banned-user']);
+        $this->middleware(['auth', '2fa', 'forbid-banned-user']);
         $this->notificationsRepository = $notificationsRepository;
     }
 
@@ -38,7 +38,7 @@ class NotificationController extends Controller
      *
      * @todo Implement avatar helpder.
      *
-     * @param  null|string $type The type of notifications u want to get in the application.
+     * @param  string|null $type The type of notifications u want to get in the application.
      * @return Renderable
      */
     public function index(?string $type = null): Renderable

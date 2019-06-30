@@ -21,7 +21,7 @@
             </div> {{-- /// END sidebar --}}
 
             <div class="col-9"> {{-- Content --}}
-                <div class="card card-body">
+                <div class="card shadow-sm border-0 card-body">
                     <h6 class="border-bottom border-gray pb-1 mb-3">Activiteiten logboek van <strong>{{ $user->name }}</strong></h6>
 
                     <div class="table-responsive">
