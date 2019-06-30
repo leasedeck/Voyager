@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
  *
  * @package App\Repositories
  */
-class userRepository extends Authenticatable
+class UserRepository extends Authenticatable
 {
     /**
      * Method for securing the request by confirming the password hash.

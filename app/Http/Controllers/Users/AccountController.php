@@ -61,10 +61,9 @@ class AccountController extends Controller
      * Method for update the account security from the authenticated used.
      *
      * @param  Request $request The instance that holds all the request information.
-     * @param  User    $user    The database model for the login in the application
      * @return RedirectResponse
      */
-    public function updateSecurity(Request $request, User $user): RedirectResponse
+    public function updateSecurity(Request $request): RedirectResponse
     {
         $request->validate(['wachtwoord' => ['required', 'string', 'min:8', 'confirmed'], 'huidig_wachtwoord' => ['required', 'string']]);
 

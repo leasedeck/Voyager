@@ -24,7 +24,7 @@ class NotificationsRepository
     /**
      * Method for getting the notifications and determinating the request type
      *
-     * @param  null|string $type The type of notifications u want to display in the application.
+     * @param  string|null $type The type of notifications u want to display in the application.
      * @return array
      */
     public function getByType(?string $type = null): array

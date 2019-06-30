@@ -39,8 +39,13 @@ class IndexController extends Controller
     public function index(Request $request, User $users): Renderable
     {
         switch ($request->filter) {
-            case 'actief':        $users = $users->withoutBanned(); break;
-            case 'gedeactiveerd': $users = $users->onlyBanned();    break;
+            case 'actief':        
+                $users = $users->withoutBanned(); 
+            break;
+            
+            case 'gedeactiveerd': 
+                $users = $users->onlyBanned();    
+            break;
         }
 
         $requestType = $request->filter;
@@ -90,10 +95,11 @@ class IndexController extends Controller
     public function store(InformationValidator $input, User $user): RedirectResponse
     {
         $input->merge(['password' => Str::random(16)]);
+        $user = $user->create($input->all());
 
-        if ($user = $user->create($input->all())) {
+        if ($user) {
             auth()->user()->logActivity($user, 'Gebruikers', "Heeft een login aangemaakt voor {$user->name}");
-            $user->notify((new LoginCreated($input->all()))->delay(now()->addMinute())); // TODO: Implement notification class
+            $user->notify((new LoginCreated($input->all()))->delay(now()->addMinute()));
         }
 
         return redirect()->route('users.show', $user);

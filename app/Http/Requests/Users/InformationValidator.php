@@ -65,8 +65,13 @@ class InformationValidator extends FormRequest
     public function rules(): array
     {
         switch ($this->getMethod()) {
-            case 'POST':  $methodRules = $this->getPostRules();  break;
-            case 'PATCH': $methodRules = $this->getPatchRules(); break;
+            case 'POST':  
+                $methodRules = $this->getPostRules();  
+            break;
+            
+            case 'PATCH': 
+                $methodRules = $this->getPatchRules(); 
+            break;
 
             // The method is not found so there are no additional validation rules needed.
             default: $methodRules = [];
