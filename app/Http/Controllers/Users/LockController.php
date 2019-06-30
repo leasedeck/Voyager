@@ -54,7 +54,7 @@ class LockController extends Controller
      */
     public function create(User $userEntity): Renderable
     {
-        if ($userEntity->isNotBanned() && auth()->user()->can('deactivate-user', $userEntity)) {
+        if ($userEntity->isNotBanned() && $this->getAuthenticatedUser()->can('deactivate-user', $userEntity)) {
             return view('users.lock', compact('userEntity'));
         }
 
@@ -74,9 +74,9 @@ class LockController extends Controller
     {
         $this->authorize('deactivate-user', $userEntity);
 
-        if ($userEntity->isNotBanned() && auth()->user()->securedRequest($input->wachtwoord)) {
+        if ($userEntity->isNotBanned() && $this->getAuthenticatedUser()->securedRequest($input->wachtwoord)) {
             $userEntity->ban(['comment' => $input->reden]);
-            auth()->user()->logActivity($userEntity, 'Gebruikers', "Heeft de login van {$userEntity->name} gedeactiveerd in het systeem.");
+            $this->getAuthenticatedUser()->logActivity($userEntity, 'Gebruikers', "Heeft de login van {$userEntity->name} gedeactiveerd in het systeem.");
         }
 
         return redirect()->route('users.show', $userEntity);
@@ -95,7 +95,7 @@ class LockController extends Controller
         if ($userEntity->isBanned()) { // Conform that the user is actually banned.
             $userEntity->unban();
 
-            auth()->user()->logActivity($userEntity, 'Gebruikers', "heeft de login van {$userEntity->name} terug geactiveerd in het systeem.");
+            $this->getAuthenticatedUser()->logActivity($userEntity, 'Gebruikers', "heeft de login van {$userEntity->name} terug geactiveerd in het systeem.");
             flash("De login van {$userEntity->name} is terug actief in het systeem.")->success();
         }
 

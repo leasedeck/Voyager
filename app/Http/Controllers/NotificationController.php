@@ -44,7 +44,7 @@ class NotificationController extends Controller
     public function index(?string $type = null): Renderable
     {
         $notificationData   = $this->notificationsRepository->getByType($type);
-        $notificationsCount = ['unreadCount' => auth()->user()->unreadNotifications()->count()];
+        $notificationsCount = ['unreadCount' => $this->getAuthenticatedUser()->unreadNotifications()->count()];
         $viewVariables      = ['notifications' => $notificationData['notifications'], 'type' => $notificationData['type']];
         
         return view('notifications.index', array_merge($notificationsCount, $viewVariables));

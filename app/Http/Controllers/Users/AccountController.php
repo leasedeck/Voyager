@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\InformationValidator;
-use App\Models\User;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -65,7 +64,7 @@ class AccountController extends Controller
      */
     public function updateInformation(InformationValidator $input): RedirectResponse
     {
-        if (auth()->user()->update($input->all())) { // Update confirmation
+        if ($this->getAuthenticatedUser()->update($input->all())) { // Update confirmation
             flash('Uw accunt informatie is met success aangepast.')->success()->important();
         }
 
@@ -83,11 +82,11 @@ class AccountController extends Controller
         $request->validate(['wachtwoord' => ['required', 'string', 'min:8', 'confirmed'], 'huidig_wachtwoord' => ['required', 'string']]);
 
         // User can only update his account security when the old password is correct.
-        if (auth()->user()->securedRequest($request->huidig_wachtwoord)) {
+        if ($this->getAuthenticatedUser()->securedRequest($request->huidig_wachtwoord)) {
             auth()->logoutOtherDevices($request->huiding_wachtwoord);
 
             // The password has been updated successfully.
-            if (auth()->user()->update(['password' => $request->wachtwoord])) {
+            if ($this->getAuthenticatedUser()->update(['password' => $request->wachtwoord])) {
                 flash('Uw account beveiliging is met success aangepast.')->success()->important();
                 return redirect()->back();
             }

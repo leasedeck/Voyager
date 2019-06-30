@@ -39,13 +39,8 @@ class IndexController extends Controller
     public function index(Request $request, User $users): Renderable
     {
         switch ($request->filter) {
-            case 'actief':        
-                $users = $users->withoutBanned(); 
-            break;
-            
-            case 'gedeactiveerd': 
-                $users = $users->onlyBanned();    
-            break;
+            case 'actief':        $users = $users->withoutBanned(); break;
+            case 'gedeactiveerd': $users = $users->onlyBanned();    break;
         }
 
         $requestType = $request->filter;
@@ -60,7 +55,7 @@ class IndexController extends Controller
      */
     public function show(User $user): Renderable
     {
-        $cantEdit = auth()->user()->cannot('can-edit', $user);
+        $cantEdit = $this->getAuthenticatedUser()->cannot('can-edit', $user);
         return view('users.show', compact('user', 'cantEdit'));
     }
 
@@ -98,7 +93,7 @@ class IndexController extends Controller
         $user = $user->create($input->all());
 
         if ($user) {
-            auth()->user()->logActivity($user, 'Gebruikers', "Heeft een login aangemaakt voor {$user->name}");
+            $this->getAuthenticatedUser()->logActivity($user, 'Gebruikers', "Heeft een login aangemaakt voor {$user->name}");
             $user->notify((new LoginCreated($input->all()))->delay(now()->addMinute()));
         }
 
@@ -114,7 +109,7 @@ class IndexController extends Controller
      */
     public function update(InformationValidator $input, User $user): RedirectResponse
     {
-        if (auth()->user()->can('can-edit', $user) &&  $user->update($input->all())) {
+        if ($this->getAuthenticatedUser()->can('can-edit', $user) &&  $user->update($input->all())) {
             flash("De gegevens van {$user->name} zijn aangepast in de applicatie")->success();
         }
 
@@ -144,7 +139,7 @@ class IndexController extends Controller
 
         if ($user->securedRequest($request->wachtwoord) && $user->delete()) { // (2)
             if (Gate::denies('same-user')) { // (3)
-                auth()->user()->logActivity($user, 'Gebruikers', "Heeft de gebruiker {$user->name} verwijderd in de applicatie.");
+                $this->getAuthenticatedUser()->logActivity($user, 'Gebruikers', "Heeft de gebruiker {$user->name} verwijderd in de applicatie.");
             }
 
             flash("De gebruiker {$user->name} is verwijderd in de applicatie.")->success()->important();
