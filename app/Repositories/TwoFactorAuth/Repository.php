@@ -2,7 +2,7 @@
 
 namespace App\Repositories\TwoFactorAuth;
 
-use App\User;
+use App\Models\User;
 use PragmaRX\Google2FALaravel\Google2FA;
 use RuntimeException;
 use Illuminate\Http\Response;
