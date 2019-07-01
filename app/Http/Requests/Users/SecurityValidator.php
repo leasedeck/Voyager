@@ -2,16 +2,15 @@
 
 namespace App\Http\Requests\Users;
 
-use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use ActivismeBe\ValidationRules\Rules\MatchUserPassword;
 
 /**
- * Class LockValidator
- *
+ * Class SecurityValidator
+ * 
  * @package App\Http\Requests\Users
  */
-class LockValidator extends FormRequest
+class SecurityValidator extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -20,7 +19,7 @@ class LockValidator extends FormRequest
      */
     public function authorize(): bool
     {
-        return Gate::allows('deactivate-user', $this->userEntity);
+        return true;
     }
 
     /**
@@ -28,11 +27,11 @@ class LockValidator extends FormRequest
      *
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
-        return [
-            'reden'      => ['required', 'string'],
-            'wachtwoord' => ['required', 'string', new MatchUserPassword($this->user())],
+        return[
+            'wachtwoord' => ['required', 'string', 'min:8', 'confirmed'], 
+            'huidig_wachtwoord' => ['required', 'string', new MatchUserPassword($this->user())],  
         ];
     }
 }

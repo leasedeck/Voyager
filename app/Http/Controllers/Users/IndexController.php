@@ -11,6 +11,8 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * Class IndexController
@@ -84,18 +86,20 @@ class IndexController extends Controller
      * Method for storing the new user in the application.
      *
      * @param  InformationValidator $input The form request class that handles the input validation.
-     * @param  User                 $user  The database model entity class.
      * @return RedirectResponse
      */
-    public function store(InformationValidator $input, User $user): RedirectResponse
+    public function store(InformationValidator $input): RedirectResponse
     {
         $input->merge(['password' => Str::random(16)]);
-        $user = $user->create($input->all());
 
-        if ($user) {
-            $this->getAuthenticatedUser()->logActivity($user, 'Gebruikers', "Heeft een login aangemaakt voor {$user->name}");
+        $user = DB::transaction(static function () use ($input): User {
+            $user = User::create($input->all());
             $user->notify((new LoginCreated($input->all()))->delay(now()->addMinute()));
-        }
+
+            (new Controller)->getAuthenticatedUser()->logActivity($user, 'Gebruikers', "Heeft een login aangemaakt voor {$user->name}");
+
+            return $user;
+        });
 
         return redirect()->route('users.show', $user);
     }
@@ -137,7 +141,7 @@ class IndexController extends Controller
 
         $request->validate(['wachtwoord' => 'required', 'string']);
 
-        if ($user->securedRequest($request->wachtwoord) && $user->delete()) { // (2)
+        if (Hash::check($request->wachtwoord, $this->getAuthenticatedUser()->getAuthPassword()) && $user->delete()) { // (2)
             if (Gate::denies('same-user')) { // (3)
                 $this->getAuthenticatedUser()->logActivity($user, 'Gebruikers', "Heeft de gebruiker {$user->name} verwijderd in de applicatie.");
             }
