@@ -24,7 +24,7 @@ class AccountController extends Controller
     private $twoFactorAuthRepository; 
 
     /**
-     * AccountConstroller constructor
+     * AccountController constructor
      *
      * @param  TwoFactorAuthRepository $twoFactorAuthRepository 2fa method layer.  
      * @return void
@@ -38,10 +38,9 @@ class AccountController extends Controller
     /**
      * Method for displaying the account settings view. (info)
      *
-     * @param  Request $request The instance that holds all the request information.
      * @return Renderable
      */
-    public function index(Request $request): Renderable
+    public function index(): Renderable
     { 
         return view('users.settings.information');
     }
