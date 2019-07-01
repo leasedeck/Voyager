@@ -1,4 +1,4 @@
-@extends('layouts.auth')
+@extends('layouts.auth', ['title' => 'Reset wachtwoord'])
 
 @section('content')
     <section class="h-100">

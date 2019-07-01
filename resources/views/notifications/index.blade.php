@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => 'Notificaties'])
 
 @section('content')
     <div class="container-fluid py-3">
