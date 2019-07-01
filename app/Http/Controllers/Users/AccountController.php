@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Users\InformationValidator;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use App\Repositories\TwoFactorAuth\Repository as TwoFactorAuthRepository;
-use App\Http\Requests\Users\SecurityValidator;
+use App\Http\Requests\Users\{InformationValidator, SecurityValidator};
 
 /**
  * Class AccountController

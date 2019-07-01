@@ -2,12 +2,11 @@
 
 namespace App\Repositories\TwoFactorAuth;
 
-use App\Models\User;
 use PragmaRX\Google2FALaravel\Google2FA;
 use RuntimeException;
 use Illuminate\Http\Response;
 use Illuminate\Contracts\Auth\Guard;
-use App\Models\PasswordSecurity;
+use App\Models\{User, PasswordSecurity};
 
 /**
  * Class Repository
