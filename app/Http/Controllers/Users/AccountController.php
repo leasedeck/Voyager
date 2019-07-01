@@ -80,11 +80,8 @@ class AccountController extends Controller
         if ($this->getAuthenticatedUser()->update(['password' => $request->wachtwoord])) {
             auth()->logoutOtherDevices($request->huiding_wachtwoord);
             flash('Uw account beveiliging is met success aangepast.')->success()->important();
-
-            return redirect()->back();
         }
-        
-        flash('Uw huidige wachtwoord komt niet overeen met het gegeven oude wachtwoord!')->error()->important();
+
         return redirect()->back();
     }
 }
