@@ -8,6 +8,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Repositories\TwoFactorAuth\Repository as TwoFactorAuthRepository;
+use App\Http\Requests\Users\SecurityValidator;
 
 /**
  * Class AccountController
@@ -24,7 +25,7 @@ class AccountController extends Controller
     private $twoFactorAuthRepository; 
 
     /**
-     * AccountConstroller constructor
+     * AccountController constructor
      *
      * @param  TwoFactorAuthRepository $twoFactorAuthRepository 2fa method layer.  
      * @return void
@@ -38,10 +39,9 @@ class AccountController extends Controller
     /**
      * Method for displaying the account settings view. (info)
      *
-     * @param  Request $request The instance that holds all the request information.
      * @return Renderable
      */
-    public function index(Request $request): Renderable
+    public function index(): Renderable
     { 
         return view('users.settings.information');
     }
@@ -74,22 +74,16 @@ class AccountController extends Controller
     /**
      * Method for update the account security from the authenticated used.
      *
-     * @param  Request $request The instance that holds all the request information.
+     * @param  SecurityValidator $request The instance that holds all the request information.
      * @return RedirectResponse
      */
-    public function updateSecurity(Request $request): RedirectResponse
+    public function updateSecurity(SecurityValidator $request): RedirectResponse
     {
-        $request->validate(['wachtwoord' => ['required', 'string', 'min:8', 'confirmed'], 'huidig_wachtwoord' => ['required', 'string']]);
-
-        // User can only update his account security when the old password is correct.
-        if ($this->getAuthenticatedUser()->securedRequest($request->huidig_wachtwoord)) {
+        if ($this->getAuthenticatedUser()->update(['password' => $request->wachtwoord])) {
             auth()->logoutOtherDevices($request->huiding_wachtwoord);
+            flash('Uw account beveiliging is met success aangepast.')->success()->important();
 
-            // The password has been updated successfully.
-            if ($this->getAuthenticatedUser()->update(['password' => $request->wachtwoord])) {
-                flash('Uw account beveiliging is met success aangepast.')->success()->important();
-                return redirect()->back();
-            }
+            return redirect()->back();
         }
         
         flash('Uw huidige wachtwoord komt niet overeen met het gegeven oude wachtwoord!')->error()->important();

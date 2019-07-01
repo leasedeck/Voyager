@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.2.0",
         "actb/laravel-form-helpers": "1.4.*",
+        "actb/laravel-validation-rules": "dev-master",
         "bacon/bacon-qr-code": "^2.0",
         "cybercog/laravel-ban": "^3.5",
         "fideloper/proxy": "^4.0",

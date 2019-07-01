@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Support\Facades\Hash;
 
 /**
  * Class UserRepository
@@ -13,19 +12,6 @@ use Illuminate\Support\Facades\Hash;
  */
 class UserRepository extends Authenticatable
 {
-    /**
-     * Method for securing the request by confirming the password hash.
-     *
-     * @todo refactor to custom validation rule 
-     * 
-     * @param  string $password The authenticated user password;
-     * @return bool
-     */
-    public function securedRequest(string $password): bool
-    {
-        return Hash::check($password, $this->getAuthPassword());
-    }
-
     /**
      * Search query scope for users in the application.
      *
