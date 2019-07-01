@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Refactoring: Removed the `->securedRequest()` out of the UsersRepository.
 - Added custom title's fot the pages.
 - Squashed namespaces.
+- Deleted error page svg files.
+- Added favicon
 
 ## [2.0.0] - 1 July, 2019
 
