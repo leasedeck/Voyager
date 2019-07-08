@@ -48,11 +48,20 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdown">
+                            @if ($currentUser->hasAnyRole(['webmaster', 'admin']))
+                                <h6 class="dropdown-header font-weight-bold">Portalen</h6>
+                                
+                                <a class="dropdown-item" href="">
+                                    <i class="fe fe-home mr-1 text-secondary"></i> Kiosk
+                                </a>
+                            @endif
+
+                            <div class="dropdown-divider"></div>
+                            <h6 class="dropdown-header font-weight-bold">Account</h6>
+
                             <a class="dropdown-item" href=" {{ route('account.settings') }}">
                                 <i class="fe fe-sliders mr-1 text-secondary"></i> Instellingen
                             </a>
-
-                            <div class="dropdown-divider"></div>
 
                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <i class="fe text-danger mr-1 fe-power"></i> Afmelden
