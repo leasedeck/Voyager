@@ -27,7 +27,7 @@ class User extends UserRepository implements BannableContract
      *
      * @var array
      */
-    protected $fillable = ['voornaam', 'achternaam', 'email', 'password', 'last_login_at'];
+    protected $fillable = ['voornaam', 'on_kiosk', 'achternaam', 'email', 'password', 'last_login_at'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -42,7 +42,6 @@ class User extends UserRepository implements BannableContract
      * @var array
      */
     protected $dates = ['created_at', 'banned_at', 'updated_at', 'last_login_at'];
-
 
     /**
      * Method for tracking if the user online or not.

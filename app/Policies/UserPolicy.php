@@ -28,6 +28,28 @@ class UserPolicy
     }
 
     /**
+     * Determine whether the current user is on the application management kiosk or not. 
+     * 
+     * @param  User $user   Entity of the authenticated user.
+     * @return bool
+     */
+    public function onKiosk(User $user): bool 
+    {
+        return $user->on_kiosk;
+    }
+
+    /**
+     * Determine whether the current user is on the application backend or not. 
+     * 
+     * @param  User $user   Entity of the authenticated user.
+     * @return bool
+     */
+    public function onApplication(User $user): bool 
+    {
+        return ! $this->onKiosk($user);
+    }
+
+    /**
      * Determine whether the authenticated user can activate users back in the application.
      *
      * @param  User $user    Entity of the authenticated user.

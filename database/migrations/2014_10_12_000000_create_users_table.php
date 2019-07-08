@@ -15,6 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
+            $table->boolean('on_kiosk')->default(false);
             $table->string('voornaam');
             $table->string('achternaam');
             $table->string('email')->unique();

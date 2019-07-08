@@ -24,7 +24,9 @@
     <div id="app">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <img src="{{ asset('img/logo.png') }}" width="25" height="25" class="mr-3 rounded-circle d-inline-block align-top" alt="{{ config('app.name', 'Laravel') }}">
-            <a class="navbar-brand mr-auto mr-lg-0" href="#">{{ config('app.name', 'Laravel') }}</a>
+            <a class="navbar-brand mr-auto mr-lg-0" href="#">
+                {{ config('app.name', 'Laravel') }} {{ $currentUser->cannot('on-kiosk', auth()->user()) ? '' : ' - Kiosk' }}
+            </a>
             
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -50,7 +52,7 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdown">
                             @if ($currentUser->hasAnyRole(['webmaster', 'admin']))
                                 <h6 class="dropdown-header font-weight-bold">Portalen</h6>
-                                
+
                                 <a class="dropdown-item" href="">
                                     <i class="fe fe-home mr-1 text-secondary"></i> Kiosk
                                 </a>
@@ -78,14 +80,10 @@
 
         <div class="nav-scroller bg-white shadow-sm">
             <nav class="nav nav-underline">
-                <a class="nav-link {{ active('home') }}" href="{{ route('home') }}">
-                    <i class="fe fe-home mr-1 text-secondary"></i> Dashboard
-                </a>
-
-                @if ($currentUser->hasRole('admin'))
-                    <a class="nav-link {{ active('users.*') }}" href="{{ route('users.index') }}">
-                        <i class="fe fe-users mr-1 text-secondary"></i> Gebruikers
-                    </a>
+                @if ($currentUser->can('on-application', auth()->user())) 
+                    @include ('layouts._navigation.application')
+                @elseif ($currentUser->can('on-kiosk', auth()->user()))
+                    @include ('layouts._navigation.kiosk')
                 @endif
             </nav>
         </div>
