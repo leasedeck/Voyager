@@ -39,7 +39,7 @@
 
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link {{ active('notifications.*') }}" href="{{ route('notifications.index') }}">
+                        <a class="nav-link" href="{{ route('notifications.index') }}">
                             <i class="fe fe-bell mr-1"></i> {{ $currentUser->unreadNotifications()->count() }}
                         </a>
                     </li>
@@ -53,9 +53,15 @@
                             @if ($currentUser->hasAnyRole(['webmaster', 'admin']))
                                 <h6 class="dropdown-header font-weight-bold">Portalen</h6>
 
-                                <a class="dropdown-item" href="">
-                                    <i class="fe fe-home mr-1 text-secondary"></i> Kiosk
-                                </a>
+                                @if ($currentUser->can('on-kiosk', auth()->user()))
+                                    <a class="dropdown-item" href="{{ route('home') }}">
+                                        <i class="fe fe-log-out mr-1 text-secondary"></i> Verlaat kiosk
+                                    </a>
+                                @else {{-- Authenticated user is on the kiosk management portal --}}
+                                    <a class="dropdown-item" href="{{ route('kiosk.dashboard') }}">
+                                        <i class="fe fe-home mr-1 text-secondary"></i> Kiosk
+                                    </a> 
+                                @endif
                             @endif
 
                             <div class="dropdown-divider"></div>

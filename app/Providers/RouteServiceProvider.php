@@ -41,6 +41,21 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapApiRoutes();
         $this->mapWebRoutes();
         $this->mapFrontendRoutes(); 
+        $this->mapKioskRoutes();
+    }
+
+    /**
+     * Define the "Kiosk" routes for the application. 
+     * 
+     * These routes all recieve session state, CSRF protection, etc.
+     * 
+     * @return void
+     */
+    public function mapKioskRoutes(): void 
+    {
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/kiosk.php'));
     }
 
     /**

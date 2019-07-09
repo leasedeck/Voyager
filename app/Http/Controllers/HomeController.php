@@ -20,7 +20,8 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth', '2fa', 'forbid-banned-user'])->only(['index']);
+        $this->middleware(['auth', '2fa', 'forbid-banned-user', 'portal:application'])->only(['index']);
+        $this->middleware(['auth', '2fa', 'forbid-banned-user', 'portal:kiosk'])->only(['kiosk']);
         $this->middleware(['guest'])->only(['welcome']);
     }
 
@@ -32,6 +33,16 @@ class HomeController extends Controller
     public function welcome(): Renderable
     {
         return view('auth.login');
+    }
+
+    /**
+     * Method for the dashboard page from the kiosk management
+     * 
+     * @return Renderable
+     */
+    public function kiosk(): Renderable 
+    {
+        return view('kiosk');
     }
 
     /**
