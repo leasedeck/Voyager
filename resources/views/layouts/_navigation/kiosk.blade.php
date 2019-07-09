@@ -6,4 +6,14 @@
     <a class="nav-link {{ active('users.*') }}" href="{{ route('users.index') }}">
         <i class="fe fe-users mr-1 text-secondary"></i> Gebruikers
     </a>
+
+    <a class="nav-link {{ active('audit.*') }}" href="{{ route('audit.overview') }}">
+        <i class="fe fe-activity mr-1 text-seoncdary"></i> Audit
+    </a>
+@endif
+
+@if ($currentUser->hasRole('webmaster'))
+    <a class="nav-link" href="">
+        <i class="fe fe-bell mr-1 text-secondary"></i> Alerts
+    </a>
 @endif

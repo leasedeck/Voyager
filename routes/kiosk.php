@@ -3,6 +3,7 @@
 use App\Http\Controllers\Users\IndexController;
 use App\Http\Controllers\Users\LockController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ActivityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,3 +32,6 @@ Route::get('/account/gedeactiveerd', [LockController::class, 'index'])->name('us
 Route::get('/{userEntity}/deactiveer', [LockController::class, 'create'])->name('users.lock');
 Route::get('/{userEntity}/activeer', [LockController::class, 'destroy'])->name('users.unlock');
 Route::post('/{userEntity}/deactiveer', [LockController::class, 'store'])->name('users.lock.store');
+
+// Audit routes 
+Route::get('/audit', [ActivityController::class, 'index'])->name('audit.overview');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Contracts\Support\Renderable;
+use Spatie\Activitylog\Models\Activity;
 
 /**
  * Class ActivityController
@@ -20,6 +21,17 @@ class ActivityController extends Controller
     public function __construct()
     {
         $this->middleware(['auth', '2fa', 'role:admin', 'forbid-banned-user']);
+        $this->middleware('portal:kiosk')->only('index');
+    }
+
+    /**
+     * Method for displaying all the audit logs in the application. 
+     * 
+     * @return Renderable
+     */
+    public function index(): Renderable
+    {
+        return view('activity.index', ['logs' => Activity::latest()->simplePaginate()]);
     }
 
     /**
