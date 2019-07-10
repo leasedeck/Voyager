@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Exports\AuditLogsExport;
 use Illuminate\Contracts\Support\Renderable;
 use Spatie\Activitylog\Models\Activity;
 
@@ -21,7 +22,7 @@ class ActivityController extends Controller
     public function __construct()
     {
         $this->middleware(['auth', '2fa', 'role:admin', 'forbid-banned-user']);
-        $this->middleware('portal:kiosk')->only('index');
+        $this->middleware('portal:kiosk')->only(['export', 'index']);
     }
 
     /**
@@ -32,6 +33,12 @@ class ActivityController extends Controller
     public function index(): Renderable
     {
         return view('activity.index', ['logs' => Activity::latest()->simplePaginate()]);
+    }
+
+    public function export(?string $filter = null) 
+    {
+        $fileName = now()->format('d-m-Y') . '-audit-logs.xls';
+        return (new AuditLogsExport($filter))->download($fileName);
     }
 
     /**

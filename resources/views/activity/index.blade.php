@@ -13,10 +13,10 @@
                     </button>
 
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="">Afgelopen 3 maanden</a>
-                        <a class="dropdown-item" href="">Afgelopen 6 maanden</a>
-                        <a class="dropdown-item" href="">Afgelopen jaar</a>
-                        <a class="dropdown-item" href="">Alle logs</a>
+                        <a class="dropdown-item" href="{{ route('audit.export', ['filter' => '3-months'])}}">Afgelopen 3 maanden</a>
+                        <a class="dropdown-item" href="{{ route('audit.export', ['filter' => '6-months']) }}">Afgelopen 6 maanden</a>
+                        <a class="dropdown-item" href="{{ route('audit.export', ['filter' => 'recent-year']) }}">Afgelopen jaar</a>
+                        <a class="dropdown-item" href="{{ route('audit.export') }}">Alle logs</a>
                     </div>
 
                     <form method="GET" action="" class="border-0 shadow-sm form-search ml-2">
