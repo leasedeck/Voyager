@@ -7,25 +7,54 @@ use Maatwebsite\Excel\Concerns\{WithHeadings, Exportable, ShouldAutoSize, WithEv
 use Maatwebsite\Excel\Events\AfterSheet;
 use Illuminate\Support\Collection;
 
+/**
+ * Class AditLogsExport
+ * ----
+ * Method for exporting the internal application logs to an excel file (.xls)
+ * 
+ * @package App\Exports
+ */
 class AuditLogsExport implements WithHeadings, ShouldAutoSize, WithEvents, WithMapping, FromCollection
 {
     use Exportable; 
 
+    /**
+     * AuditLogsExport constructor 
+     * 
+     * @param  string|null $criteria The given variable for the given time criteria.
+     * @return void
+     */
     public function __construct(?string $criteria)
     {
         $this->criteria = $criteria;
     }
 
+    /**
+     * Map the attributes for the .xls file 
+     * 
+     * @param  mixed $log The entity from the collection.
+     * @return array
+     */
     public function map($log): array
     {
         return [$log->causer->name, $log->log_name, $log->description, $log->created_at->format('d-m-Y H:i:s')];
     }
 
+    /**
+     * The heading names for the overview table. 
+     * 
+     * @return array
+     */
     public function headings(): array
     {
         return ['Persoon:', 'Categorie:', 'Handeling:', 'Datum:'];
     }
 
+    /**
+     * Method for registering generation events from the .xls file. 
+     * 
+     * @return array
+     */
     public function registerEvents(): array
     {
         return [
@@ -35,11 +64,21 @@ class AuditLogsExport implements WithHeadings, ShouldAutoSize, WithEvents, WithM
         ];
     }
 
+    /**
+     * Method for returning the collection of results u want in the .xls file. 
+     * 
+     * @return Collection
+     */
     public function collection(): Collection
     {
         return $this->getResultsByCriteria();
     }
 
+    /**
+     * Method for determing the result set for the .xls file. 
+     * 
+     * @return Collection
+     */
     protected function getResultsByCriteria(): Collection
     {
         $query = Activity::query();
