@@ -35,4 +35,5 @@ Route::post('/{userEntity}/deactiveer', [LockController::class, 'store'])->name(
 
 // Audit routes 
 Route::get('/audit', [ActivityController::class, 'index'])->name('audit.overview');
+Route::get('/adit/zoeen', [ActivityController::class, 'search'])->name('audit.search');
 Route::get('/audit/export/{filter?}', [ActivityController::class, 'export'])->name('audit.export');
