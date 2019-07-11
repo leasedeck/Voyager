@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => "Blokkeer {$user->name}"])
+@extends('layouts.app', ['title' => "Blokkeer {$userEntity->name}"])
 
 @section('content')
     <div class="container-fluid py-3">
