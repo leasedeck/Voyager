@@ -1,9 +1,10 @@
-<?php 
+<?php
 
+use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\Alerts\KioskController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Users\IndexController;
 use App\Http\Controllers\Users\LockController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ActivityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +34,11 @@ Route::get('/{userEntity}/deactiveer', [LockController::class, 'create'])->name(
 Route::get('/{userEntity}/activeer', [LockController::class, 'destroy'])->name('users.unlock');
 Route::post('/{userEntity}/deactiveer', [LockController::class, 'store'])->name('users.lock.store');
 
-// Audit routes 
+// System alert routes
+Route::get('/alerts', [KioskController::class, 'index'])->name('alerts.index');
+Route::post('/alerts', [KioskController::class, 'store'])->name('alerts.store');
+
+// Audit routes
 Route::get('/audit', [ActivityController::class, 'index'])->name('audit.overview');
-Route::get('/adit/zoeen', [ActivityController::class, 'search'])->name('audit.search');
+Route::get('/audit/zoeken', [ActivityController::class, 'search'])->name('audit.search');
 Route::get('/audit/export/{filter?}', [ActivityController::class, 'export'])->name('audit.export');

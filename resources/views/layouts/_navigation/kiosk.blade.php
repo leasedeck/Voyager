@@ -13,7 +13,7 @@
 @endif
 
 @if ($currentUser->hasRole('webmaster'))
-    <a class="nav-link" href="">
+    <a class="nav-link {{ active('alerts.*') }}" href="{{ route('alerts.index') }}">
         <i class="fe fe-bell mr-1 text-secondary"></i> Alerts
     </a>
 @endif

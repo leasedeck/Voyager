@@ -4,7 +4,7 @@
     <div class="container-fluid py-3">
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
+                <div class="card border-0 shadow-sm">
                     <div class="card-body">
                         <h5 class="text-danger pb-1 mb-3"><i class="fe mr-1 fe-alert-triangle"></i> Ongeauthoriseerde handeling</h5>
 

@@ -32,7 +32,7 @@ class LockController extends Controller
      */
     public function index(): Renderable
     {
-        $user = auth()->user();
+        $user = $this->getAuthenticatedUser();
 
         // Check if the user is actually banned in the application.
         if ($user->isBanned()) {
