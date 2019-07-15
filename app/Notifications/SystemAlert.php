@@ -55,7 +55,9 @@ class SystemAlert extends Notification implements ShouldQueue
      */
     public function toMail(): MailMessage
     {
-        return (new MailMessage)->markdown('notifications.kiosk.mail');
+        return (new MailMessage)
+            ->subject('Systeem notificatie van ' . config('app.name'))
+            ->markdown('notifications.kiosk.mail', ['data' => $this->notificationData, 'user' => $this->creator]);
     }
 
     /**

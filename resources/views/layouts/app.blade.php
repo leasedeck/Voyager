@@ -40,7 +40,10 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('notifications.index') }}">
-                            <i class="fe fe-bell mr-1"></i> {{ $currentUser->unreadNotifications()->count() }}
+                            <i class="fe fe-bell mr-1"></i> 
+                            <span style="margin-top: -.25rem;" class="badge badge-pill align-middle badge-danger">
+                                {{ $currentUser->unreadNotifications()->count() }}
+                            </span>
                         </a>
                     </li>
 

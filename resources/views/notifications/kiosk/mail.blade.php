@@ -1,12 +1,14 @@
 @component('mail::message')
-# Introduction
+# {{ $data['title'] }}
 
-The body of your message.
+U ontvangt deze systeem notificatie omdat u een login hebt op {{ config('app.name') }}
 
-@component('mail::button', ['url' => ''])
-Button Text
+@component('mail::panel')
+**Verzonden door:** {{ $user['voornaam'] }} {{ $user['achternaam'] }}<br>
+**Titel:** {{ $data['title'] }} <br>
+**Bericht:** {{ $data['message']}}
 @endcomponent
 
-Thanks,<br>
+Met vriendelijke groet,<br>
 {{ config('app.name') }}
 @endcomponent
