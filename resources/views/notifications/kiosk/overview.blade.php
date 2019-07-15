@@ -39,7 +39,11 @@
                                             </a>
                                         </td>
 
-                                        <td><span class="badge badge-info text-white">{{ $notification->driver }}</td>
+                                        <td>
+                                            <span class="badge badge-info text-white">
+                                                {{ ($notification->driver === 'database') ? 'Applicatie' : ucfirst($notification->driver) }}
+                                            </span>
+                                        </td>
                                         <td> {{ ucfirst($notification->title) }}</td>
                                         <td>{{ $notification->created_at->format('d-m-Y h:i:s') }}</td>
 

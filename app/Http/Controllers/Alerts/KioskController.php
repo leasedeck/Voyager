@@ -59,6 +59,11 @@ class KioskController extends Controller
         return view('notifications.kiosk.index', compact('drivers'));
     }
 
+    public function show(SystemAlert $notification): Renderable 
+    {
+        // TODO
+    }
+
     /**
      * Method for sending a system wide notification.
      *
@@ -70,6 +75,7 @@ class KioskController extends Controller
     public function store(SystemNotificationRequest $input): RedirectResponse
     {
         if ($this->notifications->sendSystemAlert($input)) {
+            $this->getAuthenticatedUser()->logActivity(SystemAlert::latest()->first(), 'Systeem notificaties', 'heeft een systeem notificatie verzonden.');
             flash('De systeem notificatie is opgeslagen en zal ASAP worden verzonden.', 'success');
         }
 

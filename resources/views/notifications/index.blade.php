@@ -3,7 +3,8 @@
 @section('content')
     <div class="container-fluid py-3">
         <div class="page-header">
-            <h1 class="page-title">Notificaties</h1>
+            <h1 class="page-title">{{ $currentUser->name }}</h1>
+            <div class="page-subtitle">Notificaties</div>
 
             <div class="page-options">
                 <a href="{{ route('notifications.markAll') }}" class="btn @if ($unreadCount === 0) disabled @endif btn-outline-secondary">
