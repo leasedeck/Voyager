@@ -11,23 +11,27 @@
     <div class="container-fluid pb-3">
         <div class="row">
             <div class="col-3"> {{-- Sidenav --}}
+                @include ('notifications.kiosk._partials.sidenav')
             </div> {{-- /// END sidenav --}}
 
             <div class="col-9"> {{-- content --}}
                 <form method="POST" action="{{ route('alerts.store') }}" class="card card-body border-0 shadow-sm">
                     <h6 class="border-bottom border-gray pb-1 mb-3">Systeem notificatie verzenden.</h6>
 
-                    <div class="alert alert-info border-0 alert-important alert-dismissible fade show" role="alert">
-                        <span class="font-weight-bold mr-2"><i class="fe fe-info mr-1"></i> info:</span>
-                        Systeem notificaties worden verstuurd naar elke login van {{ config('app.name') }} en of de gegeven gebruikers groep.
-
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-
                     @csrf {{-- Form field protection --}}
-                    @include ('flash::message') {{-- Session view partial --}}
+
+                    @if (session('flash_notification'))
+                         @include ('flash::message') {{-- Session view partial --}}
+                    @else {{-- No flash message if sound in the application. --}}
+                        <div class="alert alert-info border-0 alert-important alert-dismissible fade show" role="alert">
+                            <span class="font-weight-bold mr-2"><i class="fe fe-info mr-1"></i> info:</span>
+                            Systeem notificaties worden verstuurd naar elke login van {{ config('app.name') }} en of de gegeven gebruikers groep.
+
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @endif
 
                     <div class="row mt-1">
                         <div class="col-3">
@@ -39,8 +43,8 @@
                                 <div class="form-group col-12">
                                     <label for="method">Verzend als <span class="text-danger">*</span></label>
 
-                                    <select class="form-control" id="method" @input('method')>
-                                        @options($drivers, 'method', 'web')
+                                    <select class="form-control" id="method" @input('driver')>
+                                        @options($drivers, 'driver', 'web')
                                     </select>
                                 </div>
                             </div>
@@ -67,13 +71,13 @@
                                     @error('title')
                                 </div>
                                 <div class="form-group col-6">
-                                    <label for="url">Actie URL <span class="text-danger">*</span></label>
+                                    <label for="url">Actie URL</label>
                                     <input type="text" class="form-control @error('action_url', 'is-invalid')" id="url" @input('action_url') placeholder="https://">
                                     @error('action_url')
                                 </div>
                                 <div class="form-group col-6">
-                                    <label for="text">Actie tekst <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="text" @input('action_text', 'is-invalid') placeholder="bv. bekijk gebruiker">
+                                    <label for="text">Actie tekst</label>
+                                    <input type="text" class="form-control @error('action_text', 'is-invalid')" id="text" @input('action_text') placeholder="bv. bekijk gebruiker">
                                     @error('action_text')
                                 </div>
                                 <div class="form-group col-12">

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Alerts\SystemNotificationRequest;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
+use App\Repositories\NotificationsRepository;
 
 /**
  * Class KioskController
@@ -15,12 +16,21 @@ use Illuminate\Http\RedirectResponse;
 class KioskController extends Controller
 {
     /**
+     * Variable for the notification layer in the application. 
+     * 
+     * @var NotificationsRepository $notifications
+     */
+    protected $notifications; 
+
+    /**
      * KioskController constructor.
      *
+     * @param  NotificationsRepository $notifications Implementation of the layer.
      * @return void
      */
-    public function __construct()
+    public function __construct(NotificationsRepository $notifications)
     {
+        $this->notifications = $notifications;
         $this->middleware(['auth', '2fa', 'forbid-banned-user', 'role:webmaster', 'portal:kiosk', 'role:webmaster']);
     }
 
@@ -33,7 +43,7 @@ class KioskController extends Controller
      */
     public function index(): Renderable
     {
-        $drivers = ['web' => 'Web notificatie', 'mail' => 'E-mail notificatie'];
+        $drivers = ['database' => 'Web notificatie', 'mail' => 'E-mail notificatie'];
         return view('notifications.kiosk.index', compact('drivers'));
     }
 
@@ -47,6 +57,10 @@ class KioskController extends Controller
      */
     public function store(SystemNotificationRequest $input): RedirectResponse
     {
+        if ($this->notifications->sendSystemAlert($input)) {
+            flash('De systeem notificatie is opgeslagen en zal ASAP worden verzonden.', 'success');
+        }
+
         return redirect()->route('alerts.index');
     }
 }

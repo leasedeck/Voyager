@@ -18,11 +18,6 @@ class SystemNotificationRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'title'         => ['required', 'string', 'max:255'],
-            'action_url'    => ['required', 'string', 'max:255'],
-            'action_text'   => ['required', 'string', 'max:255'],
-            'message'       => ['required', 'string'],
-        ];
+        return ['title' => ['required', 'string', 'max:255'], 'message' => ['required', 'string']];
     }
 }

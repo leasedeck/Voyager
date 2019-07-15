@@ -13,7 +13,7 @@
         </div>
     </div>
 
-    <div class="container-fluid">
+    <div class="container-fluid pb-3">
         <div class="row">
             <div class="col-3"> {{-- Sidebar --}}
                 <div class="list-group mb-3">
@@ -39,15 +39,15 @@
 
                         @foreach ($notifications as $notification)
                             <div class="media small text-muted pt-2">
-                                <img src="{{ avatar($notification->notifiable) }}" alt="32x32" alt="{{ $notification->notifiable->name }}" class="mr-2 shadow-sm rounded" style="width: 32px; height: 32px;">
+                                <img src="{{ avatar($notification->data['sender']['email']) }}" alt="{{ $notification->data['sender']['voornaam'] }} {{ $notification->data['sender']['achternaam'] }}" class="mr-2 shadow-sm rounded" style="width: 32px; height: 32px;">
                                 <div class="card w-100 card-text border-0 mb-0">
                                     <div class="w-100">
-                                        <strong class="float-left text-gray-dark">{{ $notification->notifiable->name }}</strong> - {{ $notification->created_at->diffForHumans() }}</strong>
+                                        <strong class="float-left text-gray-dark mr-1">{{ $notification->data['sender']['voornaam'] }} {{ $notification->data['sender']['achternaam'] }}</strong> - {{ $notification->created_at->diffForHumans() }}</strong>
 
                                         @if ($notification->unread()) 
                                             <div class="float-right">
-                                                <a href="{{ route('notifications.markAsRead', $notification) }}" class="no-underline"><i class="fe fe-check"></i> 
-                                                    Markeer als gelezen
+                                                <a href="{{ route('notifications.markAsRead', $notification) }}" class="text-decoration-none">
+                                                    <i class="fe fe-check"></i> Markeer als gelezen
                                                 </a>
                                             </div> 
                                         @endif
