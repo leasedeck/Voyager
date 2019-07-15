@@ -7,6 +7,7 @@ use App\Http\Requests\Alerts\SystemNotificationRequest;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use App\Repositories\NotificationsRepository;
+use App\Models\SystemAlert;
 
 /**
  * Class KioskController
@@ -35,13 +36,24 @@ class KioskController extends Controller
     }
 
     /**
+     * Method for displayi)ng the overview of notifications that are sended. 
+     * 
+     * @param  SystemAlert $systemAlerts The database model instance form the notifications in the storage. 
+     * @return Renderable. 
+     */
+    public function index(SystemAlert $systemAlerts): Renderable 
+    {
+        return view('notifications.kiosk.overview', ['notifications' => $systemAlerts->simplePaginate()]);
+    }
+
+    /**
      * Index method for the system alerts.
      *
      * As index view we have the create view for an new system wide alert message (notification).
      *
      * @return Renderable
      */
-    public function index(): Renderable
+    public function create(): Renderable
     {
         $drivers = ['database' => 'Web notificatie', 'mail' => 'E-mail notificatie'];
         return view('notifications.kiosk.index', compact('drivers'));
@@ -61,6 +73,6 @@ class KioskController extends Controller
             flash('De systeem notificatie is opgeslagen en zal ASAP worden verzonden.', 'success');
         }
 
-        return redirect()->route('alerts.index');
+        return redirect()->route('alerts.overview');
     }
 }

@@ -35,7 +35,8 @@ Route::get('/{userEntity}/activeer', [LockController::class, 'destroy'])->name('
 Route::post('/{userEntity}/deactiveer', [LockController::class, 'store'])->name('users.lock.store');
 
 // System alert routes
-Route::get('/alerts', [KioskController::class, 'index'])->name('alerts.index');
+Route::get('/alerts', [KioskController::class, 'create'])->name('alerts.index');
+Route::get('/alerts/overzicht', [KioskController::class, 'index'])->name('alerts.overview');
 Route::post('/alerts', [KioskController::class, 'store'])->name('alerts.store');
 
 // Audit routes
