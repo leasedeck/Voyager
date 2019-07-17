@@ -3,29 +3,28 @@
 namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Contracts\Support\Renderable;
+use App\Http\Requests\Users\SecurityValidator;
+use App\Http\Requests\Users\InformationValidator;
 use App\Repositories\TwoFactorAuth\Repository as TwoFactorAuthRepository;
-use App\Http\Requests\Users\{InformationValidator, SecurityValidator};
 
 /**
- * Class AccountController
- *
- * @package App\Http\Controllers\Users
+ * Class AccountController.
  */
 class AccountController extends Controller
 {
     /**
-     * 2FA Repository variable 
-     * 
-     * @var TwoFactorAuthRepository $twoFactorAuthRepository
+     * 2FA Repository variable.
+     *
+     * @var TwoFactorAuthRepository
      */
-    private $twoFactorAuthRepository; 
+    private $twoFactorAuthRepository;
 
     /**
-     * AccountController constructor
+     * AccountController constructor.
      *
-     * @param  TwoFactorAuthRepository $twoFactorAuthRepository 2fa method layer.  
+     * @param  TwoFactorAuthRepository $twoFactorAuthRepository 2fa method layer.
      * @return void
      */
     public function __construct(TwoFactorAuthRepository $twoFactorAuthRepository)
@@ -35,22 +34,23 @@ class AccountController extends Controller
     }
 
     /**
-     * Method for displaying the account settings view. (info)
+     * Method for displaying the account settings view. (info).
      *
      * @return Renderable
      */
     public function index(): Renderable
-    { 
+    {
         return view('users.settings.information');
     }
 
     /**
-     * Method for displaying the account settings view. (Security)
-     * @return Renderable 
+     * Method for displaying the account settings view. (Security).
+     * @return Renderable
      */
-    public function indexSecurity(): Renderable 
+    public function indexSecurity(): Renderable
     {
         $google2faUrl = $this->twoFactorAuthRepository->getGoogle2FaUrl();
+
         return view('users.settings.security', compact('google2faUrl'));
     }
 

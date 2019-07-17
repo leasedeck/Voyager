@@ -2,15 +2,14 @@
 
 namespace App\Repositories;
 
-use App\Notifications\SystemAlert as AlertNotification;
-use App\Models\{User, SystemAlert};
+use App\Models\User;
+use App\Models\SystemAlert;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Notifications\SystemAlert as AlertNotification;
 
 /**
- * Class NotificationsRepository
- *
- * @package App\Repositories
+ * Class NotificationsRepository.
  */
 class NotificationsRepository
 {
@@ -25,7 +24,7 @@ class NotificationsRepository
     }
 
     /**
-     * Method for getting the notifications and determinating the request type
+     * Method for getting the notifications and determinating the request type.
      *
      * @param  string|null $type The type of notifications u want to display in the application.
      * @return array
@@ -49,18 +48,18 @@ class NotificationsRepository
     }
 
     /**
-     * Method sending out the system alert notification
-     * 
+     * Method sending out the system alert notification.
+     *
      * @param  Request $input The request instance that holds all the request information.
      * @return bool
      */
-    public function sendSystemAlert(Request $input): bool 
+    public function sendSystemAlert(Request $input): bool
     {
         $input->merge(['creator_id' => $this->getAuthUser()->id]);
 
         return DB::transaction(static function () use ($input): bool {
             $alert = SystemAlert::create($input->all());
-            (new NotificationsRepository)->sendOutNotifications($alert);
+            (new self)->sendOutNotifications($alert);
 
             return true;
         });
@@ -68,11 +67,11 @@ class NotificationsRepository
 
     /**
      * Method to push the system alert notification to the queue.
-     * 
+     *
      * @param  SystemAlert $alertEntity THe entity from the notification data.
-     * @return void 
+     * @return void
      */
-    private function sendOutNotifications(SystemAlert $alertEntity): void 
+    private function sendOutNotifications(SystemAlert $alertEntity): void
     {
         foreach (User::all() as $user) {
             $user->notify(new AlertNotification($alertEntity, $this->getAuthUser()));

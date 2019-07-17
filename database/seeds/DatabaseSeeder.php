@@ -1,10 +1,9 @@
 <?php
 
-
 use Spatie\Seeders\DatabaseSeeder as BaseDatabaseSeeder;
 
 /**
- * Class DatabaseSeeder
+ * Class DatabaseSeeder.
  */
 class DatabaseSeeder extends BaseDatabaseSeeder
 {

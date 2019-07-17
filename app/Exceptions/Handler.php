@@ -6,11 +6,9 @@ use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 /**
- * Class Handles 
- * 
- * The class for handling Exception throughout the application. 
- * 
- * @package App\Exceptions
+ * Class Handles.
+ *
+ * The class for handling Exception throughout the application.
  */
 class Handler extends ExceptionHandler
 {

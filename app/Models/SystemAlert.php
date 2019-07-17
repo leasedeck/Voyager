@@ -6,22 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * Class SystemAlert 
- * 
- * @package App\Models
+ * Class SystemAlert.
  */
 class SystemAlert extends Model
 {
     /**
-     * The guarded mass-assignment fields for the database table. 
-     * 
-     * @return array 
+     * The guarded mass-assignment fields for the database table.
+     *
+     * @return array
      */
     protected $guarded = ['id'];
 
     /**
      * Method for getting the information about who sended the notification.
-     *  
+     *
      * @return BelongsTo
      */
     public function creator(): BelongsTo

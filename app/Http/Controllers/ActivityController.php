@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\AuditLogsExport;
 use App\Models\User;
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
+use App\Exports\AuditLogsExport;
 use Spatie\Activitylog\Models\Activity;
+use Illuminate\Contracts\Support\Renderable;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
- * Class ActivityController
- *
- * @package App\Http\Controllers
+ * Class ActivityController.
  */
 class ActivityController extends Controller
 {
@@ -50,12 +48,12 @@ class ActivityController extends Controller
             'logs' => $activity->where('log_name', 'LIKE', "%{$request->term}%")
                 ->orWhere('description', 'LIKE', "%{$request->term}%")
                 ->orWhere('created_at', 'LIKE', "%{$request->term}%")
-                ->simplePaginate()
+                ->simplePaginate(),
         ]);
     }
 
     /**
-     * Method for downloading the audit entries to an excel file. (.xls)
+     * Method for downloading the audit entries to an excel file. (.xls).
      *
      * @param  string|null $filter The criteria name that has been given by the user.
      * @return BinaryFileResponse
@@ -64,7 +62,7 @@ class ActivityController extends Controller
     {
         $this->middleware('role:admin');
 
-        $fileName = now()->format('d-m-Y') . '-audit-logs.xls';
+        $fileName = now()->format('d-m-Y').'-audit-logs.xls';
         return (new AuditLogsExport($filter))->download($fileName);
     }
 

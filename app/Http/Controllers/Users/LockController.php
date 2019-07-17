@@ -2,21 +2,20 @@
 
 namespace App\Http\Controllers\Users;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Users\LockValidator;
 use App\Models\User;
+use Illuminate\Http\Response;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\Users\LockValidator;
 use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Http\{RedirectResponse, Response};
 
 /**
- * Class LockController
- *
- * @package App\Http\Controllers
+ * Class LockController.
  */
 class LockController extends Controller
 {
     /**
-     * LockController constructor
+     * LockController constructor.
      *
      * @return void
      */

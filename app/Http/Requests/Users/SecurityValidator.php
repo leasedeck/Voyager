@@ -6,9 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use ActivismeBe\ValidationRules\Rules\MatchUserPassword;
 
 /**
- * Class SecurityValidator
- * 
- * @package App\Http\Requests\Users
+ * Class SecurityValidator.
  */
 class SecurityValidator extends FormRequest
 {
@@ -29,9 +27,9 @@ class SecurityValidator extends FormRequest
      */
     public function rules()
     {
-        return[
-            'wachtwoord' => ['required', 'string', 'min:8', 'confirmed'], 
-            'huidig_wachtwoord' => ['required', 'string', new MatchUserPassword($this->user())],  
+        return [
+            'wachtwoord' => ['required', 'string', 'min:8', 'confirmed'],
+            'huidig_wachtwoord' => ['required', 'string', new MatchUserPassword($this->user())],
         ];
     }
 }

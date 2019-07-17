@@ -3,25 +3,23 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Cog\Contracts\Ban\Bannable as BannableContract;
 use Illuminate\Contracts\Auth\Guard;
+use Cog\Contracts\Ban\Bannable as BannableContract;
 
 /**
- * Class ForbidBannedUser
- *
- * @package App\Http\Middleware
+ * Class ForbidBannedUser.
  */
 class ForbidBannedUser
 {
     /**
-     * The guard implementation
+     * The guard implementation.
      *
      * @var Guard
      */
     protected $auth;
 
     /**
-     * Create new BorbidBannedUser instance
+     * Create new BorbidBannedUser instance.
      *
      * @param  Guard $auth
      * @return void

@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Users\AccountController;
 use App\Http\Controllers\Auth\PasswordSecurityController;
@@ -22,9 +22,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('{user}/logs', [ActivityController::class, 'show'])->name('users.activity');
 
 // Notification routes
-Route::get('/notificaties/{type?}', [NotificationController::class, 'index'])->name('notifications.index');
 Route::get('/notificaties/markAll', [NotificationController::class, 'markAll'])->name('notifications.markAll');
 Route::get('/notificaties/markOne/{notification}', [NotificationController::class, 'markOne'])->name('notifications.markAsRead');
+Route::get('/notificaties/{type?}', [NotificationController::class, 'index'])->name('notifications.index');
 
 // User Settings routes
 Route::get('/account', [AccountController::class, 'index'])->name('account.settings');

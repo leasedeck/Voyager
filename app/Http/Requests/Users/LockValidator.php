@@ -7,9 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use ActivismeBe\ValidationRules\Rules\MatchUserPassword;
 
 /**
- * Class LockValidator
- *
- * @package App\Http\Requests\Users
+ * Class LockValidator.
  */
 class LockValidator extends FormRequest
 {

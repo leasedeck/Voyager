@@ -2,27 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\NotificationsRepository;
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Contracts\Support\Renderable;
+use App\Repositories\NotificationsRepository;
 use Illuminate\Notifications\DatabaseNotification;
 
 /**
- * NotificationController
- *
- * @package App\Http\Controllers
+ * NotificationController.
  */
 class NotificationController extends Controller
 {
     /**
      * The dedicated class for all the notifications logic.
      *
-     * @var NotificationRepository $notificationsRepository
+     * @var NotificationRepository
      */
     protected $notificationsRepository;
-    
+
     /**
-     * Constructor for the NotificationController class
+     * Constructor for the NotificationController class.
      *
      * @param  NotificationsRepository $notificationsRepository
      * @return void
@@ -36,17 +34,15 @@ class NotificationController extends Controller
     /**
      * Method for displaying the index view for the user his notifications.
      *
-     * @todo Implement avatar helpder.
-     *
      * @param  string|null $type The type of notifications u want to get in the application.
      * @return Renderable
      */
     public function index(?string $type = null): Renderable
     {
-        $notificationData   = $this->notificationsRepository->getByType($type);
+        $notificationData = $this->notificationsRepository->getByType($type);
         $notificationsCount = ['unreadCount' => $this->getAuthenticatedUser()->unreadNotifications()->count()];
-        $viewVariables      = ['notifications' => $notificationData['notifications'], 'type' => $notificationData['type']];
-        
+        $viewVariables = ['notifications' => $notificationData['notifications'], 'type' => $notificationData['type']];
+
         return view('notifications.index', array_merge($notificationsCount, $viewVariables));
     }
 
@@ -69,7 +65,7 @@ class NotificationController extends Controller
      */
     public function markAll(): RedirectResponse
     {
-        $this->notificationRepository->markAllAsRead();
+        $this->notificationsRepository->markAllAsRead();
         return redirect()->route('notifications.index');
     }
 }

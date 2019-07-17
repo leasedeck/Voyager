@@ -2,13 +2,11 @@
 
 namespace App\Composers;
 
-use Illuminate\Contracts\Auth\Guard;
 use Illuminate\View\View;
+use Illuminate\Contracts\Auth\Guard;
 
 /**
- * Class LayoutComposer
- *
- * @package App\Composers
+ * Class LayoutComposer.
  */
 class LayoutComposer
 {
@@ -20,9 +18,9 @@ class LayoutComposer
     protected $auth;
 
     /**
-     * AccountComposer constructor
+     * AccountComposer constructor.
      *
-     * @param  Guard $auth
+     * @param  Guard $auth THe guard implementation variable.
      * @return void
      */
     public function __construct(Guard $auth)
@@ -33,7 +31,7 @@ class LayoutComposer
     /**
      * Bind data to the view.
      *
-     * @param  View $view
+     * @param  View $view The view builder instance.
      * @return void
      */
     public function compose(View $view): void

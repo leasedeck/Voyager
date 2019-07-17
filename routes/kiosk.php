@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\ActivityController;
-use App\Http\Controllers\Alerts\KioskController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Users\IndexController;
+use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\Users\LockController;
+use App\Http\Controllers\Users\IndexController;
+use App\Http\Controllers\Alerts\KioskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +37,7 @@ Route::post('/{userEntity}/deactiveer', [LockController::class, 'store'])->name(
 // System alert routes
 Route::get('/alerts', [KioskController::class, 'create'])->name('alerts.index');
 Route::get('/alerts/overzicht', [KioskController::class, 'index'])->name('alerts.overview');
+Route::get('/alerts/{notification}', [KioskController::class, 'show'])->name('alerts.show');
 Route::post('/alerts', [KioskController::class, 'store'])->name('alerts.store');
 
 // Audit routes

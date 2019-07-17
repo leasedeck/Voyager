@@ -3,14 +3,12 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
 /**
- * Class LoginCreated
- *
- * @package App\Notifications
+ * Class LoginCreated.
  */
 class LoginCreated extends Notification implements ShouldQueue
 {
@@ -54,10 +52,10 @@ class LoginCreated extends Notification implements ShouldQueue
     public function toMail($notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject('There is created an login for u on ' . config('app.name'))
+            ->subject('There is created an login for u on '.config('app.name'))
             ->greeting('Hello,')
-            ->line('A administrator has created an login for u on '  . config('app.name'))
-            ->line("You can login with the following password: " . $this->input['password'])
+            ->line('A administrator has created an login for u on '.config('app.name'))
+            ->line('You can login with the following password: '.$this->input['password'])
             ->action('login', route('login'));
     }
 }

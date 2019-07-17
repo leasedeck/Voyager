@@ -6,9 +6,7 @@ use Closure;
 use Illuminate\Support\Facades\Cache;
 
 /**
- * Class LogLastUserActivity
- *
- * @package App\Http\Middleware
+ * Class LogLastUserActivity.
  */
 class LogLastUserActivity
 {
@@ -23,7 +21,7 @@ class LogLastUserActivity
     {
         if (auth()->check()) {
             $expiresAt = now()->addMinutes(5);
-            Cache::put('user-is-online-' . auth()->user()->id, true, $expiresAt);
+            Cache::put('user-is-online-'.auth()->user()->id, true, $expiresAt);
         }
 
         return $next($request);

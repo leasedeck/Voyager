@@ -3,24 +3,24 @@
 namespace App\Http\Controllers\Users;
 
 use Gate;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Users\InformationValidator;
 use App\Models\User;
-use App\Notifications\LoginCreated;
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\{DB, Hash};
-use Illuminate\Http\{RedirectResponse, Request};
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Notifications\LoginCreated;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Contracts\Support\Renderable;
+use App\Http\Requests\Users\InformationValidator;
 
 /**
- * Class IndexController
- *
- * @package App\Http\Controllers\Users
+ * Class IndexController.
  */
 class IndexController extends Controller
 {
     /**
-     * Create new IndexController constructor
+     * Create new IndexController constructor.
      *
      * @return void
      */
@@ -111,7 +111,7 @@ class IndexController extends Controller
      */
     public function update(InformationValidator $input, User $user): RedirectResponse
     {
-        if ($this->getAuthenticatedUser()->can('can-edit', $user) &&  $user->update($input->all())) {
+        if ($this->getAuthenticatedUser()->can('can-edit', $user) && $user->update($input->all())) {
             flash("De gegevens van {$user->name} zijn aangepast in de applicatie")->success();
         }
 
@@ -132,7 +132,7 @@ class IndexController extends Controller
         // 1) Request type is GET. So we need to display the confirmation view.
         // 2) Determine whether the user is deleted or not.
         // 3) Determine that the action needs to be logged or not.
-        
+
         if ($request->isMethod('GET')) { // (1)
             return view('users.delete', compact('user'));
         }

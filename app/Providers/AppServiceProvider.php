@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Composers\KioskComposer;
 use App\Composers\LayoutComposer;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Telescope\TelescopeServiceProvider;
@@ -13,9 +14,10 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         view()->composer('*', LayoutComposer::class);
+        view()->composer('kiosk', KioskComposer::class);
     }
 
     /**

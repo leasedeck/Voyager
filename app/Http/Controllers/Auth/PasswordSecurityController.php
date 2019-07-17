@@ -4,30 +4,28 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use App\Repositories\TwoFactorAuth\Repository as TwoFactorAuthRepository;
-use Illuminate\Support\Facades\Hash;
 
 /**
- * Class PasswordSecurityController 
- * 
+ * Class PasswordSecurityController.
+ *
  * @todo Refactoring the controller.
- * 
- * @package App\Http\Controllers\Auth
  */
 class PasswordSecurityController extends Controller
 {
     /**
-     * 2FA Repository variable 
-     * 
-     * @var TwoFactorAuthRepository $twoFactorAuthRepository
+     * 2FA Repository variable.
+     *
+     * @var TwoFactorAuthRepository
      */
-    private $twoFactorAuthRepository; 
+    private $twoFactorAuthRepository;
 
     /**
-     * AccountConstroller constructor
+     * AccountConstroller constructor.
      *
-     * @param  TwoFactorAuthRepository $twoFactorAuthRepository 2fa method layer.  
+     * @param  TwoFactorAuthRepository $twoFactorAuthRepository 2fa method layer.
      * @return void
      */
     public function __construct(TwoFactorAuthRepository $twoFactorAuthRepository)
@@ -37,8 +35,8 @@ class PasswordSecurityController extends Controller
     }
 
     /**
-     * Method for generating the 2Fa secret key. 
-     * 
+     * Method for generating the 2Fa secret key.
+     *
      * @return RedirectResponse
      */
     public function generate2fasecret(): RedirectResponse
@@ -50,8 +48,8 @@ class PasswordSecurityController extends Controller
     }
 
     /**
-     * Method for activating 2FA on the authenticated user. 
-     * 
+     * Method for activating 2FA on the authenticated user.
+     *
      * @param  Request $request The form request class that contains all the request POST data.
      * @return RedirectResponse
      */
@@ -63,6 +61,7 @@ class PasswordSecurityController extends Controller
 
         if ($repositoryLayer->google2FaLayer()->verifyKey($user->passwordSecurity->google2fa_secret, $secret)) {
             $user->passwordSecurity->update(['google2fa_enable' => true]);
+
             return redirect()->route('account.security')->with('success', '2Fa is geactiveerd!');
         }
 
@@ -70,21 +69,21 @@ class PasswordSecurityController extends Controller
     }
 
     /**
-     * Method for disabling the 2Fa system from the authentiated user. 
-     * 
+     * Method for disabling the 2Fa system from the authentiated user.
+     *
      * @param  Request $request  The form request class that contains all the request POST data
-     * @return RedirectResponse 
+     * @return RedirectResponse
      */
-    public function disable2fa(Request $request): RedirectResponse 
+    public function disable2fa(Request $request): RedirectResponse
     {
-        $user = auth()->user(); 
+        $user = auth()->user();
 
         if (! (Hash::check($request->get('current-password'), $user->password))) {
-            return back()->with("error","Het gegeven wachtwoord klopt niet met uw huidige wachtwoord. Probeer het opnieuw.");
+            return back()->with('error', 'Het gegeven wachtwoord klopt niet met uw huidige wachtwoord. Probeer het opnieuw.');
         }
 
         $validatedData = $request->validate(['current-password' => 'required']);
-        
+
         // $user->passwordSecurity->update(['google2fa_enable' => false]);
         $user->passwordSecurity->delete();
 

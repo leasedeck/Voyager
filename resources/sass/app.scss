@@ -11,6 +11,30 @@
 @import '~bootstrap/scss/bootstrap';
 @import "~primer-blankslate/index.scss";
 
+// Stamp partial 
+.stamp {
+  color: #fff;
+  background: #868e96;
+  display: inline-block;
+  min-width: 2rem;
+  height: 2rem;
+  padding: 0 .25rem;
+  line-height: 2rem;
+  text-align: center;
+  border-radius: 3px;
+  font-weight: 600;
+}
+
+.stamp-md {
+  min-width: 2.5rem;
+  height: 2.5rem;
+  line-height: 2.5rem;
+}
+
+.stamp-bg-brand {
+  background-color: #b9210c;
+}
+
 .blankslate {
   background-color: #fff;
   border-radius: 0.25rem;
@@ -129,6 +153,14 @@ body {
   padding-bottom: .75rem;
   font-size: .875rem;
   color: #6c757d;
+}
+
+.td-attribute {
+  width: 15%;
+}
+
+.td-key {
+  width: 85%;
 }
 
 .nav-underline .nav-link:hover {

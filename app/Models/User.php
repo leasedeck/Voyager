@@ -2,21 +2,19 @@
 
 namespace App\Models;
 
-use App\Repositories\UserRepository;
 use App\Traits\ActivityLog;
-use Cog\Contracts\Ban\Bannable as BannableContract;
-use Cog\Laravel\Ban\Traits\Bannable;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Cache;
-use Spatie\Activitylog\Traits\CausesActivity;
-use Spatie\Permission\Traits\HasRoles;
 use App\Models\PasswordSecurity;
+use App\Repositories\UserRepository;
+use Cog\Laravel\Ban\Traits\Bannable;
+use Illuminate\Support\Facades\Cache;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
+use Spatie\Activitylog\Traits\CausesActivity;
 use Illuminate\Database\Eloquent\Relations\hasOne;
+use Cog\Contracts\Ban\Bannable as BannableContract;
 
 /**
- * Class User
- *
- * @package App
+ * Class User.
  */
 class User extends UserRepository implements BannableContract
 {
@@ -50,7 +48,7 @@ class User extends UserRepository implements BannableContract
      */
     public function isOnline(): bool
     {
-        return Cache::has('user-is-online-' . $this->id);
+        return Cache::has('user-is-online-'.$this->id);
     }
 
     /**
@@ -65,8 +63,8 @@ class User extends UserRepository implements BannableContract
     }
 
     /**
-     * Data relation for the 2FA password securities. 
-     * 
+     * Data relation for the 2FA password securities.
+     *
      * @return HasOne
      */
     public function passwordSecurity(): HasOne
@@ -81,6 +79,6 @@ class User extends UserRepository implements BannableContract
      */
     public function getNameAttribute(): string
     {
-        return ucfirst($this->voornaam) . ' ' . ucfirst($this->achternaam);
+        return ucfirst($this->voornaam).' '.ucfirst($this->achternaam);
     }
 }

@@ -1,26 +1,29 @@
-<?php 
+<?php
 
 namespace App\Exports;
 
-use Spatie\Activitylog\Models\Activity;
-use Maatwebsite\Excel\Concerns\{WithHeadings, Exportable, ShouldAutoSize, WithEvents, WithMapping, FromCollection};
-use Maatwebsite\Excel\Events\AfterSheet;
 use Illuminate\Support\Collection;
+use Spatie\Activitylog\Models\Activity;
+use Maatwebsite\Excel\Events\AfterSheet;
+use Maatwebsite\Excel\Concerns\Exportable;
+use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
 /**
  * Class AditLogsExport
  * ----
- * Method for exporting the internal application logs to an excel file (.xls)
- * 
- * @package App\Exports
+ * Method for exporting the internal application logs to an excel file (.xls).
  */
 class AuditLogsExport implements WithHeadings, ShouldAutoSize, WithEvents, WithMapping, FromCollection
 {
-    use Exportable; 
+    use Exportable;
 
     /**
-     * AuditLogsExport constructor 
-     * 
+     * AuditLogsExport constructor.
+     *
      * @param  string|null $criteria The given variable for the given time criteria.
      * @return void
      */
@@ -30,8 +33,8 @@ class AuditLogsExport implements WithHeadings, ShouldAutoSize, WithEvents, WithM
     }
 
     /**
-     * Map the attributes for the .xls file 
-     * 
+     * Map the attributes for the .xls file.
+     *
      * @param  mixed $log The entity from the collection.
      * @return array
      */
@@ -41,8 +44,8 @@ class AuditLogsExport implements WithHeadings, ShouldAutoSize, WithEvents, WithM
     }
 
     /**
-     * The heading names for the overview table. 
-     * 
+     * The heading names for the overview table.
+     *
      * @return array
      */
     public function headings(): array
@@ -51,22 +54,22 @@ class AuditLogsExport implements WithHeadings, ShouldAutoSize, WithEvents, WithM
     }
 
     /**
-     * Method for registering generation events from the .xls file. 
-     * 
+     * Method for registering generation events from the .xls file.
+     *
      * @return array
      */
     public function registerEvents(): array
     {
         return [
-            AfterSheet::class => function(AfterSheet $event): void {
+            AfterSheet::class => function (AfterSheet $event): void {
                 $event->sheet->getDelegate()->getStyle('A1:E1')->getFont()->setBold(true);
             },
         ];
     }
 
     /**
-     * Method for returning the collection of results u want in the .xls file. 
-     * 
+     * Method for returning the collection of results u want in the .xls file.
+     *
      * @return Collection
      */
     public function collection(): Collection
@@ -75,8 +78,8 @@ class AuditLogsExport implements WithHeadings, ShouldAutoSize, WithEvents, WithM
     }
 
     /**
-     * Method for determing the result set for the .xls file. 
-     * 
+     * Method for determing the result set for the .xls file.
+     *
      * @return Collection
      */
     protected function getResultsByCriteria(): Collection

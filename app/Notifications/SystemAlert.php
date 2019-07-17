@@ -2,17 +2,15 @@
 
 namespace App\Notifications;
 
-use App\Models\SystemAlert as Alert;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
+use App\Models\SystemAlert as Alert;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use App\Models\User;
 
 /**
- * Class SystemAlert
- * 
- * @package App\Notifications
+ * Class SystemAlert.
  */
 class SystemAlert extends Notification implements ShouldQueue
 {
@@ -20,7 +18,6 @@ class SystemAlert extends Notification implements ShouldQueue
 
     /** @var Alert $notificationData */
     public $notificationData;
-
 
     /** @var User $user */
     public $creator;
@@ -56,7 +53,7 @@ class SystemAlert extends Notification implements ShouldQueue
     public function toMail(): MailMessage
     {
         return (new MailMessage)
-            ->subject('Systeem notificatie van ' . config('app.name'))
+            ->subject('Systeem notificatie van '.config('app.name'))
             ->markdown('notifications.kiosk.mail', ['data' => $this->notificationData, 'user' => $this->creator]);
     }
 
@@ -71,7 +68,7 @@ class SystemAlert extends Notification implements ShouldQueue
             'sender'        => $this->creator,
             'title'         => $this->notificationData->title,
             'message'       => $this->notificationData->message,
-            'action_url'    => $this->notificationData->action_url, 
+            'action_url'    => $this->notificationData->action_url,
             'action_text'   => $this->notificationData->action_title,
         ];
     }

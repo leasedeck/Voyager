@@ -1,16 +1,17 @@
 <?php
 
 use App\Models\User;
-use Illuminate\Database\Seeder;
 use Spatie\Seeders\Faker;
+use Illuminate\Database\Seeder;
 
 /**
- * Class UserTableSeeder
+ * Class UserTableSeeder.
  */
 class UserTableSeeder extends Seeder
 {
     const WEBMASTER = 'webmaster'; // Role name for webmasters in the application.
-    const RVB       = 'admin';     // Role name for board members in the application.
+
+    const RVB = 'admin';     // Role name for board members in the application.
 
     /**
      * Run the database seeds.
@@ -22,7 +23,7 @@ class UserTableSeeder extends Seeder
         collect($this->organisationMembers())->each(function (array $name): void {
             [$firstName, $lastName] = $name;
 
-            $data = ['voornaam' => $name[0], 'achternaam' => $name[1], 'email' => strtolower($name[0]) . '@activisme.be', 'password' => 'password'];
+            $data = ['voornaam' => $name[0], 'achternaam' => $name[1], 'email' => strtolower($name[0]).'@activisme.be', 'password' => 'password'];
             $user = $this->createBackUser($data);
 
             if ($this->isInWebmasterArray($user->email)) {
@@ -42,7 +43,6 @@ class UserTableSeeder extends Seeder
     {
         return in_array($email, $this->organisationWebmasters());
     }
-
 
     /**
      * The array of email addresses that are webmasters in the application.

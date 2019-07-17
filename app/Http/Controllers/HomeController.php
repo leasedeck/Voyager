@@ -8,8 +8,6 @@ use Illuminate\Contracts\Support\Renderable;
  * Class HomeController
  * ----
  * Controllers that handles the application home pages.
- *
- * @package App\Http\Controllers
  */
 class HomeController extends Controller
 {
@@ -36,11 +34,11 @@ class HomeController extends Controller
     }
 
     /**
-     * Method for the dashboard page from the kiosk management
-     * 
+     * Method for the dashboard page from the kiosk management.
+     *
      * @return Renderable
      */
-    public function kiosk(): Renderable 
+    public function kiosk(): Renderable
     {
         return view('kiosk');
     }

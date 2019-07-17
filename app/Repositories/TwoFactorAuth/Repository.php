@@ -1,30 +1,29 @@
-<?php 
+<?php
 
 namespace App\Repositories\TwoFactorAuth;
 
-use PragmaRX\Google2FALaravel\Google2FA;
+use App\Models\User;
 use RuntimeException;
 use Illuminate\Http\Response;
+use App\Models\PasswordSecurity;
 use Illuminate\Contracts\Auth\Guard;
-use App\Models\{User, PasswordSecurity};
+use PragmaRX\Google2FALaravel\Google2FA;
 
 /**
- * Class Repository
- * 
- * @package App\Repositories\TwoFactorAuth
+ * Class Repository.
  */
-class Repository 
+class Repository
 {
     /**
      * The Guard implementation.
      *
-     * @var Guard $auth
+     * @var Guard
      */
     protected $auth;
 
     /**
-     * Repository Constructor
-     * 
+     * Repository Constructor.
+     *
      * @param  Guard $auth The variable for mapping hte authentication guard.
      * @return void
      */
@@ -34,14 +33,14 @@ class Repository
     }
 
     /**
-     * Helper function for getting the authenticated user. 
-     * 
-     * @return User 
+     * Helper function for getting the authenticated user.
+     *
+     * @return User
      */
-    public function getAuthenticatedUser(): User 
+    public function getAuthenticatedUser(): User
     {
         if (! $this->auth->check()) {
-            // There is no authenticated user found in the application. 
+            // There is no authenticated user found in the application.
             // So We can't run any functions that relay on the authenticated user.
             throw new RuntimeException('No authenticated user.', Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -50,8 +49,8 @@ class Repository
     }
 
     /**
-     * Method for the underlying Google 2FA layer. 
-     * 
+     * Method for the underlying Google 2FA layer.
+     *
      * @return Google2FA
      */
     public function google2FaLayer(): Google2FA
@@ -60,8 +59,8 @@ class Repository
     }
 
     /**
-     * Get the url for the google 2FA system. 
-     * 
+     * Get the url for the google 2FA system.
+     *
      * @return string
      */
     public function getGoogle2FaUrl(): string
@@ -69,25 +68,25 @@ class Repository
         $user = $this->getAuthenticatedUser();
         $google2FaUrl = '';
 
-        if($user->passwordSecurity()->exists()){
+        if ($user->passwordSecurity()->exists()) {
             $google2fa = app('pragmarx.google2fa');
             $google2fa->setAllowInsecureCallToGoogleApis(true);
 
-            $google2FaUrl = $google2fa->getQRCodeGoogleUrl(config('app.name'),$user->email, $user->passwordSecurity->google2fa_secret);
+            $google2FaUrl = $google2fa->getQRCodeGoogleUrl(config('app.name'), $user->email, $user->passwordSecurity->google2fa_secret);
         }
 
         return $google2FaUrl;
     }
 
     /**
-     * Method for registering the 2FA secret key in the database. 
-     * 
+     * Method for registering the 2FA secret key in the database.
+     *
      * @return PassWordSecurity
      */
     public function createSecretKey(): PasswordSecurity
     {
         return PasswordSecurity::create([
-            'user_id' => $this->getAuthenticatedUser()->id, 
+            'user_id' => $this->getAuthenticatedUser()->id,
             'google2fa_secret' => $this->google2FaLayer()->generateSecretKey(),
             'google2FA_enable' => 0,
         ]);

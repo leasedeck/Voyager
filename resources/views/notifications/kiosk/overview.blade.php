@@ -49,7 +49,7 @@
 
                                         <td>
                                             <span class="float-right">
-                                                <a href="" class="text-decoration-none text-secondary">
+                                                <a href="{{ route('alerts.show', $notification) }}" class="text-decoration-none text-secondary">
                                                     <i class="fe fe-eye"></i>
                                                 </a>
                                             </span>

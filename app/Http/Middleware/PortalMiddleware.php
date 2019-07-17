@@ -2,13 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\User;
 use Closure;
+use App\Models\User;
 
 /**
- * Class PortalMiddleware
- * 
- * @package App\Http\Middleware
+ * Class PortalMiddleware.
  */
 class PortalMiddleware
 {
@@ -17,7 +15,7 @@ class PortalMiddleware
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
-     * @param  string $portalName The name for the portal that is active. 
+     * @param  string $portalName The name for the portal that is active.
      * @return mixed
      */
     public function handle($request, Closure $next, string $portalName)
@@ -34,8 +32,8 @@ class PortalMiddleware
     }
 
     /**
-     * Method for getting the authenticated user. 
-     * 
+     * Method for getting the authenticated user.
+     *
      * @return User
      */
     private function authenticatedUser(): User

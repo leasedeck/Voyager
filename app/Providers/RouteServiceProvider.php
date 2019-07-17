@@ -2,13 +2,11 @@
 
 namespace App\Providers;
 
-use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 /**
- * Class RouteServiceProvider 
- * 
- * @package App\Providers
+ * Class RouteServiceProvider.
  */
 class RouteServiceProvider extends ServiceProvider
 {
@@ -40,18 +38,18 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->mapApiRoutes();
         $this->mapWebRoutes();
-        $this->mapFrontendRoutes(); 
+        $this->mapFrontendRoutes();
         $this->mapKioskRoutes();
     }
 
     /**
-     * Define the "Kiosk" routes for the application. 
-     * 
+     * Define the "Kiosk" routes for the application.
+     *
      * These routes all recieve session state, CSRF protection, etc.
-     * 
+     *
      * @return void
      */
-    public function mapKioskRoutes(): void 
+    public function mapKioskRoutes(): void
     {
         Route::middleware('web')
             ->namespace($this->namespace)
@@ -73,13 +71,13 @@ class RouteServiceProvider extends ServiceProvider
     }
 
     /**
-     * Define the "web" frontend routes for the application. 
-     * 
-     * These routes all recieve session state, CSRF protection, etc. 
-     * 
+     * Define the "web" frontend routes for the application.
+     *
+     * These routes all recieve session state, CSRF protection, etc.
+     *
      * @return void
      */
-    protected function mapFrontendRoutes(): void 
+    protected function mapFrontendRoutes(): void
     {
         Route::middleware('web')
             ->namespace($this->namespace)

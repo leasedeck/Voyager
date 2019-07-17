@@ -2,26 +2,24 @@
 
 namespace App\Http\Controllers\Alerts;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Alerts\SystemNotificationRequest;
-use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Http\RedirectResponse;
-use App\Repositories\NotificationsRepository;
 use App\Models\SystemAlert;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Contracts\Support\Renderable;
+use App\Repositories\NotificationsRepository;
+use App\Http\Requests\Alerts\SystemNotificationRequest;
 
 /**
- * Class KioskController
- *
- * @package App\Http\Controllers\Alerts
+ * Class KioskController.
  */
 class KioskController extends Controller
 {
     /**
-     * Variable for the notification layer in the application. 
-     * 
-     * @var NotificationsRepository $notifications
+     * Variable for the notification layer in the application.
+     *
+     * @var NotificationsRepository
      */
-    protected $notifications; 
+    protected $notifications;
 
     /**
      * KioskController constructor.
@@ -36,14 +34,14 @@ class KioskController extends Controller
     }
 
     /**
-     * Method for displayi)ng the overview of notifications that are sended. 
-     * 
-     * @param  SystemAlert $systemAlerts The database model instance form the notifications in the storage. 
-     * @return Renderable. 
+     * Method for displaying the overview of notifications that are sended.
+     *
+     * @param  SystemAlert $systemAlerts The database model instance form the notifications in the storage.
+     * @return Renderable
      */
-    public function index(SystemAlert $systemAlerts): Renderable 
+    public function index(SystemAlert $systemAlerts): Renderable
     {
-        return view('notifications.kiosk.overview', ['notifications' => $systemAlerts->simplePaginate()]);
+        return view('notifications.kiosk.overview', ['notifications' => $systemAlerts->latest()->simplePaginate()]);
     }
 
     /**
@@ -59,15 +57,19 @@ class KioskController extends Controller
         return view('notifications.kiosk.index', compact('drivers'));
     }
 
-    public function show(SystemAlert $notification): Renderable 
+    /**
+     * Method for displaying an system alert in the application.
+     *
+     * @param  SystemAlert $notification The notification entity from the database storage.
+     * @return Renderable
+     */
+    public function show(SystemAlert $notification): Renderable
     {
-        // TODO
+        return view('notifications.kiosk.show', compact('notification'));
     }
 
     /**
      * Method for sending a system wide notification.
-     *
-     * @todo Implement and complete validation.
      *
      * @param  SystemNotificationRequest $input The form request class that handles the validation.
      * @return RedirectResponse
@@ -75,7 +77,7 @@ class KioskController extends Controller
     public function store(SystemNotificationRequest $input): RedirectResponse
     {
         if ($this->notifications->sendSystemAlert($input)) {
-            $this->getAuthenticatedUser()->logActivity(SystemAlert::latest()->first(), 'Systeem notificaties', 'heeft een systeem notificatie verzonden.');
+            $this->getAuthenticatedUser()->logActivity(SystemAlert::latest()->first(), 'Systeem notificaties', 'Heeft een systeem notificatie verzonden.');
             flash('De systeem notificatie is opgeslagen en zal ASAP worden verzonden.', 'success');
         }
 

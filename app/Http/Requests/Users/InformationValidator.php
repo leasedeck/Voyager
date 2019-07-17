@@ -5,25 +5,10 @@ namespace App\Http\Requests\Users;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class CreateValidator
- *
- * @package App\Http\Requests\Users
+ * Class CreateValidator.
  */
 class InformationValidator extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize(): bool
-    {
-        // No authorization is needed here because the authorization
-        // Is mainly declared in the controller.
-
-        return true;
-    }
-
     /**
      * Method for the additional validation rules for an POST request.
      *
@@ -41,7 +26,7 @@ class InformationValidator extends FormRequest
      */
     public function getPatchRules(): array
     {
-        return ['email' => ['required', 'string', 'email', 'max:191', 'unique:users,email,' . auth()->user()->id]];
+        return ['email' => ['required', 'string', 'email', 'max:191', 'unique:users,email,'.auth()->user()->id]];
     }
 
     /**
@@ -53,7 +38,7 @@ class InformationValidator extends FormRequest
     {
         return [
             'voornaam'   => ['required', 'string', 'max:191'],
-            'achternaam' => ['required', 'string', 'max:191']
+            'achternaam' => ['required', 'string', 'max:191'],
         ];
     }
 
@@ -65,8 +50,8 @@ class InformationValidator extends FormRequest
     public function rules(): array
     {
         switch ($this->getMethod()) {
-            case 'POST':  $methodRules = $this->getPostRules();  break;
-            case 'PATCH': $methodRules = $this->getPatchRules(); break;
+            case 'POST':  $methodRules = $this->getPostRules();     break;
+            case 'PATCH': $methodRules = $this->getPatchRules();    break;
 
             // The method is not found so there are no additional validation rules needed.
             default: $methodRules = [];
