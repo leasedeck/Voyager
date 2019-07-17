@@ -24,12 +24,27 @@ class KioskComposer
             ->first();
     }
 
+    /**
+     * Method for getting the audit entry counts for the dashboard
+     * 
+     * @return stdClass
+     */
     private function getAuditCounters(): stdClass
     {
         return DB::table('activity_log')
             ->selectRaw('count(*) as total')
             ->selectRaw("count(case when created_at like '%".date('Y-m-d')."%' then 1 end) as total_today")
             ->first();
+    }
+
+    /**
+     * Method for getting the system alert counters. 
+     * 
+     * @return stdClass
+     */
+    private function getNotificationCounters(): stdClass 
+    {
+        
     }
 
     /**
@@ -42,5 +57,6 @@ class KioskComposer
     {
         $view->with('users', $this->getUserCounters());
         $view->with('audit', $this->getAuditCounters());
+        $view->with('notifications', $this->getNotificationCounters());
     }
 }

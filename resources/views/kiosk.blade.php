@@ -63,7 +63,7 @@
         </div> {{-- /// END widgets --}}
 
         <div class="row">
-            @if ($audit->total > 0) 
+            @if ($audit->total > 0) {{-- There are logs found in the application. --}}
                 <div class="col-12"> {{-- Short activity overview --}}
                     <div class="card card-body border-0 shadow-sm">
                     </div>
