@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SystemAlert;
 use Illuminate\Contracts\Support\Renderable;
+use Spatie\Activitylog\Models\Activity;
 
 /**
  * Class HomeController
@@ -40,7 +42,10 @@ class HomeController extends Controller
      */
     public function kiosk(): Renderable
     {
-        return view('kiosk');
+        $logs = Activity::latest()->take(7)->get();
+        $alerts = SystemAlert::latest()->take(7)->get();
+
+        return view('kiosk', compact('logs', 'alerts'));
     }
 
     /**

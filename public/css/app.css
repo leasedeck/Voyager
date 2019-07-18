@@ -12382,6 +12382,10 @@ body {
   overflow-y: hidden;
 }
 
+.fe-brand {
+  color: #b9210c;
+}
+
 .nav-scroller .nav {
   display: -webkit-box;
   display: flex;

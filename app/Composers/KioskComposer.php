@@ -44,7 +44,10 @@ class KioskComposer
      */
     private function getNotificationCounters(): stdClass 
     {
-        
+        return DB::table('system_alerts')
+            ->selectRaw('count(*) as total')
+            ->selectRaw("count(case when created_at like '%".date('Y-m-d')."%' then 1 end) as total_today")
+            ->first();
     }
 
     /**
