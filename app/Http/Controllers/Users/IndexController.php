@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\Support\Renderable;
 use App\Http\Requests\Users\InformationValidator;
+use Spatie\Permission\Models\Role;
 
 /**
  * Class IndexController.
@@ -26,7 +27,7 @@ class IndexController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth', '2fa', 'role:admin', 'forbid-banned-user', 'portal:kiosk']);
+        $this->middleware(['auth', '2fa', 'role:admin|webmaster', 'forbid-banned-user', 'portal:kiosk']);
     }
 
     /**
@@ -55,18 +56,21 @@ class IndexController extends Controller
      */
     public function show(User $user): Renderable
     {
-        $cantEdit = $this->getAuthenticatedUser()->cannot('can-edit', $user);
-        return view('users.show', compact('user', 'cantEdit'));
+        $roles = Role::all(['name']);
+
+        return view('users.show', compact('user', 'roles'));
     }
 
     /**
      * Method for displaying the create view for an new user.
      *
+     * @param  Role $roles The database resource model for the application roles.
      * @return Renderable
      */
-    public function create(): Renderable
+    public function create(Role $roles): Renderable
     {
-        return view('users.create');
+        $roles = $roles->pluck('name', 'name');
+        return view('users.create', compact('roles'));
     }
 
     /**
@@ -92,8 +96,9 @@ class IndexController extends Controller
 
         $user = DB::transaction(static function () use ($input): User {
             $user = User::create($input->all());
-            $user->notify((new LoginCreated($input->all()))->delay(now()->addMinute()));
+            $user->syncRoles($input->role);
 
+            $user->notify((new LoginCreated($input->all()))->delay(now()->addMinute()));
             (new Controller)->getAuthenticatedUser()->logActivity($user, 'Gebruikers', "Heeft een login aangemaakt voor {$user->name}");
 
             return $user;
@@ -111,7 +116,13 @@ class IndexController extends Controller
      */
     public function update(InformationValidator $input, User $user): RedirectResponse
     {
-        if ($this->getAuthenticatedUser()->can('can-edit', $user) && $user->update($input->all())) {
+        if ($user->update($input->all())) {
+            $user->syncRoles($input->roles);
+
+            if ($user->isNot($this->getAuthenticatedUser())) {
+                $this->getAuthenticatedUser()->logActivity($user, 'Gebruikers', "Heeft de account gegevens van {$user->name} gewijzigd.");
+            }
+
             flash("De gegevens van {$user->name} zijn aangepast in de applicatie")->success();
         }
 

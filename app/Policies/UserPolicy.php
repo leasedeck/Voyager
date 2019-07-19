@@ -69,16 +69,4 @@ class UserPolicy
     {
         return $user->is($model);
     }
-
-    /**
-     * Determine whether the authenticated user can edit the given user or not.
-     *
-     * @param  User $user   Entity of the authenticated user.
-     * @param  User $model  Entity of the given user.
-     * @return bool
-     */
-    public function canEdit(User $user, User $model): bool
-    {
-        return $user->is($model);
-    }
 }

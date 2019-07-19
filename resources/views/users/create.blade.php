@@ -42,6 +42,20 @@
 
 			<hr class="mt-0">
 
+			<div class="form-row">
+				<div class="form-group col-12">
+					<label for="permissions">Permissie functies <span class="text-danger">*</span></label>
+
+					<select @input('roles[]') class="custom-select @error('roles[]', 'is-invalid')" multiple>
+						@options($roles, 'roles[]', 'user')
+					</select>
+
+					@error('roles[]') {{-- Validation error view partial --}}
+				</div>
+			</div>
+
+			<hr class="mt-0">
+
             <div class="form-row">
                 <div class="form-group col-12 mb-0">
                     <button type="submit" class="btn btn-success">Opslaan</button>

@@ -6,6 +6,8 @@ use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * Class CreateValidator.
+ * 
+ * @package App\Http\Requests\Users
  */
 class InformationValidator extends FormRequest
 {
@@ -26,7 +28,7 @@ class InformationValidator extends FormRequest
      */
     public function getPatchRules(): array
     {
-        return ['email' => ['required', 'string', 'email', 'max:191', 'unique:users,email,'.auth()->user()->id]];
+        return ['email' => ['required', 'string', 'email', 'max:191', 'unique:users,email,'.$this->user->id]];
     }
 
     /**
@@ -39,6 +41,7 @@ class InformationValidator extends FormRequest
         return [
             'voornaam'   => ['required', 'string', 'max:191'],
             'achternaam' => ['required', 'string', 'max:191'],
+            'role'       => ['required|array|min:1'],
         ];
     }
 

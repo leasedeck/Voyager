@@ -37,30 +37,50 @@
 
                     <div class="form-row">
                         <div class="form-group col-6">
-                            <label for="inputVoornaam">Voornaam @if (! $cantEdit) <span class="text-danger">*</span> @endif</label>
-                            <input type="text" @if ($cantEdit) disabled @endif class="form-control @error('voornaam', 'is-invalid')" id="inputVoornaam" placeholder="Voornaam" @input('voornaam')>
+                            <label for="inputVoornaam">Voornaam <span class="text-danger">*</span> </label>
+                            <input type="text" class="form-control @error('voornaam', 'is-invalid')" id="inputVoornaam" placeholder="Voornaam" @input('voornaam')>
                             @error('voornaam')
                         </div>
 
                         <div class="form-group col-6">
-                            <label for="inputAchternaam">Achternaam @if (! $cantEdit) <span class="text-danger">*</span> @endif</label>
-                            <input type="text" @if ($cantEdit) disabled @endif class="form-control @error('achternaam', 'is-invalid')" id="inputAchternaam" placeholder="Achternaam" @input('achternaam')>
+                            <label for="inputAchternaam">Achternaam <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control @error('achternaam', 'is-invalid')" id="inputAchternaam" placeholder="Achternaam" @input('achternaam')>
                             @error('achternaam')
                         </div>
 
                         <div class="form-grroup col-12">
-                            <label for="inputEmail">E-mail adres @if (! $cantEdit) <span class="text-danger">*</span> @endif</label>
-                            <input type="email" @if ($cantEdit) disabled @endif class="form-control @error('email', 'is-invalid')" id="inputEmail" placeholder="E-mail adres" @input('email')>
+                            <label for="inputEmail">E-mail adres <span class="text-danger">*</span></label>
+                            <input type="email" class="form-control @error('email', 'is-invalid')" id="inputEmail" placeholder="E-mail adres" @input('email')>
                             @error('email')
                         </div>
                     </div>
 
                     <hr>
 
+                    @if ($currentUser->hasAnyRole(['admin', 'webmaster']))
+                        <div class="form-row">
+                            <div class="form-group col-12">
+                                <label for="permissions">Permissie functies <span class="text-danger">*</span></label>
+
+                                <select @input('roles[]') class="custom-select @error('roles[]', 'is-invalid')" multiple>
+                                    @foreach ($roles as $role) {{-- Permission loop --}}
+                                        <option value="{{ $role->name }}" @if ($currentUser->hasRole($role->name)) selected @endif>
+                                            {{ ucfirst($role->name) }}
+                                        </option>
+                                    @endforeach {{-- /// END permission loop --}}
+                                </select>
+
+                                @error('roles[]') {{-- Validation error view partial --}}
+                            </div>
+                        </div>
+
+                        <hr class="mt-0">
+                    @endif
+
                     <div class="form-row">
                         <div class="form-group col-12 mb-0">
-                            <button type="submit" @if ($cantEdit) disabled @endif class="btn btn-success">Aanpassen</button>
-                            <button type="reset" @if ($cantEdit) disabled @endif class="btn btn-link text-decoration-none">Annuleren</button>
+                            <button type="submit" class="btn btn-success">Aanpassen</button>
+                            <button type="reset" class="btn btn-link text-decoration-none">Annuleren</button>
                         </div>
                     </div>
 
