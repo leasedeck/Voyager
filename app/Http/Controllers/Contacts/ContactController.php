@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Support\Renderable;
 use App\Models\Contact;
+use App\Models\Country;
 
 /**
  * Class ContactController
@@ -44,6 +45,8 @@ class ContactController extends Controller
     public function create(): Renderable 
     {
         $addressTypes = ['' => '-- type adres --', 'prive' => 'Privé adres', 'bedrijf' => 'Bedrijfs adres'];
-        return view('contacts.create', compact('addressTypes'));
+        $countries = Country::all(['id', 'name']);
+
+        return view('contacts.create', compact('addressTypes', 'countries'));
     }
 }

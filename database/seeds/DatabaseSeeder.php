@@ -18,5 +18,6 @@ class DatabaseSeeder extends BaseDatabaseSeeder
 
         $this->call(RoleTableSeeder::class);
         $this->call(UserTableSeeder::class);
+        $this->call(CountryTableSeeder::class);
     }
 }

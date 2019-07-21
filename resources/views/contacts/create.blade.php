@@ -62,6 +62,17 @@
                         </div>
 
                         <div class="form-group col-4">
+                            <label for="country">Land</label>
+                            
+                            <select class="custom-select" @input('country')>
+                                <option value="">-- selecteer land --</option>
+                                
+                                @foreach ($countries as $country)
+                                    <option value="{{ $country->id}}" @if ($country->id === old('country')) selected @endif>
+                                        {{ ucfirst($country->name ) }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </div>
