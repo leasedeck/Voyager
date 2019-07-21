@@ -22,7 +22,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-brown">
             <img src="{{ asset('img/logo.png') }}" width="25" height="25" class="mr-3 rounded-circle d-inline-block align-top" alt="{{ config('app.name', 'Laravel') }}">
             <a class="navbar-brand mr-auto mr-lg-0" href="#">
                 {{ config('app.name', 'Laravel') }} {{ $currentUser->cannot('on-kiosk', auth()->user()) ? '' : ' - Kiosk' }}
@@ -41,7 +41,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('notifications.index') }}">
                             <i class="fe fe-bell mr-1"></i> 
-                            <span style="margin-top: -.25rem;" class="badge badge-pill align-middle badge-danger">
+                            <span style="margin-top: -.25rem;" class="badge badge-pill badge-notifications align-middle">
                                 {{ $currentUser->unreadNotifications()->count() }}
                             </span>
                         </a>
@@ -49,7 +49,7 @@
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{ $currentUser->name }}
+                            <i class="fe mr-1 fe-user"></i> {{ $currentUser->name }}
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdown">
@@ -58,11 +58,11 @@
 
                                 @if ($currentUser->can('on-kiosk', auth()->user()))
                                     <a class="dropdown-item" href="{{ route('home') }}">
-                                        <i class="fe fe-log-out mr-1 text-secondary"></i> Verlaat kiosk
+                                        <i class="fe fe-log-out mr-1"></i> Verlaat kiosk
                                     </a>
                                 @else {{-- Authenticated user is on the kiosk management portal --}}
                                     <a class="dropdown-item" href="{{ route('kiosk.dashboard') }}">
-                                        <i class="fe fe-home mr-1 text-secondary"></i> Kiosk
+                                        <i class="fe fe-home mr-1"></i> Kiosk
                                     </a> 
                                 @endif
                             @endif
@@ -71,7 +71,7 @@
                             <h6 class="dropdown-header font-weight-bold">Account</h6>
 
                             <a class="dropdown-item" href=" {{ route('account.settings') }}">
-                                <i class="fe fe-sliders mr-1 text-secondary"></i> Instellingen
+                                <i class="fe fe-sliders mr-1"></i> Instellingen
                             </a>
 
                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -87,7 +87,7 @@
             </div>
         </nav>
 
-        <div class="nav-scroller bg-white shadow-sm">
+        <div class="nav-scroller bg-green-light shadow-sm">
             <nav class="nav nav-underline">
                 @if ($currentUser->can('on-application', auth()->user())) 
                     @include ('layouts._navigation.application')

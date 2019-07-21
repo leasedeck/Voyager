@@ -5,6 +5,7 @@ use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Users\AccountController;
 use App\Http\Controllers\Auth\PasswordSecurityController;
+use App\Http\Controllers\Contacts\ContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,10 @@ Route::get('{user}/logs', [ActivityController::class, 'show'])->name('users.acti
 Route::get('/notificaties/markAll', [NotificationController::class, 'markAll'])->name('notifications.markAll');
 Route::get('/notificaties/markOne/{notification}', [NotificationController::class, 'markOne'])->name('notifications.markAsRead');
 Route::get('/notificaties/{type?}', [NotificationController::class, 'index'])->name('notifications.index');
+
+// Contacts routes
+Route::get('/contacten/nieuw', [ContactController::class, 'create'])->name('contacts.create');
+Route::get('/contacten/{filter?}', [ContactController::class, 'index'])->name('contacts.index');
 
 // User Settings routes
 Route::get('/account', [AccountController::class, 'index'])->name('account.settings');
