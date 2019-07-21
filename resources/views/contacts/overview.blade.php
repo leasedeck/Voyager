@@ -30,7 +30,9 @@
                     </a>
 
                     <div class="dropdown-menu" aria-labelledby="dropdownFilterLink">
-                        <a class="dropdown-item" href="#">Alle contacten</a>
+                        <a class="dropdown-item" href="{{ route('contacts.index') }}">Alle contacten</a>
+                        <a class="dropdown-item" href="">Mijn contacten</a>
+                        <a class="dropdown-item" href="">Verwijderde contacten</a>
                     </div>
                 </div>
 
@@ -46,7 +48,7 @@
             <div class="blankslate bg-white shadow-sm">
                 <h3 class="text-brown">Geen contacten gevonden!</h3>
                 <p class="pt-2">
-                    Het lijkt erop dat er geen contact personen zijn toegevoegd in de applicatie. Of er geen personen gevonden in je zoekopdracht of filter optie.
+                    Het lijkt erop dat er geen contactpersonen zijn toegevoegd in {{ config('app.name') }}. Of er geen personen gevonden in je zoekopdracht of filter optie.
                 </p>
 
                 <a href="{{ route('contacts.create') }}" class="btn border-0 mt-2 btn-secondary">
@@ -54,6 +56,73 @@
                 </a>
             </div>
         @else
+            <div class="card card-body border-0 shadow-sm">
+                <div class="table-responsive">
+                    <table class="table table-sm mb-0 table-hover">
+                        <thead>
+                            <tr>
+                                <th class="border-top-0" scope="col">Naam</th>
+                                <th class="border-top-0" scope="col">Email adres</th>
+                                <th class="border-top-0" scope="col">Organisatie/Bedrijf</th>
+                                <th class="border-top-0" scope="col">Organisatie/Bedrijf functie</th>
+                                <th class="border-top-0" scope="col">&nbsp;</th> {{-- Column only for the functions --}}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($contacts as $contact) {{-- Loop trough the contacts --}}
+                                <tr>
+                                    <td class="font-weight-bold">{{ $contact->name }}</td>
+                                    <td>
+                                        <a href="mailto:{{ $contact->email }}" class="text-decoration-none">
+                                            {{ $contact->email }}
+                                        </a>
+                                    </td>
+
+                                    <td>
+                                        @if (! $contact->organidatie)
+                                            <span class="font-italic">onbekend of n.v.t</i>
+                                        @else
+                                            {{ $contact->organisatie }}
+                                        @endif
+                                    </td>
+
+                                    <td>
+                                        @if ($contact->organisatie && ! $$contact->organisatie_functie) 
+                                            <span class="font-italic">Onbekend</span>
+                                        @elseif (! $contact->organisatie)
+                                            <span class="font-italic">n.v.t</span>
+                                        @else 
+                                            {{ $contact->organisatie_functie }}
+                                        @endif
+                                    </td>
+
+                                    <td> {{-- Options --}}
+                                        <span class="float-right">
+                                            <a href="" class="text-link text-decoration-none">
+                                                <i class="fe fe-eye"></i>
+                                            </a>
+
+                                            @if ($currentUser->can('edit', $contact))
+                                                <a href="" class="text-link ml-1 text-decoration-none">
+                                                    <i class="fe fe-edit-2"></i>
+                                                </a>
+                                            @endif
+
+                                            @if ($currentUser->can('delete', $contact))
+                                                <a href="{{ route('contacts.delete', $contact) }}" data-method="delete" class="text-danger ml-1 text-decoration-none">
+                                                    <i class="fe fe-trash-2"></i>
+                                                </a>
+                                            @endif
+                                        </span>
+                                    </td> {{-- /// END options --}}
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
+                {{ $contacts->links() }} {{-- pagination view instance --}}
+            </div>
         @endif
     </div>
 @endsection

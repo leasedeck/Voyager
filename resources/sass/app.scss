@@ -52,6 +52,8 @@
   background-color: #572600;
 }
 
+@include text-emphasis-variant(".text-link", $gray-600);
+
 .form-search {
   width: 260px;
 }

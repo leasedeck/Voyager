@@ -36862,6 +36862,75 @@ if (token) {
 //     encrypted: true
 // });
 
+/**
+ * 3Th party javascript assets. 
+ */
+
+
+__webpack_require__(/*! ./deleteHandler */ "./resources/js/deleteHandler.js");
+
+/***/ }),
+
+/***/ "./resources/js/deleteHandler.js":
+/*!***************************************!*\
+  !*** ./resources/js/deleteHandler.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+(function () {
+  var laravel = {
+    initialize: function initialize() {
+      this.registerEvents();
+    },
+    registerEvents: function registerEvents() {
+      $('body').on('click', 'a[data-method]', this.handleMethod);
+    },
+    handleMethod: function handleMethod(e) {
+      var link = $(this);
+      var httpMethod = link.data('method').toUpperCase();
+      var form; // If the data-method attribute is not PUT or DELETE,
+      // then we don't know what to do. Just ignore.
+
+      if ($.inArray(httpMethod, ['PUT', 'DELETE']) === -1) {
+        return;
+      } // Allow user to optionally provide data-confirm="Are you sure?"
+
+
+      if (link.data('confirm')) {
+        if (!laravel.verifyConfirm(link)) {
+          return false;
+        }
+      }
+
+      form = laravel.createForm(link);
+      form.submit();
+      e.preventDefault();
+    },
+    verifyConfirm: function verifyConfirm(link) {
+      return confirm(link.data('confirm'));
+    },
+    createForm: function createForm(link) {
+      var form = $('<form>', {
+        'method': 'POST',
+        'action': link.attr('href')
+      });
+      var token = $('<input>', {
+        'name': '_token',
+        'type': 'hidden',
+        'value': window.csrfToken
+      });
+      var hiddenInput = $('<input>', {
+        'name': '_method',
+        'type': 'hidden',
+        'value': link.data('method')
+      });
+      return form.append(token, hiddenInput).appendTo('body');
+    }
+  };
+  laravel.initialize();
+})();
+
 /***/ }),
 
 /***/ "./resources/sass/app.scss":

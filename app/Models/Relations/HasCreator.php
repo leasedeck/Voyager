@@ -31,7 +31,7 @@ trait HasCreator
      * @param  User $user The resource entity from the user that u want to attach to the record.
      * @return void
      */
-    public function setAuthor(User $user): void
+    public function setCreator(User $user): void
     {
         $this->creator()->associate($user)->save();
     }

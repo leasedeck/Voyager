@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script> window.csrfToken = '<?php echo csrf_token(); ?>'; </script>
 
     <!-- Fonts -->
     <link rel="shortcut icon" type="image/png" href="{{ asset('favicon.ico') }}"/>

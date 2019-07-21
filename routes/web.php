@@ -29,7 +29,9 @@ Route::get('/notificaties/{type?}', [NotificationController::class, 'index'])->n
 
 // Contacts routes
 Route::get('/contacten/nieuw', [ContactController::class, 'create'])->name('contacts.create');
+Route::post('/contacten/nieuw', [ContactController::class, 'store'])->name('contacts.store');
 Route::get('/contacten/{filter?}', [ContactController::class, 'index'])->name('contacts.index');
+Route::delete('/contacten/{contact}', [ContactController::class, 'destroy'])->name('contacts.delete');
 
 // User Settings routes
 Route::get('/account', [AccountController::class, 'index'])->name('account.settings');
