@@ -7,6 +7,7 @@ use Illuminate\Contracts\Support\Renderable;
 use App\Models\Lokalen;
 use Illuminate\Foundation\Auth\User;
 use App\Http\Requests\LokalenFormRequest;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class LokalenController 
@@ -54,11 +55,25 @@ class LokalenController extends Controller
     }
 
     /**
-     * @todo docblock 
-     * @todo write controller logic 
+     * Methode voor het opslaan van een lokaal in Voyager. 
+     * 
+     * @todo Register observer for sending out the notifications. (Lokaal verantwoordelijk en onderhouds verantwoordelijke)
+     *
+     * @param  LokelenFormRequest   $input  De instantie dat de validatie van inputs regelt en info bezit van de request.
+     * @param  Lokalen              $lokaal Entiteit van de database model. 
+     * @return RedirectResponse
      */
-    public function store(LokalenFormRequest $input, Lokalen $lokalen): RedirectResponse
+    public function store(LokalenFormRequest $input, Lokalen $lokaal): RedirectResponse
     {
-        dd($input->all());
+        DB::transaction(static function () use ($input, $lokaal): void {
+            $lokaal = $lokaal->create($input->except('verantwoordelijke_algemeen', 'verantwoordelijke_onderhoud'));
+            $lokaal->attacheerVerantwoordelijke($input->verantwoordelijke_algemeen, $input->verantwoordelijke_onderhoud);
+
+            if ($lokaal->count() > 0) {
+                flash("Het <strong>{$lokaal->name}</strong> is opgeslagen in " . config('app.name'), 'success');
+            }
+        });
+
+        return redirect()->route('lokalen.index');
     }
 }

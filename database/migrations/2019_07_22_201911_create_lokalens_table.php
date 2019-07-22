@@ -16,18 +16,18 @@ class CreateLokalensTable extends Migration
      */
     public function up(): void
     {
-        Schema::create('lokalens', function (Blueprint $table): void {
+        Schema::create('lokalens', static function (Blueprint $table): void {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('verantwoordelijke_algemeen')->nullable();
-            $table->unsignedBigInteger('verantwoordelijke_onderhoud')->nullable();
+            $table->unsignedBigInteger('verantwoordelijke_algemeen')->nullable()->index('algmene_verantwoordelijke');
+            $table->unsignedBigInteger('verantwoordelijke_onderhoud')->nullable()->index('onderhouds_verantwoordelijke');
             $table->boolean('werkpunten_beheer')->default(false);
             $table->string('naam');
             $table->string('aantal_personen');
             $table->string('capaciteits_type');
             $table->timestamps();
 
-            // Foreign keys
-            $table->foreign('verantwoordelijke_algemeen')->references('id')->on('users')->onDelete('set_null');
+            // Indexes
+            $table->foreign('verantwoordelijke_algemeen')->references('id')->on('users')->onDelete('set null');
             $table->foreign('verantwoordelijke_onderhoud')->references('id')->on('users')->onDelete('set null');
         });
     }

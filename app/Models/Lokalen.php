@@ -26,17 +26,29 @@ class Lokalen extends Model
      */
     public function verantwoordelijkeAlgemeen(): BelongsTo 
     {
-        return $this->belongsTo(User::class, 'verantwoordelijke_algmeen');
+        return $this->belongsTo(User::class, 'verantwoordelijke_algemeen');
     }
 
     /**
-     * Data relatie voor de gegevens van de persoon die verantwoordelijk is
-     * voor het onderhoud van het geveven lokaal. 
+     * Data relatie voor de gegevens van de persoon die verantwoordelijk is voor het onderhoud van het geveven lokaal. 
      * 
      * @return BelongsTo
      */
     public function verantwoordelijkeOnderhoud(): BelongsTo 
     {
         return $this->belongsTo(User::class, 'verantwoordelijke_onderhoud');
+    }
+
+    /**
+     * Methode voor het attacheren van de gebruikers entiteiten aan de posities als verantwoordelijke van het gegeven lokalen. 
+     *  
+     * @param  int $verantwoordelijkeAlg    De unieke numerieke waarde van de algemene verantwoordelijke.
+     * @param  int $verantwoordelijkeOnd    De unieke numerieke waarde van de onderhouds verantwoordelijke.
+     * @return void 
+     */
+    public function attacheerVerantwoordelijke(int $verantwoordelijkeAlg, int $verantwoordelijkeOnd): void 
+    {
+        $this->verantwoordelijkeAlgemeen()->associate($verantwoordelijkeAlg)->save();
+        $this->verantwoordelijkeOnderhoud()->associate($verantwoordelijkeOnd)->save();
     }
 }
