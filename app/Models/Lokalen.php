@@ -21,6 +21,8 @@ class Lokalen extends Model
 
     /**
      * Data relatie voor de persoon die verantwoordelijk is voor het lokaal. (algemeen)
+     * 
+     * @return BelongsTo
      */
     public function verantwoordelijkeAlgemeen(): BelongsTo 
     {
