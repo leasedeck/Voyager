@@ -11107,8 +11107,9 @@ body {
 }
 
 body.my-login-page {
-  background-color: #f7f8fb;
   font-size: 14px;
+  height: 100%;
+  background: #BDD732 url(/images/background.png?dcf194a11299ea804bbbd3e0f8e8865d) no-repeat left center;
 }
 
 .my-login-page .brand {

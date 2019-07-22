@@ -13,8 +13,9 @@ body {
 }
 
 body.my-login-page {
-  background-color: #f7f8fb;
   font-size: 14px;
+  height: 100%;
+  background: $sgv-lichtgroen url('../img/background.png') no-repeat left center;  
 }
 
 .my-login-page .brand {

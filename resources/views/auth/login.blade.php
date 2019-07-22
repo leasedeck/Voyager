@@ -62,9 +62,6 @@
                             </form>
                         </div>
                     </div>
-                    <div class="footer">
-                        Copyright &copy; {{ config('app.name') }} {{ date('Y') }}
-                    </div>
                 </div>
             </div>
         </div>

@@ -11,7 +11,7 @@
     <i class="fe fe-users mr-1"></i> Huurders
 </a>
 
-<a class="nav-link" href="">
+<a class="nav-link {{ active('lokalen.*') }}" href="{{ route('lokalen.index') }}">
     <i class="fe fe-list mr-1"></i> Lokalen
 </a>
 

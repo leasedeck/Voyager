@@ -6,6 +6,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Users\AccountController;
 use App\Http\Controllers\Auth\PasswordSecurityController;
 use App\Http\Controllers\Contacts\ContactController;
+use App\Http\Controllers\LokalenController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,10 @@ Route::get('{user}/logs', [ActivityController::class, 'show'])->name('users.acti
 Route::get('/notificaties/markAll', [NotificationController::class, 'markAll'])->name('notifications.markAll');
 Route::get('/notificaties/markOne/{notification}', [NotificationController::class, 'markOne'])->name('notifications.markAsRead');
 Route::get('/notificaties/{type?}', [NotificationController::class, 'index'])->name('notifications.index');
+
+// Lokalen Routes 
+Route::get('/lokalen', [LokalenController::class, 'index'])->name('lokalen.index');
+Route::get('/lokalen/toevoegen', [LokalenController::class, 'create'])->name('lokalen.create');
 
 // Contacts routes
 Route::get('/contacten/nieuw', [ContactController::class, 'create'])->name('contacts.create');
