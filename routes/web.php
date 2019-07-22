@@ -30,7 +30,8 @@ Route::get('/notificaties/{type?}', [NotificationController::class, 'index'])->n
 
 // Lokalen Routes 
 Route::get('/lokalen', [LokalenController::class, 'index'])->name('lokalen.index');
-Route::get('/lokalen/toevoegen', [LokalenController::class, 'create'])->name('lokalen.create');
+Route::get('/lokalen/nieuw', [LokalenController::class, 'create'])->name('lokalen.create');
+Route::post('/lokalen/nieuw', [LokalenController::class, 'store'])->name('lokalen.store');
 
 // Contacts routes
 Route::get('/contacten/nieuw', [ContactController::class, 'create'])->name('contacts.create');

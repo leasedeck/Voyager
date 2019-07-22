@@ -15,7 +15,7 @@
     </div>
 
     <div class="container-fluid pb-3">
-        <form method="POST" action="" class="card card-body border-0 shadow-sm">
+        <form method="POST" action="{{ route('lokalen.store') }}" class="card card-body border-0 shadow-sm">
             <h6 class="border-bottom border-gray pb-1 mb-3">Lokaal toevoegen</strong></h6>
             @csrf {{-- Form field protection --}}
             
@@ -64,7 +64,7 @@
                         <div class="form-group- col-6 mb-0">
                             <label for="capactiyType">Capaciteits type <span class="text-danger">*</span></label>
                             
-                            <select class="custom-select @error('capaciteits_type', 'is-invalid')">
+                            <select class="custom-select @error('capaciteits_type', 'is-invalid')" @input('capaciteits_type')>
                                 <option>-- selecteer capaciteits type --</option>
                                 @options($capacityTypes, 'capaciteits_type', old('capaciteits_type'))
                             </select>

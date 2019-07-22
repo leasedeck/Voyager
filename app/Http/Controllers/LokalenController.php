@@ -6,6 +6,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\Support\Renderable;
 use App\Models\Lokalen;
 use Illuminate\Foundation\Auth\User;
+use App\Http\Requests\LokalenFormRequest;
 
 /**
  * Class LokalenController 
@@ -52,7 +53,12 @@ class LokalenController extends Controller
         return view('lokalen.create', compact('capacityTypes', 'users', 'todoSelect'));
     }
 
-    public function store(): RedirectResponse
+    /**
+     * @todo docblock 
+     * @todo write controller logic 
+     * @todo Implement validation
+     */
+    public function store(LokalenFormRequest $input, Lokalen $lokalen): RedirectResponse
     {
         dd($input->all());
     }
