@@ -35,6 +35,10 @@
   background-color: #b9210c;
 }
 
+.card {
+  border-width: 0;
+}
+
 .blankslate {
   background-color: #fff;
   border-radius: 0.25rem;
@@ -121,7 +125,7 @@ html {
 }
 
 .copyright {
-  color: #fff;
+  color: $gray-400;
 }
 
 // html,

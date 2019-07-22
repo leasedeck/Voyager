@@ -88,7 +88,11 @@ class ContactController extends Controller
     {
         DB::transaction(static function () use($contact): void {
             $contact->delete();
-            
+    
+            if (Contact::count() > 0) {
+                flash("{$contact->name} is verwijderd uit ". config('app.name') ." als contactpersoon.", 'success');
+            }
+        
             (new Controller)->getAuthenticatedUser()
                 ->logActivity($contact, 'Contactpersonen', "Heeft {$contact->name} verwijderd als contactpersoon.");       
         });

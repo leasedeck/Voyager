@@ -44,6 +44,8 @@
     </div>
 
     <div class="container-fluid pb-3">
+        @include('flash::message')
+        
         @if ($contacts->total() === 0) 
             <div class="blankslate bg-white shadow-sm">
                 <h3 class="text-brown">Geen contacten gevonden!</h3>

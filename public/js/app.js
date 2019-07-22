@@ -49284,6 +49284,12 @@ if (token) {
 
 __webpack_require__(/*! ./deleteHandler */ "./resources/js/deleteHandler.js");
 
+$(document).ready(function () {
+  $('div.alert').not('.alert-important').delay(4200).fadeOut(350, function () {
+    $(this).alert('close');
+  });
+});
+
 /***/ }),
 
 /***/ "./resources/js/components/ExampleComponent.vue":
