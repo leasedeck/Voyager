@@ -36,7 +36,7 @@
                             <label for="verantwoordelijke">Verantwoordelijke algemeen <span class="text-danger">*</span></label>
                             
                             <select class="custom-select @error('verantwoordelijke_algemeen', 'is-invalid')" @input('verantwoordelijke_algemeen')>
-                                <option>-- lokaal verantwoordelijke --</option>
+                                <option value="">-- lokaal verantwoordelijke --</option>
                                 
                                 @foreach ($users as $user) {{-- Loop trough the users --}}
                                     <option value="{{ $user->id}}" @if (old('verantwoordelijke_algemeen') === $user->id) selected @endif>
@@ -65,7 +65,7 @@
                             <label for="capactiyType">Capaciteits type <span class="text-danger">*</span></label>
                             
                             <select class="custom-select @error('capaciteits_type', 'is-invalid')" @input('capaciteits_type')>
-                                <option>-- selecteer capaciteits type --</option>
+                                <option value="">-- selecteer capaciteits type --</option>
                                 @options($capacityTypes, 'capaciteits_type', old('capaciteits_type'))
                             </select>
 
@@ -98,7 +98,7 @@
                             <label for="verantwoordelijke">Verantwoordelijke onderhoud <span class="text-danger">*</span></label>
                             
                             <select class="custom-select @error('verantwoordelijke_onderhoud', 'is-invalid')" @input('verantwoordelijke_onderhoud')>
-                                <option>-- onderhouds verantwoordelijke --</option>
+                                <option value="">-- onderhouds verantwoordelijke --</option>
                                 
                                 @foreach ($users as $user) {{-- Loop trough the users --}}
                                     <option value="{{ $user->id}}" @if (old('verantwoordelijke_onderhoud') === $user->id) selected @endif>
