@@ -56,7 +56,6 @@ class LokalenController extends Controller
     /**
      * @todo docblock 
      * @todo write controller logic 
-     * @todo Implement validation
      */
     public function store(LokalenFormRequest $input, Lokalen $lokalen): RedirectResponse
     {
