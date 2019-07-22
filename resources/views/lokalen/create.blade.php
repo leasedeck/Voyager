@@ -39,7 +39,7 @@
                                 <option value="">-- lokaal verantwoordelijke --</option>
                                 
                                 @foreach ($users as $user) {{-- Loop trough the users --}}
-                                    <option value="{{ $user->id}}" @if (old('verantwoordelijke_algemeen') === $user->id) selected @endif>
+                                    <option value="{{ $user->id}}" @if (old('verantwoordelijke_algemeen') == $user->id) selected @endif>
                                         {{ ucfirst($user->voornaam) }} {{ ucfirst($user->achternaam) }}
                                     </option>
                                 @endforeach {{-- /// END loop --}}
@@ -101,7 +101,7 @@
                                 <option value="">-- onderhouds verantwoordelijke --</option>
                                 
                                 @foreach ($users as $user) {{-- Loop trough the users --}}
-                                    <option value="{{ $user->id}}" @if (old('verantwoordelijke_onderhoud') === $user->id) selected @endif>
+                                    <option value="{{ $user->id}}" @if (old('verantwoordelijke_onderhoud') == $user->id) selected @endif>
                                         {{ ucfirst($user->voornaam) }} {{ ucfirst($user->achternaam) }}
                                     </option>
                                 @endforeach {{-- /// END loop --}}
