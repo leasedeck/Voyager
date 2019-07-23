@@ -34,6 +34,11 @@
             </div>
         @else {{-- Dorms are found so display the overview table --}}
             <div class="card card-body border-0 shadow-sm">
+                <div class="table-responsive">
+                
+                </div>
+
+                {{ $lokalen->links() }} {{-- Pagination view instance --}}
             </div>
         @endif
     </div>
