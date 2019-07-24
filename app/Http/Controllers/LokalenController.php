@@ -8,6 +8,7 @@ use App\Models\Lokalen;
 use Illuminate\Foundation\Auth\User;
 use App\Http\Requests\LokalenFormRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 /**
  * Class LokalenController 
@@ -75,5 +76,23 @@ class LokalenController extends Controller
         });
 
         return redirect()->route('lokalen.index');
+    }
+
+    /**
+     * Methode om een lokaal te verwijderen uit Voyager. 
+     * 
+     * @todo Registratie en embedding van de routering.
+     * @todo Creatie confirmatie weergave
+     * @todo Implementatie controller logic.
+     * 
+     * @param  Request $request De instantie voor de data van de request
+     * @param  Lokalen $lokaal  De databank entiteit van het gegeven lokaal.
+     * @return Renderable|RedirectResponse
+     */
+    public function destroy(Request $request, Lokalen $lokalen)
+    {
+        if ($request->isMethod('GET')) {
+            return view();
+        }
     }
 }
