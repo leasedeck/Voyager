@@ -58,20 +58,19 @@ class LokalenController extends Controller
     /**
      * Methode voor het opslaan van een lokaal in Voyager. 
      * 
-     * @todo Register observer for sending out the notifications. (Lokaal verantwoordelijk en onderhouds verantwoordelijke)
+     * @see \App\Observers\LokalenObserver::created()
      *
-     * @param  LokelenFormRequest   $input  De instantie dat de validatie van inputs regelt en info bezit van de request.
+     * @param  LokalenFormRequest   $input  De instantie dat de validatie van inputs regelt en info bezit van de request.
      * @param  Lokalen              $lokaal Entiteit van de database model. 
      * @return RedirectResponse
      */
     public function store(LokalenFormRequest $input, Lokalen $lokaal): RedirectResponse
     {
         DB::transaction(static function () use ($input, $lokaal): void {
-            $lokaal = $lokaal->create($input->except('verantwoordelijke_algemeen', 'verantwoordelijke_onderhoud'));
-            $lokaal->attacheerVerantwoordelijke($input->verantwoordelijke_algemeen, $input->verantwoordelijke_onderhoud);
+            $lokaal = $lokaal->create($input->all()); // Verantwoordelijke relaties worden standaard meegegeven met de entiteit creatie.
 
             if ($lokaal->count() > 0) {
-                flash("Het <strong>{$lokaal->name}</strong> is opgeslagen in " . config('app.name'), 'success');
+                flash("Het <strong>{$lokaal->naam}</strong> is opgeslagen in " . config('app.name'), 'success');
             }
         });
 
@@ -79,20 +78,29 @@ class LokalenController extends Controller
     }
 
     /**
-     * Methode om een lokaal te verwijderen uit Voyager. 
-     * 
-     * @todo Registratie en embedding van de routering.
-     * @todo Creatie confirmatie weergave
-     * @todo Implementatie controller logic.
+     * Methode om een lokaal te verwijderen uit Voyager.  
      * 
      * @param  Request $request De instantie voor de data van de request
      * @param  Lokalen $lokaal  De databank entiteit van het gegeven lokaal.
      * @return Renderable|RedirectResponse
      */
-    public function destroy(Request $request, Lokalen $lokalen)
+    public function destroy(Request $request, Lokalen $lokaal)
     {
+        $this->authorize('delete', $lokaal);
+
         if ($request->isMethod('GET')) {
-            return view();
+            return view('lokalen.delete', compact('lokaal'));
         }
+
+        DB::transaction(static function () use ($lokaal, $request): void { // HTTP - DELETE logic
+            $lokaal->delete();
+            $request->user()->logActivity($lokaal, 'Lokalen', "Heeft het {$lokaal->naam} verwijderd uit " . config('app.name'));
+            
+            if (Lokalen::count() > 0) {
+                flash("Het <strong>{$lokaal->naam}</strong> is met succes verwijderd uit " . config('app.name'))->important();
+            }
+        });
+
+        return redirect()->route('lokalen.index');
     }
 }

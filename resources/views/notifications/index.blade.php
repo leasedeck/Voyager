@@ -28,7 +28,7 @@
             </div> {{-- /// END sidebar --}}
 
             <div class="col-9"> {{-- Content --}}
-                @if ($unreadCount > 0) {{-- There are notifications found in the application --}}
+                @if (($type === 'alle' && $notificationsCount > 0) || $unreadCount > 0) {{-- There are notifications found in the application --}}
                     <div class="card border-0 shadow-sm card-body">
                         <h6 class="border-bottom border-gray pb-1 mb-2">
                             @if ($type === 'alle')

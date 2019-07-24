@@ -76,17 +76,13 @@
 
                                     <td>
                                         <span class="float-right">
-                                            <a href="" class="text-decoration-none text-muted">
-                                                <i class="fe fe-eye"></i>
-                                            </a>
-
-                                            <a href="" class="text-decoration-none text-muted ml-1">
-                                                <i class="fe fe-edit-2"></i>
+                                            <a href="{{ route('lokalen.show', $lokaal) }}" class="text-decoration-none text-muted">
+                                                <i class="fe fe-eye mr-1"></i>
                                             </a>
 
                                             @if ($currentUser->can('delete', $lokaal))
-                                                <a href="" class="text-decoration-none text-danger ml-1">
-                                                    <i class="fe fe-trash-2"></i>
+                                                <a href="{{ route('lokalen.delete', $lokaal) }}" class="text-decoration-none text-danger ml-1">
+                                                    <i class="fe fe-trash-2 mr-1"></i>
                                                 </a>
                                             @endif
                                         </span>

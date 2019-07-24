@@ -32,6 +32,8 @@ Route::get('/notificaties/{type?}', [NotificationController::class, 'index'])->n
 Route::get('/lokalen', [LokalenController::class, 'index'])->name('lokalen.index');
 Route::get('/lokalen/nieuw', [LokalenController::class, 'create'])->name('lokalen.create');
 Route::post('/lokalen/nieuw', [LokalenController::class, 'store'])->name('lokalen.store');
+Route::get('/lokalen/{lokaal}', [LokalenController::class, 'show'])->name('lokalen.show');
+Route::match(['get', 'delete'], '/lokalen/verwijder/{lokaal}', [LokalenController::class, 'destroy'])->name('lokalen.delete');
 
 // Contacts routes
 Route::get('/contacten/nieuw', [ContactController::class, 'create'])->name('contacts.create');

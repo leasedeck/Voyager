@@ -38,17 +38,4 @@ class Lokalen extends Model
     {
         return $this->belongsTo(User::class, 'verantwoordelijke_onderhoud');
     }
-
-    /**
-     * Methode voor het attacheren van de gebruikers entiteiten aan de posities als verantwoordelijke van het gegeven lokalen. 
-     *  
-     * @param  int $verantwoordelijkeAlg    De unieke numerieke waarde van de algemene verantwoordelijke.
-     * @param  int $verantwoordelijkeOnd    De unieke numerieke waarde van de onderhouds verantwoordelijke.
-     * @return void 
-     */
-    public function attacheerVerantwoordelijke(int $verantwoordelijkeAlg, int $verantwoordelijkeOnd): void 
-    {
-        $this->verantwoordelijkeAlgemeen()->associate($verantwoordelijkeAlg)->save();
-        $this->verantwoordelijkeOnderhoud()->associate($verantwoordelijkeOnd)->save();
-    }
 }
