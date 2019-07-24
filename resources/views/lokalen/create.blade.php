@@ -56,7 +56,7 @@
                                 @error('aantal_personen') {{-- Validation error view partial --}}
                             @else {{-- Display the help text --}}
                                 <small id="personsHelpBlock" class="form-text text-muted">
-                                    Vul <strong>n.v.t</strong> in als u lokaal een nutslokaal is zoals een toilet, keuken, vuurplaats, enz.
+                                    Vul <strong>0</strong> in als u lokaal een nutslokaal is zoals een toilet, keuken, vuurplaats, enz.
                                 </small>
                             @endif
                         </div>

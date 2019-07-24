@@ -22,7 +22,7 @@ class LokalenFormRequest extends FormRequest
             'naam'                          => ['required', 'string', 'max:200', 'unique:lokalens'],
             'verantwoordelijke_algemeen'    => ['required', 'integer'],
             'verantwoordelijke_onderhoud'   => ['required', 'integer'],
-            'aantal_personen'               => ['required', 'string'],
+            'aantal_personen'               => ['required', 'integer'],
             'capaciteits_type'              => ['required', 'string', 'max:200'],
             'werkpunten_beheer'             => ['required', 'boolean'],
         ];

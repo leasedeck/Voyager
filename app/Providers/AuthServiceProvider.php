@@ -5,8 +5,10 @@ namespace App\Providers;
 use App\Models\User;
 use App\Models\Contact;
 use App\Policies\UserPolicy;
+use App\Policies\LokaalPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use App\Policies\ContactPolicy;
+use App\Models\Lokalen;
 
 /**
  * Class AuthServiceProvider.
@@ -23,6 +25,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         User::class => UserPolicy::class, 
         Contact::class => ContactPolicy::class,
+        Lokalen::class => LokaalPolicy::class,
     ];
 
     /**
