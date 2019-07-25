@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Support\Renderable;
 use App\Models\Lokalen;
+use App\Traits\LokalenSharedMethods;
 
 /**
  * Class NotesController

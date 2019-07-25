@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User;
 use App\Http\Requests\LokalenFormRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Traits\LokalenSharedMethods;
 
 /**
  * Class LokalenController 
