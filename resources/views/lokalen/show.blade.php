@@ -23,7 +23,7 @@
                 @csrf {{-- Form field protection --}}
                 @form ($lokaal)
 
-                <fieldset>
+                <fieldset @if ($currentUser->cannot('update', $lokaal)) disabled @endif>
                     <div class="row mt-2">
                         <div class="col-3">
                             <h5>Algemene informatie</h5>
