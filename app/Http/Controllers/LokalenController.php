@@ -56,6 +56,17 @@ class LokalenController extends Controller
     }
 
     /**
+     * Methode voor het weergeven van de informatie omtrent het gegeven lokaal. 
+     * 
+     * @param  Lokalen $lokaal De databank entiteit van het gegeven lokaal.
+     * @return Renderable
+     */
+    public function show(Lokalen $lokaal): Renderable
+    {
+        return view('lokalen.show', compact('lokaal'));
+    }
+
+    /**
      * Methode voor het opslaan van een lokaal in Voyager. 
      * 
      * @see \App\Observers\LokalenObserver::created()

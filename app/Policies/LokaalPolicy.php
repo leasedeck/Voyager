@@ -25,6 +25,7 @@ class LokaalPolicy
     public function delete(User $user, Lokalen $lokaal): bool 
     {
         return $user->is($lokaal->verantwoordelijkeAlgemeen)
+            || $user->is($lokaal->verantwoordelijkeOnderhoud)
             || $user->hasAnyRole(['admin', 'webmaster']);
     }
 }

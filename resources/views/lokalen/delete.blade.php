@@ -26,7 +26,7 @@
             </p>
 
             <p class="card-text">
-                <span class="font-weight-bold mr-2">Let op!</span> Bij het verwijderen van {{ $lokaal->naam }} als lokaal in {{ config('app.name') }}, zullen ook de werkpunten worden verwijderd.<br>
+                <span class="font-weight-bold mr-2">Let op!</span> Bij het verwijderen van {{ $lokaal->naam }} als lokaal in {{ config('app.name') }}, zullen ook de werkpunten en opmerkingen worden verwijderd.<br>
                 Als ook zal dit lokaal niet meer kunnen worden gekoppeld aan een verhuring en zullen de verantwoordelijke personen worden losgekoppeld en op de hoogte worden gebracht worden 
                 van de verwijdering.
             </p>
