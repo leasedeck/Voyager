@@ -23,7 +23,7 @@
                 @csrf               {{-- Form field protection --}}
                 @method ('DELETE')  {{-- HTTP method spoofing --}}
 
-                <h6 class="border-bottom border-gray pb-1 mb-3">{{ $lokaal->naam }} verwijderen</h6>
+                <h6 class="border-bottom border-gray pb-1 mb-3">{{ ucfirst($lokaal->naam) }} verwijderen als lokaal</h6>
 
                 <p class="card-text text-danger">
                     <i class="fe fe-alert-triangle mr-1"></i> U staat op het punt het lokaal <span class="font-weight-bold">{{ $lokaal->naam }}</span> te verwijderen in {{ config('app.name') }}.
@@ -45,7 +45,7 @@
                             <i class="fe fe-trash-2 mr-2"></i> verwijderen
                         </button>
 
-                        <a href="{{ route('lokalen.index') }}" class="btn btn-light">
+                        <a href="{{ route('lokalen.show', $lokaal) }}" class="btn btn-light">
                             <i class="fe fe-rotate-ccw text-danger mr-2"></i> annuleren
                         </a>
                     </div>

@@ -17,6 +17,8 @@ use Illuminate\Http\Request;
  */
 class LokalenController extends Controller
 {
+    use LokalenSharedMethods; 
+
     /**
      * Create new LokalenController constructor
      * 
@@ -24,7 +26,7 @@ class LokalenController extends Controller
      */
     public function __construct() 
     {
-        $this->middleware(['auth', 'portal:application', 'forbid-banned-user']);
+        $this->middleware(['auth', '2fa', 'portal:application', 'forbid-banned-user']);
     }
 
     /**
