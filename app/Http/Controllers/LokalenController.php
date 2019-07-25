@@ -58,6 +58,9 @@ class LokalenController extends Controller
     /**
      * Methode voor het weergeven van de informatie omtrent het gegeven lokaal. 
      * 
+     * @todo Implementatie update method
+     * @todo Opbouwen van de logica om de gegevens te wijzigen
+     * 
      * @param  Lokalen $lokaal De databank entiteit van het gegeven lokaal.
      * @return Renderable
      */
