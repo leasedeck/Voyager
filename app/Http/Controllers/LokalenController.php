@@ -63,7 +63,14 @@ class LokalenController extends Controller
      */
     public function show(Lokalen $lokaal): Renderable
     {
-        return view('lokalen.show', compact('lokaal'));
+        $users = User::all(['voornaam', 'achternaam', 'id']);
+        $capacityTypes = ['n.v.t' => 'Niet van toepassing', 'personen' => 'Personen', 'slaapplekken' => 'Slaapplekken'];
+        $todoSelect = [
+            0 => 'Nee, ik wens het beheersysteem voor werkpunten niet te gebruiken.',
+            1 => 'Ja, ik wens het beheersysteem voor werkpunten te gebruiken.', 
+        ];
+
+        return view('lokalen.show', compact('lokaal', 'capacityTypes', 'users', 'todoSelect'));
     }
 
     /**
