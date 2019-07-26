@@ -7,6 +7,7 @@ use App\Http\Controllers\Users\AccountController;
 use App\Http\Controllers\Auth\PasswordSecurityController;
 use App\Http\Controllers\Contacts\ContactController;
 use App\Http\Controllers\LokalenController;
+use App\Http\Controllers\Lokalen\NotesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,9 @@ Route::get('/lokalen/nieuw', [LokalenController::class, 'create'])->name('lokale
 Route::post('/lokalen/nieuw', [LokalenController::class, 'store'])->name('lokalen.store');
 Route::get('/lokalen/{lokaal}', [LokalenController::class, 'show'])->name('lokalen.show');
 Route::match(['get', 'delete'], '/lokalen/verwijder/{lokaal}', [LokalenController::class, 'destroy'])->name('lokalen.delete');
+
+// Lokalen opmerkingen routes
+Route::get('/lokalen/{lokaal}/opmerkingen', [NotesController::class, 'index'])->name('lokalen.opmerkingen');
 
 // Contacts routes
 Route::get('/contacten/nieuw', [ContactController::class, 'create'])->name('contacts.create');

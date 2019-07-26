@@ -69,6 +69,7 @@ class LokalenController extends Controller
      */
     public function show(Lokalen $lokaal): Renderable
     {
+        $counters = $this->getNavigationCounters($lokaal);
         $users = User::all(['voornaam', 'achternaam', 'id']);
         $capacityTypes = ['n.v.t' => 'Niet van toepassing', 'personen' => 'Personen', 'slaapplekken' => 'Slaapplekken'];
         $todoSelect = [
@@ -76,7 +77,7 @@ class LokalenController extends Controller
             1 => 'Ja, ik wens het beheersysteem voor werkpunten te gebruiken.', 
         ];
 
-        return view('lokalen.show', compact('lokaal', 'capacityTypes', 'users', 'todoSelect'));
+        return view('lokalen.show', compact('lokaal', 'capacityTypes', 'users', 'todoSelect', 'counters'));
     }
 
     /**
@@ -113,7 +114,8 @@ class LokalenController extends Controller
         $this->authorize('delete', $lokaal);
 
         if ($request->isMethod('GET')) {
-            return view('lokalen.delete', compact('lokaal'));
+            $counters = $this->getNavigationCounters($lokaal);
+            return view('lokalen.delete', compact('lokaal', 'counters'));
         }
 
         DB::transaction(static function () use ($lokaal, $request): void { // HTTP - DELETE logic

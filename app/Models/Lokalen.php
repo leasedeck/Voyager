@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 /**
  * Class Lokalen 
@@ -27,6 +28,16 @@ class Lokalen extends Model
     public function verantwoordelijkeAlgemeen(): BelongsTo 
     {
         return $this->belongsTo(User::class, 'verantwoordelijke_algemeen');
+    }
+
+    /**
+     * Methode voor de opmerkingen database relatie in voyager. 
+     * 
+     * @return MorphMany
+     */
+    public function opmerkingen(): MorphMany
+    {
+        return $this->morphMany(Note::class, 'opmerking');
     }
 
     /**

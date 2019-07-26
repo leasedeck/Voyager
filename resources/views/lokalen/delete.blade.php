@@ -19,7 +19,7 @@
         <div class="card border-0">
             @include ('lokalen._partials.navigation', ['lokaal' => $lokaal])
             
-            <form method="POST" action="{{ route('lokalen.delete', $lokaal) }}" class="card card-body shadow-sm border-0">
+            <form method="POST" action="{{ route('lokalen.delete', $lokaal) }}" class="card card-body">
                 @csrf               {{-- Form field protection --}}
                 @method ('DELETE')  {{-- HTTP method spoofing --}}
 
