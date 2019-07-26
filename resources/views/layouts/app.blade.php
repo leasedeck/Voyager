@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://kit.fontawesome.com/94dda7fdbf.js"></script>
     <script> window.csrfToken = '<?php echo csrf_token(); ?>'; </script>
 
     <!-- Fonts -->

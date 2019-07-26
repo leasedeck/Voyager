@@ -41,4 +41,16 @@ class NotesController extends Controller
 
         return view('lokalen.opmerkingen.index', compact('lokaal', 'opmerkingen', 'counters'));
     }
+
+    /**
+     * Methode voor de weergave van een nieuwe opmerking.
+     * 
+     * @param  Lokalen $lokaal De gegeven databank entiteit van het gegeven lokaal.
+     * @return Renderable
+     */
+    public function create(Lokalen $lokaal): Renderable 
+    {
+        $counters = $this->getNavigationCounters($lokaal);
+        return view('lokalen.opmerkingen.create', compact('lokaal', 'counters'));
+    }
 }

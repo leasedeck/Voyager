@@ -33,7 +33,8 @@
                             @forelse ($opmerkingen as $opmerking)
                             @empty 
                                 <tr>
-                                    <td colspan="4">
+                                    <td colspan="4" class="text-muted">
+                                        <i class="fe fe-info mr-1"></i>
                                         Er zijn momenteel geen opmerkingen voor het <span class="font-weight-bold">{{ $lokaal->naam }}</span>
                                     </td>
                                 </tr>

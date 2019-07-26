@@ -6,7 +6,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-brown {{ active('lokalen.opmerkingen') }}" href="{{ route('lokalen.opmerkingen', $lokaal) }}">
+            <a class="nav-link text-brown {{ active(['lokalen.opmerkingen', 'lokalen.opmerkingen.nieuw']) }}" href="{{ route('lokalen.opmerkingen', $lokaal) }}">
                 <i class="fe text-brown fe-edit-3 mr-1"></i> Opmerkingen
                 <span class="badge badge-secondary ml-1 badge-pill">{{ $counters['opmerkingen'] }}</span>
             </a>
@@ -44,7 +44,7 @@
                     <a class="dropdown-item" href="#">Werkpuntje</a>
                 @endif
                 
-                <a class="dropdown-item" href="#">Opmerking</a>
+                <a class="dropdown-item" href="{{ route('lokalen.opmerkingen.nieuw', $lokaal) }}">Opmerking</a>
             </div>
         </li>
     </ul>

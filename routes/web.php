@@ -38,6 +38,7 @@ Route::match(['get', 'delete'], '/lokalen/verwijder/{lokaal}', [LokalenControlle
 
 // Lokalen opmerkingen routes
 Route::get('/lokalen/{lokaal}/opmerkingen', [NotesController::class, 'index'])->name('lokalen.opmerkingen');
+Route::get('/lokalen/{lokaal}/opmerking/nieuw', [NotesController::class, 'create'])->name('lokalen.opmerkingen.nieuw');
 
 // Contacts routes
 Route::get('/contacten/nieuw', [ContactController::class, 'create'])->name('contacts.create');

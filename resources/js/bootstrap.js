@@ -59,9 +59,24 @@ if (token) {
  * 3Th party javascript assets. 
  */
 require('./deleteHandler');
+require('to-markdown');
+require('bootstrap-markdown/js/bootstrap-markdown');
+
+window.markdown = require('markdown').markdown;
+
+
+const fixEditor = function(e) {
+    const $toolbar = e.$editor.find('.btn-toolbar');
+
+    $toolbar.find('.btn-default').removeClass('btn-default').addClass('btn-secondary');
+    $toolbar.find('.hidden').removeClass('hidden').prop('hidden', true);
+    $toolbar.find('.btn-group').addClass('mr-1');
+};
 
 $(document).ready(function() {
     $('div.alert').not('.alert-important').delay(4200).fadeOut(350, function() {
         $(this).alert('close');
     });
+
+    $("#markdown").markdown({onShow: fixEditor, iconlibrary: 'fa', fullscreen: false});
 });

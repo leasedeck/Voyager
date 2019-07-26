@@ -9,7 +9,39 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+@import "../../node_modules/bootstrap-markdown/css/bootstrap-markdown.min";
 @import "~primer-blankslate/index.scss";
+
+// WYSIWYG
+.md-editor .wysiwyg,
+.md-preview {
+    padding: 10px;
+}
+
+.md-editor.active {
+  color: #495057;
+  background-color: #fff;
+  border-color: #b7d45f;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(116, 141, 38, 0.25);
+}
+
+.md-header {
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+}
+
+.md-editor, {
+  border-radius: 0.25rem;
+  font-family: "Nunito", sans-serif;
+}
+
+.md-editor > textarea { 
+  padding: 0.375rem 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 400;
+  font-family: "Nunito", sans-serif;
+}
 
 // Stamp partial 
 .stamp {
