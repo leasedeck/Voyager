@@ -33,6 +33,27 @@
                         </thead>
                         <tbody>
                             @forelse ($opmerkingen as $opmerking)
+                                <tr>
+                                    <td class="font-weight-bold">{{ ucfirst($opmerking->creator->name) }}</td>
+                                    <td>{{ ucfirst($opmerking->titel) }}</td>
+                                    <td>{{ $opmerking->created_at->diffForHumans() }}</td>
+
+                                    <td> {{-- Option shortcut icons --}}
+                                        <span class="float-right">
+                                            <a href="" class="text-decoration-none text-muted mr-1">
+                                                <i class="fe fe-eye"></i>
+                                            </a>
+
+                                            <a href="" class="decoration-none text-muted mr-1">
+                                                <i class="fe fe-edit-2"></i>
+                                            </a>
+
+                                            <a href="" class="text-decoration-none text-danger">
+                                                <i class="fe fe-trash-2"></i>
+                                            </a>
+                                        </span>
+                                    </td> {{-- /// Options shortcut options --}}
+                                </tr>
                             @empty
                                 <tr>
                                     <td colspan="4" class="text-muted">
@@ -44,6 +65,8 @@
                         </tbody>
                     </table>
                 </div>
+
+                {{ $opmerkingen->links() }} {{-- Pagination view partial --}}
             </div>
         </div>
     </div>

@@ -2,6 +2,7 @@
 
 namespace App\Composers;
 
+use Carbon\Carbon;
 use Illuminate\View\View;
 use Illuminate\Contracts\Auth\Guard;
 
@@ -37,5 +38,7 @@ class LayoutComposer
     public function compose(View $view): void
     {
         $view->with('currentUser', $this->auth->user());
+        Carbon::setLocale(config('app.locale'));
+
     }
 }

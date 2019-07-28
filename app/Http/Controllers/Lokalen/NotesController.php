@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Support\Renderable;
 use App\Models\Lokalen;
 use App\Traits\LokalenSharedMethods;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -39,7 +40,7 @@ class NotesController extends Controller
      */
     public function index(Lokalen $lokaal, ?string $filter = null): Renderable
     {
-        $opmerkingen = $lokaal->opmerkingen()->simplePaginate();
+        $opmerkingen = $lokaal->opmerkingen()->latest()->simplePaginate();
         $counters    = $this->getNavigationCounters($lokaal);
 
         return view('lokalen.opmerkingen.index', compact('lokaal', 'opmerkingen', 'counters'));
@@ -75,5 +76,18 @@ class NotesController extends Controller
         });
 
         return redirect()->route('lokalen.opmerkingen', $lokaal);
+    }
+
+    /**
+     * Methode om een lokaal notitie te verwijderen uit het systeem.
+     *
+     * @param  Note $note De entiteit van de notitie in de databank.
+     * @return RedirectResponse
+     */
+    public function destroy(Note $note): RedirectResponse
+    {
+        // TODO register route.
+
+        abort (Response::HTTP_FORBIDDEN);
     }
 }
