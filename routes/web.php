@@ -29,7 +29,7 @@ Route::get('/notificaties/markAll', [NotificationController::class, 'markAll'])-
 Route::get('/notificaties/markOne/{notification}', [NotificationController::class, 'markOne'])->name('notifications.markAsRead');
 Route::get('/notificaties/{type?}', [NotificationController::class, 'index'])->name('notifications.index');
 
-// Lokalen Routes 
+// Lokalen Routes
 Route::get('/lokalen', [LokalenController::class, 'index'])->name('lokalen.index');
 Route::get('/lokalen/nieuw', [LokalenController::class, 'create'])->name('lokalen.create');
 Route::post('/lokalen/nieuw', [LokalenController::class, 'store'])->name('lokalen.store');
@@ -39,6 +39,7 @@ Route::match(['get', 'delete'], '/lokalen/verwijder/{lokaal}', [LokalenControlle
 // Lokalen opmerkingen routes
 Route::get('/lokalen/{lokaal}/opmerkingen', [NotesController::class, 'index'])->name('lokalen.opmerkingen');
 Route::get('/lokalen/{lokaal}/opmerking/nieuw', [NotesController::class, 'create'])->name('lokalen.opmerkingen.nieuw');
+Route::post('/lokalen/{lokaal}/opmerking/opslaan', [NotesController::class, 'store'])->name('lokalen.opmerkingen.store');
 
 // Contacts routes
 Route::get('/contacten/nieuw', [ContactController::class, 'create'])->name('contacts.create');

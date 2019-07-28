@@ -42,7 +42,7 @@ class NotificationController extends Controller
         $notificationData = $this->notificationsRepository->getByType($type);
         $viewVariables = ['notifications' => $notificationData['notifications'], 'type' => $notificationData['type']];
         $notificationsCount = [
-            'unreadCount' => $this->getAuthenticatedUser()->unreadNotifications()->count(), 
+            'unreadCount' => $this->getAuthenticatedUser()->unreadNotifications()->count(),
             'notificationsCount' => $this->getAuthenticatedUser()->notifications()->count()
         ];
 

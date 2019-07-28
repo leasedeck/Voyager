@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+/**
+ * Class CreateNotesTable
+ */
 class CreateNotesTable extends Migration
 {
     /**
@@ -11,12 +14,18 @@ class CreateNotesTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('notes', function (Blueprint $table) {
+        Schema::create('notes', static function (Blueprint $table): void {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('creator_id')->nullable();
+            $table->string('titel');
+            $table->text('opmerking');
             $table->morphs('opmerking');
             $table->timestamps();
+
+            // Indexes
+            $table->foreign('creator_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 
@@ -25,7 +34,7 @@ class CreateNotesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('notes');
     }

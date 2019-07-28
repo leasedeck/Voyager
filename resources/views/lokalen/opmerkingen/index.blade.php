@@ -19,6 +19,8 @@
             @include ('lokalen._partials.navigation', ['lokaal' => $lokaal])
 
             <div class="card-body">
+                @include('flash::message') {{-- Flash session view partial. --}}
+
                 <div class="table-responsive">
                     <table class="table-sm table-hover mb-0 table">
                         <thead>
@@ -31,7 +33,7 @@
                         </thead>
                         <tbody>
                             @forelse ($opmerkingen as $opmerking)
-                            @empty 
+                            @empty
                                 <tr>
                                     <td colspan="4" class="text-muted">
                                         <i class="fe fe-info mr-1"></i>
