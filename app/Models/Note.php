@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Relations\HasCreator;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 /**
  * Class Note
@@ -19,5 +20,10 @@ class Note extends Model
      *
      * @var array
      */
-     protected $guarded = ['id'];
+    protected $guarded = ['id'];
+
+    public function lokaal()
+    {
+        return $this->morphTo('opmerking');
+    }
 }

@@ -40,6 +40,7 @@ Route::match(['get', 'delete'], '/lokalen/verwijder/{lokaal}', [LokalenControlle
 Route::get('/lokalen/{lokaal}/opmerkingen', [NotesController::class, 'index'])->name('lokalen.opmerkingen');
 Route::get('/lokalen/{lokaal}/opmerking/nieuw', [NotesController::class, 'create'])->name('lokalen.opmerkingen.nieuw');
 Route::post('/lokalen/{lokaal}/opmerking/opslaan', [NotesController::class, 'store'])->name('lokalen.opmerkingen.store');
+Route::delete('/opmerking/verwijder/{note}', [NotesController::class, 'destroy'])->name('lokaal.opmerking.destroy');
 
 // Contacts routes
 Route::get('/contacten/nieuw', [ContactController::class, 'create'])->name('contacts.create');

@@ -44,13 +44,11 @@
                                                 <i class="fe fe-eye"></i>
                                             </a>
 
-                                            <a href="" class="decoration-none text-muted mr-1">
-                                                <i class="fe fe-edit-2"></i>
-                                            </a>
-
-                                            <a href="" class="text-decoration-none text-danger">
-                                                <i class="fe fe-trash-2"></i>
-                                            </a>
+                                            @can('verwijder-opmerking', $opmerking)
+                                                <a href="{{ route('lokaal.opmerking.destroy', $opmerking) }}" data-method="DELETE" class="text-decoration-none text-danger">
+                                                    <i class="fe fe-trash-2"></i>
+                                                </a>
+                                            @endcan
                                         </span>
                                     </td> {{-- /// Options shortcut options --}}
                                 </tr>

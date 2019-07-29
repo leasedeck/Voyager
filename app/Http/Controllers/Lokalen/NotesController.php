@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Lokalen;
 
-use App\Http\Requests\Lokalen\OpmerkingFormRequest;
-use App\Models\Note;
-use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
-use Illuminate\Contracts\Support\Renderable;
+use App\Http\Requests\Lokalen\OpmerkingFormRequest;
 use App\Models\Lokalen;
+use App\Models\Note;
 use App\Traits\LokalenSharedMethods;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -81,13 +80,22 @@ class NotesController extends Controller
     /**
      * Methode om een lokaal notitie te verwijderen uit het systeem.
      *
-     * @param  Note $note De entiteit van de notitie in de databank.
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     *
+     * @param Note $note De entiteit van de notitie in de databank.
      * @return RedirectResponse
      */
     public function destroy(Note $note): RedirectResponse
     {
-        // TODO register route.
+        $this->authorize('verwijder-opmerking', $note);
 
-        abort (Response::HTTP_FORBIDDEN);
+        DB::transaction(static function () use ($note): void {
+            $note->delete();
+
+            (new Controller)->getAuthenticatedUser()->logActivity($note, 'Notities', "Heeft een notitie van het {$note->lokaal->naam} verwijderd.");
+            flash("De opmerking van het {$note->lokaal->naam} is verwijderd in de applicatie.");
+        });
+
+        return redirect()->route('lokalen.opmerkingen', $note->lokaal);
     }
 }
