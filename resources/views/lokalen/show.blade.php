@@ -1,6 +1,6 @@
 @extends ('layouts.app', ['title' => 'Lokalen'])
 
-@section('content') 
+@section('content')
     <div class="container-fluid py-3">
         <div class="page-header">
             <h1 class="page-title">Lokalen</h1>
@@ -15,13 +15,16 @@
     </div>
 
     <div class="container-fluid pb-3">
-    
+
         <div class="card border-0">
             @include ('lokalen._partials.navigation', ['lokaal' => $lokaal])
-            
-            <form method="POST" action="{{ route('lokalen.store') }}" class="card-body">
-                @csrf {{-- Form field protection --}}
-                @form ($lokaal)
+
+            <form method="POST" action="{{ route('lokalen.update', $lokaal) }}" class="card-body">
+                @csrf               {{-- Form field protection --}}
+                @form ($lokaal)     {{-- Band data fo the form --}}
+                @method ('PATCH')   {{-- HTTP method spoofing --}}
+
+                @include('flash::message')  {{-- Flash session view partial --}}
 
                 <fieldset @if ($currentUser->cannot('update', $lokaal)) disabled @endif>
                     <div class="row mt-2">
@@ -39,10 +42,10 @@
 
                                 <div class="form-group col-5">
                                     <label for="verantwoordelijke">Verantwoordelijke algemeen <span class="text-danger">*</span></label>
-                                    
+
                                     <select class="custom-select @error('verantwoordelijke_algemeen', 'is-invalid')" @input('verantwoordelijke_algemeen')>
                                         <option value="">-- lokaal verantwoordelijke --</option>
-                                        
+
                                         @foreach ($users as $user) {{-- Loop door de gebruikers --}}
                                             <option value="{{ $user->id }}" @if (old('verantwoordelijke_algemeen') == $user->id || $lokaal->verantwoordelijke_algemeen == $user->id) selected @endif>
                                                 {{ ucfirst($user->voornaam) }} {{ ucfirst($user->achternaam) }}
@@ -56,7 +59,7 @@
                                 <div class="form-group col-6 mb-0">
                                     <label for="persons">Aantal personen <span class="text-danger">*</span></label>
                                     <input aria-describedby="personsHelpBlock" type="text" class="form-control @error('aantal_personen', 'is-invalid')" placeholder="Capaciteit aantal personen" @input('aantal_personen')>
-                                    
+
                                     @if ($errors->has('aantal_personen'))
                                         @error('aantal_personen') {{-- Validation error view partial --}}
                                     @else {{-- Display the help text --}}
@@ -68,7 +71,7 @@
 
                                 <div class="form-group- col-6 mb-0">
                                     <label for="capactiyType">Capaciteits type <span class="text-danger">*</span></label>
-                                    
+
                                     <select class="custom-select @error('capaciteits_type', 'is-invalid')" @input('capaciteits_type')>
                                         <option value="">-- selecteer capaciteits type --</option>
                                         @options($capacityTypes, 'capaciteits_type')
@@ -101,10 +104,10 @@
 
                                 <div class="form-group col-5">
                                     <label for="verantwoordelijke">Verantwoordelijke onderhoud <span class="text-danger">*</span></label>
-                                    
+
                                     <select class="custom-select @error('verantwoordelijke_onderhoud', 'is-invalid')" @input('verantwoordelijke_onderhoud')>
                                         <option value="">-- onderhouds verantwoordelijke --</option>
-                                        
+
                                         @foreach ($users as $user) {{-- Loop door de gebruikers --}}
                                             <option value="{{ $user->id }}" @if (old('verantwoordelijke_onderhoud') == $user->id || $lokaal->verantwoordelijke_onderhoud == $user->id) selected @endif>
                                                 {{ ucfirst($user->voornaam) }} {{ ucfirst($user->achternaam) }}

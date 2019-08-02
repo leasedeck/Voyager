@@ -58,6 +58,20 @@ class NotesController extends Controller
     }
 
     /**
+     * Methode om een notitie die gekoppeld is aan het lokaal weer te geven.
+     *
+     * @param  Note $note De databank entiteit van de lokaal notitie (opmerking).
+     * @return Renderable
+     */
+    public function show(Note $note): Renderable
+    {
+        $lokaal = $note->lokaal; // Lokaal entiteit nodig voor de navigatie.
+        $counters = $this->getNavigationCounters($lokaal);
+
+        return view('lokalen.opmerkingen.show', compact('note', 'lokaal', 'counters'));
+    }
+
+    /**
      * Methode om de opmerking van een lokaal op te slaan in Voyager.
      *
      * @param  OpmerkingFormRequest $request    De validator instantie voor de request.

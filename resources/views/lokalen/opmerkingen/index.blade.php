@@ -7,9 +7,9 @@
             <div class="page-subtitle">Opmerkingen omtrent {{ ucfirst($lokaal->naam) }}</div>
 
             <div class="page-options d-flex">
-                <a href="{{ route('lokalen.index') }}" class="btn shadow-sm btn-secondary">
-                    <i class="fe fe-list mr-2"></i> Overzicht
-                </a>
+                <form method="GET" action="" class="border-0 shadow-sm form-search mr-2">
+                    <input type="text" class="form-search border-0 form-control" @input('term') placeholder="Zoek notitie">
+                </form>
             </div>
         </div>
     </div>
@@ -40,7 +40,7 @@
 
                                     <td> {{-- Option shortcut icons --}}
                                         <span class="float-right">
-                                            <a href="" class="text-decoration-none text-muted mr-1">
+                                            <a href="{{ route('lokalen.opmerkingen.show', $opmerking) }}" class="text-decoration-none text-muted mr-1">
                                                 <i class="fe fe-eye"></i>
                                             </a>
 

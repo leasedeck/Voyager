@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Models\Relations\HasCreator;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
  * Class Note
@@ -22,6 +22,11 @@ class Note extends Model
      */
     protected $guarded = ['id'];
 
+    /**
+     * Data relatie voor het lokaal van de notitie.
+     *
+     * @return MorphTo
+     */
     public function lokaal()
     {
         return $this->morphTo('opmerking');

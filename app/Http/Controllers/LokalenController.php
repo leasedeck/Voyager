@@ -12,58 +12,55 @@ use Illuminate\Http\Request;
 use App\Traits\LokalenSharedMethods;
 
 /**
- * Class LokalenController 
- * 
- * @package App\Http\Controllers 
+ * Class LokalenController
+ *
+ * @package App\Http\Controllers
  */
 class LokalenController extends Controller
 {
-    use LokalenSharedMethods; 
+    use LokalenSharedMethods;
 
     /**
      * Create new LokalenController constructor
-     * 
+     *
      * @return void
      */
-    public function __construct() 
+    public function __construct()
     {
         $this->middleware(['auth', '2fa', 'portal:application', 'forbid-banned-user']);
     }
 
     /**
      * Display the index overview page for the "Lokalen"
-     * 
+     *
      * @param  Lokalen $lokalen The database model entoty for the lokalen in Voyager
-     * @return Renderable 
+     * @return Renderable
      */
-    public function index(Lokalen $lokalen): Renderable 
+    public function index(Lokalen $lokalen): Renderable
     {
         return view('lokalen.overview', ['lokalen' => $lokalen->paginate()]);
     }
 
     /**
      * Method to display the create page for an new "Lokaal"
-     * 
+     *
      * @return Renderable
      */
-    public function create(): Renderable 
+    public function create(): Renderable
     {
         $users = User::all(['voornaam', 'achternaam', 'id']);
         $capacityTypes = ['n.v.t' => 'Niet van toepassing', 'personen' => 'Personen', 'slaapplekken' => 'Slaapplekken'];
         $todoSelect = [
             0 => 'Nee, ik wens het beheersysteem voor werkpunten niet te gebruiken.',
-            1 => 'Ja, ik wens het beheersysteem voor werkpunten te gebruiken.', 
+            1 => 'Ja, ik wens het beheersysteem voor werkpunten te gebruiken.',
         ];
 
         return view('lokalen.create', compact('capacityTypes', 'users', 'todoSelect'));
     }
 
     /**
-     * Methode voor het weergeven van de informatie omtrent het gegeven lokaal. 
-     * 
-     * @todo Implementatie update method
-     * @todo Opbouwen van de logica om de gegevens te wijzigen
-     * 
+     * Methode voor het weergeven van de informatie omtrent het gegeven lokaal.
+     *
      * @param  Lokalen $lokaal De databank entiteit van het gegeven lokaal.
      * @return Renderable
      */
@@ -74,19 +71,40 @@ class LokalenController extends Controller
         $capacityTypes = ['n.v.t' => 'Niet van toepassing', 'personen' => 'Personen', 'slaapplekken' => 'Slaapplekken'];
         $todoSelect = [
             0 => 'Nee, ik wens het beheersysteem voor werkpunten niet te gebruiken.',
-            1 => 'Ja, ik wens het beheersysteem voor werkpunten te gebruiken.', 
+            1 => 'Ja, ik wens het beheersysteem voor werkpunten te gebruiken.',
         ];
 
         return view('lokalen.show', compact('lokaal', 'capacityTypes', 'users', 'todoSelect', 'counters'));
     }
 
     /**
-     * Methode voor het opslaan van een lokaal in Voyager. 
-     * 
+     * Method om de gegevens van een lokaal aan te passen in voyager.
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     *
+     * @param  LokalenFormRequest $input    De instantie dat de validatie van inputs regelt en info bezit van de request.
+     * @param  Lokalen            $lokaal   Entiteit van de database resource
+     * @return RedirectResponse
+     */
+    public function update(LokalenFormRequest $input, Lokalen $lokaal): RedirectResponse
+    {
+        $this->authorize('update', $lokaal);
+
+        DB::transaction(static function () use ($lokaal, $input): void {
+            $lokaal->update($input->all());
+            flash("Het {$lokaal->naam} lokaal is aangepast in is aangepast in " . config('app.name'));
+        });
+
+        return redirect()->route('lokalen.show', $lokaal);
+    }
+
+    /**
+     * Methode voor het opslaan van een lokaal in Voyager.
+     *
      * @see \App\Observers\LokalenObserver::created()
      *
      * @param  LokalenFormRequest   $input  De instantie dat de validatie van inputs regelt en info bezit van de request.
-     * @param  Lokalen              $lokaal Entiteit van de database model. 
+     * @param  Lokalen              $lokaal Entiteit van de database model.
      * @return RedirectResponse
      */
     public function store(LokalenFormRequest $input, Lokalen $lokaal): RedirectResponse
@@ -103,10 +121,12 @@ class LokalenController extends Controller
     }
 
     /**
-     * Methode om een lokaal te verwijderen uit Voyager.  
-     * 
-     * @param  Request $request De instantie voor de data van de request
-     * @param  Lokalen $lokaal  De databank entiteit van het gegeven lokaal.
+     * Methode om een lokaal te verwijderen uit Voyager.
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     *
+     * @param Request $request De instantie voor de data van de request
+     * @param Lokalen $lokaal De databank entiteit van het gegeven lokaal.
      * @return Renderable|RedirectResponse
      */
     public function destroy(Request $request, Lokalen $lokaal)
@@ -121,7 +141,7 @@ class LokalenController extends Controller
         DB::transaction(static function () use ($lokaal, $request): void { // HTTP - DELETE logic
             $lokaal->delete();
             $request->user()->logActivity($lokaal, 'Lokalen', "Heeft het {$lokaal->naam} verwijderd uit " . config('app.name'));
-            
+
             if (Lokalen::count() > 0) {
                 flash("Het <strong>{$lokaal->naam}</strong> is met succes verwijderd uit " . config('app.name'))->important();
             }

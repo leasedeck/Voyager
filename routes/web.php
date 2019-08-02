@@ -34,9 +34,11 @@ Route::get('/lokalen', [LokalenController::class, 'index'])->name('lokalen.index
 Route::get('/lokalen/nieuw', [LokalenController::class, 'create'])->name('lokalen.create');
 Route::post('/lokalen/nieuw', [LokalenController::class, 'store'])->name('lokalen.store');
 Route::get('/lokalen/{lokaal}', [LokalenController::class, 'show'])->name('lokalen.show');
+Route::patch('/lokalen/{lokaal}', [LokalenController::class, 'update'])->name('lokalen.update');
 Route::match(['get', 'delete'], '/lokalen/verwijder/{lokaal}', [LokalenController::class, 'destroy'])->name('lokalen.delete');
 
 // Lokalen opmerkingen routes
+Route::get('/lokalen/opmerking/{note}', [NotesController::class, 'show'])->name('lokalen.opmerkingen.show');
 Route::get('/lokalen/{lokaal}/opmerkingen', [NotesController::class, 'index'])->name('lokalen.opmerkingen');
 Route::get('/lokalen/{lokaal}/opmerking/nieuw', [NotesController::class, 'create'])->name('lokalen.opmerkingen.nieuw');
 Route::post('/lokalen/{lokaal}/opmerking/opslaan', [NotesController::class, 'store'])->name('lokalen.opmerkingen.store');

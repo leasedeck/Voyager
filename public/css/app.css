@@ -12037,6 +12037,20 @@ a.text-dark:focus {
   border-width: 0;
 }
 
+.notitie-subheading {
+  color: #6c757d;
+  font-size: 80%;
+  font-weight: 400;
+}
+
+.notitie-options {
+  font-size: 90%;
+}
+
+.markdown-text > p:last-child {
+  margin-bottom: 0 !important;
+}
+
 .form-control:disabled,
 .form-control[readonly] {
   background-color: #f1f5f8;
