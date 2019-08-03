@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -48,5 +49,16 @@ class Lokalen extends Model
     public function verantwoordelijkeOnderhoud(): BelongsTo
     {
         return $this->belongsTo(User::class, 'verantwoordelijke_onderhoud');
+    }
+
+    /**
+     * Method om een zoekopdracht te verrichten in de opmerkingen relatie.
+     *
+     * @param  string $term De zoek term die opgegeven is door de gebruiker.
+     * @return MorphMany
+     */
+    public function searchInNotes(string $term): MorphMany
+    {
+        return $this->opmerkingen()->where('titel', 'LIKE', "%{$term}%");
     }
 }

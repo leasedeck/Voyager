@@ -9,6 +9,7 @@ use App\Models\Note;
 use App\Traits\LokalenSharedMethods;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -34,13 +35,16 @@ class NotesController extends Controller
      * Methode voor het weergeven van alle opmerkingen omtrent het gegeven lokaal.
      *
      * @param  Lokalen      $lokaal The gegeven database entiteit van het gegeven lokaal.
-     * @param  string|null  $filter The filter criteria de gebruiker wilt toepassen op de resultaten.π
      * @return Renderable
      */
-    public function index(Lokalen $lokaal, ?string $filter = null): Renderable
+    public function index(Lokalen $lokaal, Request $request): Renderable
     {
+        $counters = $this->getNavigationCounters($lokaal);
         $opmerkingen = $lokaal->opmerkingen()->latest()->simplePaginate();
-        $counters    = $this->getNavigationCounters($lokaal);
+
+        if ($request->has('term')) {
+            $opmerkingen = $lokaal->searchInNotes($request->term)->latest()->simplePaginate();
+        }
 
         return view('lokalen.opmerkingen.index', compact('lokaal', 'opmerkingen', 'counters'));
     }

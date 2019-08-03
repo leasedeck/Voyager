@@ -34,7 +34,7 @@
                         <tbody>
                             @forelse ($opmerkingen as $opmerking)
                                 <tr>
-                                    <td class="font-weight-bold">{{ ucfirst($opmerking->creator->name) }}</td>
+                                    <td class="font-weight-bold">{{ ucfirst($opmerking->creator->name ?? config('app.name')) }}</td>
                                     <td>{{ ucfirst($opmerking->titel) }}</td>
                                     <td>{{ $opmerking->created_at->diffForHumans() }}</td>
 
