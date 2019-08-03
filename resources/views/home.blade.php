@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    <div class="container-fluid pb-3">
+    <div class="container-fluid">
         <div class="row"> {{-- Widgets --}}
             <div class="col-3"> {{-- lokalen widget --}}
                 <div class="card border-0 shadow-sm mb-4 p-2">
@@ -80,6 +80,11 @@
         </div> {{-- /// END widgets --}}
     </div>
 
-    <div class="container-fluid pb-2">
+    <div class="container-fluid pt-0 pb-3">
+        <div class="card card-body border-0 shadow-sm">
+            <h6 class="border-bottom border-gray pb-1 mb-3">
+                <i class="text-brown fe fe-home mr-1"></i> Nieuwe aanvragen
+            </h6>
+        </div>
     </div>
 @endsection
