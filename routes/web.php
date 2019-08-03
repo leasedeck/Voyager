@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\Tenants\TenantController;
 use App\Http\Controllers\Users\AccountController;
 use App\Http\Controllers\Auth\PasswordSecurityController;
 use App\Http\Controllers\Contacts\ContactController;
@@ -23,6 +24,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // Activity routes
 Route::get('{user}/logs', [ActivityController::class, 'show'])->name('users.activity');
+
+// Huurder routes
+Route::get('/huurders', [TenantController::class, 'index'])->name('tenants.overview');
 
 // Notification routes
 Route::get('/notificaties/markAll', [NotificationController::class, 'markAll'])->name('notifications.markAll');

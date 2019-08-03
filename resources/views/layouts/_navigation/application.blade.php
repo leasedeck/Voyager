@@ -7,7 +7,7 @@
     <small>(0)</small>
 </a>
 
-<a class="nav-link" href="">
+<a class="nav-link {{ active('tenants*') }}" href="{{ route('tenants.overview') }}">
     <i class="fe fe-users mr-1"></i> Huurders
 </a>
 
