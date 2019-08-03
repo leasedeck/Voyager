@@ -39,9 +39,11 @@
                             </a>
                         @endif
 
-                        <a href="" class="card-link text-muted">
-                            <i class="fe fe-trash-2 text-danger mr-1"></i> Verwijder
-                        </a>
+                        @if ($currentUser->can('verwijder-opmerking', $note))
+                            <a href="{{ route('lokaal.opmerking.destroy', $note) }}" data-method="DELETE" class="card-link text-muted">
+                                <i class="fe fe-trash-2 text-danger mr-1"></i> Verwijder
+                            </a>
+                        @endif
                     </span>
                 </p>
             </div>
