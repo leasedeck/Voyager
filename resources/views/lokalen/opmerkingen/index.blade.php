@@ -62,7 +62,12 @@
                                 <tr>
                                     <td colspan="4" class="text-muted">
                                         <i class="fe fe-info mr-1"></i>
-                                        Er zijn momenteel geen opmerkingen voor het <span class="font-weight-bold">{{ $lokaal->naam }}</span>
+
+                                        @if (request()->has('term'))
+                                            Er zijn geen opmerkingen gevonden die matchen met je zoekterm.
+                                        @else
+                                            Er zijn momenteel geen opmerkingen voor het <span class="font-weight-bold">{{ $lokaal->naam }}</span>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforelse
