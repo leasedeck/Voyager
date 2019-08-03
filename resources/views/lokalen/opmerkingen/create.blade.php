@@ -15,7 +15,7 @@
     </div>
 
     <div class="container-fluid pb-3">
-        <div class="card oborder-0">
+        <div class="card border-0">
             @include ('lokalen._partials.navigation', ['lokaal' => $lokaal])
 
             <form method="POST" action="{{ route('lokalen.opmerkingen.store', $lokaal) }}" class="card-body">
@@ -25,8 +25,13 @@
                 @if ($errors->first('titel') || $errors->first('opmerking'))
                     <div class="alert alert-danger alert-important alert-dismissible border-0" role="alert">
                         <ul class="list-unstyled mb-0">
-                            <li><i class="fe fe-x-circle mr-2"></i> {{ $errors->first('titel') }}</li>
-                            <li><i class="fe fe-x-circle mr-2"></i> {{ $errors->first('opmerking') }}</li>
+                            @if ($errors->has('titel'))
+                                <li><i class="fe fe-x-circle mr-2"></i> {{ $errors->first('titel') }}</li>
+                            @endif
+
+                            @if ($errors->has('opmerking'))
+                                <li><i class="fe fe-x-circle mr-2"></i> {{ $errors->first('opmerking') }}</li>
+                            @enndif
                         </ul>
                     </div>
                 @endif

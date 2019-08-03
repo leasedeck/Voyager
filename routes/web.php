@@ -39,6 +39,8 @@ Route::match(['get', 'delete'], '/lokalen/verwijder/{lokaal}', [LokalenControlle
 
 // Lokalen opmerkingen routes
 Route::get('/lokalen/opmerking/{note}', [NotesController::class, 'show'])->name('lokalen.opmerkingen.show');
+Route::get('/lokalen/opmerking/wijzig/{opmerking}', [NotesController::class, 'edit'])->name('lokalen.opmerkingen.wijzig');
+Route::patch('/lokalen/opmerking/wijzig/{opmerking}', [NotesController::class, 'update'])->name('lokalen.opmerkingen.update');
 Route::get('/lokalen/{lokaal}/opmerkingen', [NotesController::class, 'index'])->name('lokalen.opmerkingen');
 Route::get('/lokalen/{lokaal}/opmerking/nieuw', [NotesController::class, 'create'])->name('lokalen.opmerkingen.nieuw');
 Route::post('/lokalen/{lokaal}/opmerking/opslaan', [NotesController::class, 'store'])->name('lokalen.opmerkingen.store');

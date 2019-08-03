@@ -44,6 +44,12 @@
                                                 <i class="fe fe-eye"></i>
                                             </a>
 
+                                            @can('wijzig-lokaal-opmerking', $opmerking)
+                                                <a href="{{ route('lokalen.opmerkingen.wijzig', $opmerking) }}" class="text-decoration-none text-muted mr-1">
+                                                    <i class="fe fe-edit-3"></i>
+                                                </a>
+                                            @endcan
+
                                             @can('verwijder-opmerking', $opmerking)
                                                 <a href="{{ route('lokaal.opmerking.destroy', $opmerking) }}" data-method="DELETE" class="text-decoration-none text-danger">
                                                     <i class="fe fe-trash-2"></i>

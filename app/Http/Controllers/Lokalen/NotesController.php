@@ -72,6 +72,43 @@ class NotesController extends Controller
     }
 
     /**
+     * Methode om de weergave te tonen om een lokaal opmerking te wijzigen.
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     *
+     * @param  Note $opmerking De databank entiteit van een lokaal opmering in de applicatie.
+     * @return Renderable
+     */
+    public function edit(Note $opmerking): Renderable
+    {
+        $this->authorize('wijzig-lokaal-opmerking', $opmerking);
+        $counters = $this->getNavigationCounters($opmerking->lokaal);
+
+        return view('lokalen.opmerkingen.edit', compact('opmerking', 'counters'));
+    }
+
+    /**
+     * Methode om de wijziging(en) van een lokaal notitie op te slaan in de databank.
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     *
+     * @param  OpmerkingFormRequest $request   De validator instantie voor de request.
+     * @param  Note                 $opmerking De gegeven databank entiteit van het gegeven lokaal.
+     * @return RedirectResponse
+     */
+    public function update(OpmerkingFormRequest $request, Note $opmerking): RedirectResponse
+    {
+        $this->authorize('wijzig-lokaal-opmerking', $opmerking);
+
+        DB::transaction(static function () use ($request, $opmerking): void {
+            $opmerking->update($request->all());
+            flash("De notitie van het {$opmerking->lokaal->naam} lokaal is aangepast in ". config('app.name'), 'success');
+        });
+
+        return back(); // Redirect the user to the previous route
+    }
+
+    /**
      * Methode om de opmerking van een lokaal op te slaan in Voyager.
      *
      * @param  OpmerkingFormRequest $request    De validator instantie voor de request.
