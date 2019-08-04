@@ -46,7 +46,7 @@
 
                         <div class="form-group col-5 mb-0">
                             <label for="phoneNumb">Tel. nummer <span class="text-danger">*</span></label>
-                            <input type="text" id="telNumb" class="form-control" placeholder="Telefoon nr van de huurder" @input('email')>
+                            <input type="text" id="telNumb" class="form-control" placeholder="Telefoon nr van de huurder" @input('telefoon_nummer')>
                         </div>
                     </div>
                 </div>

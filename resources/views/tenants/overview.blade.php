@@ -31,6 +31,8 @@
                 </a>
             </div>
         @else
+            <div class="card card-body border-0 shadow-sm">
+            </div>
         @endif
     </div>
 @endsection

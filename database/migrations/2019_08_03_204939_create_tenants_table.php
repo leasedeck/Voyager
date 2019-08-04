@@ -24,10 +24,11 @@ class CreateTenantsTable extends Migration
 
         Schema::create('tenants', static function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('land_id');
+            $table->unsignedBigInteger('land_id')->nullable();
             $table->string('voornaam');
             $table->string('achternaam');
             $table->string('email');
+            $table->string('telefoon_nummer')->nullable();
             $table->string('adres');
             $table->string('postcode', 20);
             $table->string('stad');

@@ -9,6 +9,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class TenantController
@@ -58,6 +59,18 @@ class TenantController extends Controller
      */
     public function store(TenantsFormRequest $request, Tenant $huurder): RedirectResponse
     {
-        dd($request->all());
+        DB::transaction(static function () use ($request, $huurder): Tenant {
+            $huurder = $huurder->create($request->except('land_id'))->setCountry($request->land_id);
+            flash($huurder->name . 'Is toegevoegd als huurder in de applicatie');
+
+            return $huurder;
+        });
+
+        return redirect()->route('tenants.show', $huurder);
+    }
+
+    public function show(Tenant $huurder): Renderable
+    {
+        // TODO
     }
 }
