@@ -27,6 +27,8 @@ Route::get('{user}/logs', [ActivityController::class, 'show'])->name('users.acti
 
 // Huurder routes
 Route::get('/huurders', [TenantController::class, 'index'])->name('tenants.overview');
+Route::get('/huurders/nieuw', [TenantController::class, 'create'])->name('tenants.create');
+Route::post('/huurders/nieuw', [TenantController::class, 'store'])->name('tenants.store');
 
 // Notification routes
 Route::get('/notificaties/markAll', [NotificationController::class, 'markAll'])->name('notifications.markAll');

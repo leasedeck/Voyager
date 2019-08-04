@@ -7,7 +7,7 @@
             <div class="page-subtitle">Overzicht</div>
 
             <div class="page-options d-flex">
-                <a href="" class="btn shadow-sm btn-secondary">
+                <a href="{{ route('tenants.create') }}" class="btn shadow-sm btn-secondary">
                     <i class="fe fe-plus"></i>
                 </a>
 
@@ -26,7 +26,7 @@
                     Het lijkt erop dat er geen huurders zijn toegevoegd in {{ config('app.name') }}. Of er geen huurders gevonden zijn matchend met je zoekopdracht.
                 </p>
 
-                <a href="{{ route('lokalen.create') }}" class="btn border-0 mt-2 btn-secondary">
+                <a href="{{ route('tenants.create') }}" class="btn border-0 mt-2 btn-secondary">
                     <i class="fe fe-plus mr-2"></i> Huurder toevoegen
                 </a>
             </div>
