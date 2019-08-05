@@ -37,7 +37,7 @@ class TenantController extends Controller
      */
     public function index(Tenant $tenants, Request $request): Renderable
     {
-        return view('tenants.overview', ['tenants' => $tenants->paginate()]);
+        return view('tenants.overview', ['tenants' => $tenants->withCount('verhuringen')->paginate()]);
     }
 
     /**
@@ -69,8 +69,17 @@ class TenantController extends Controller
         return redirect()->route('tenants.show', $huurder);
     }
 
+    /**
+     * Methode om de informatie van een huurder weer te geven.
+     *
+     * @param  Tenant $huurder De databank entiteit van de huurder
+     * @return Renderable
+     */
     public function show(Tenant $huurder): Renderable
     {
-        // TODO
+        $canEdit = $this->getAuthenticatedUser()->can('update', $huurder);
+        $countries = Country::all(['id', 'name']);
+
+        return view('tenants.show', compact('canEdit', 'huurder', 'countries'));
     }
 }

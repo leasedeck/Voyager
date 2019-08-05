@@ -3,9 +3,11 @@
 namespace App\Providers;
 
 use App\Models\Note;
+use App\Models\Tenant;
 use App\Models\User;
 use App\Models\Contact;
 use App\Policies\OpmerkingenPolicy;
+use App\Policies\TenantPolicy;
 use App\Policies\UserPolicy;
 use App\Policies\LokaalPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -25,10 +27,11 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        User::class => UserPolicy::class,
-        Contact::class => ContactPolicy::class,
-        Lokalen::class => LokaalPolicy::class,
-        Note::class => OpmerkingenPolicy::class,
+        User::class     => UserPolicy::class,
+        Contact::class  => ContactPolicy::class,
+        Lokalen::class  => LokaalPolicy::class,
+        Note::class     => OpmerkingenPolicy::class,
+        Tenant::class   => TenantPolicy::class,
     ];
 
     /**
