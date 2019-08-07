@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Tenants;
 
+use Exception;
+use ActivismeBe\ValidationRules\Rules\MatchUserPassword;
 use App\Http\Requests\TenantsFormRequest;
 use App\Models\Country;
 use App\Models\Tenant;
@@ -72,6 +74,8 @@ class TenantController extends Controller
     /**
      * Methode om de informatie van een huurder weer te geven.
      *
+     * @todo Implementatie update methode om de info aan te passen.
+     *
      * @param  Tenant $huurder De databank entiteit van de huurder
      * @return Renderable
      */
@@ -81,5 +85,37 @@ class TenantController extends Controller
         $countries = Country::all(['id', 'name']);
 
         return view('tenants.show', compact('canEdit', 'huurder', 'countries'));
+    }
+
+    /**
+     * Methode om een huurder te verwijderen uit de applicatie.
+     *
+     * @param  Request $request De instantie dat de data bijhoud van de request.
+     * @param  Tenant  $tenant  De databank entiteit van de huurder.
+     * @return Renderable|RedirectResponse
+     */
+    public function destroy(Request $request, Tenant $tenant)
+    {
+        if ($request->isMethod('GET')) {
+            return view('tenants.delete', compact('tenant'));
+        }
+
+        // DELETE logic
+        $request->validate(['bevestiging' => new MatchUserPassword($request->user())]);
+
+        try { // To delete the tenant in the application.
+            DB::transaction(static function () use ($tenant, $request): void {
+                $tenant->delete();
+                $request->user()->logActivity($tenant, 'Huurders', "Heeft {$tenant->naam} verwijderd als huurder in de applicatie.");
+
+                if (Tenant::count() > 0) {
+                    flash(ucfirst($tenant->naam) . 'Is verwijderd als huur der in de applicatie');
+                }
+            });
+        } catch (Exception $exception) { // Woops! Something went wrong
+            flash('Er is iets misgelopen bij het verwijderen van de huurder')->important();
+        }
+
+        return redirect()->route('tenants.overview');
     }
 }

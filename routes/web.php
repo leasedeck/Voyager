@@ -29,6 +29,7 @@ Route::get('{user}/logs', [ActivityController::class, 'show'])->name('users.acti
 Route::get('/huurders', [TenantController::class, 'index'])->name('tenants.overview');
 Route::get('/huurders/nieuw', [TenantController::class, 'create'])->name('tenants.create');
 Route::post('/huurders/nieuw', [TenantController::class, 'store'])->name('tenants.store');
+Route::match(['get', 'delete'], '/huurders/verwijder/{tenant}', [TenantController::class, 'destroy'])->name('tenants.delete');
 Route::get('/huurders/{huurder}', [TenantController::class, 'show'])->name('tenants.show');
 
 // Notification routes
