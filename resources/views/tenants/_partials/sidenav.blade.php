@@ -28,9 +28,15 @@
             <i class="fas fa-envelope-open-text mr-2 text-secondary fa-fw"></i> Contacteer huurder
         </a>
 
-        <a href="" class="list-group-item list-group-item-action">
-            <i class="fas fa-user-lock fa-fw text-secondary mr-2"></i> Huurder deactiveren
-        </a>
+        @if ($currentUser->can('lock', $huurder))
+            <a href="" class="list-group-item list-group-item-action">
+                <i class="fas fa-user-lock fa-fw text-secondary mr-2"></i> Huurder deactiveren
+            </a>
+        @elseif($currentUser->can('unlock', $huurder))
+            <a href="" class="list-group-item list-group-item-action">
+                <i class="fas fa-unlock-alt fa-fw text-secondary mr-2"></i> Deactivatie opheffen
+            </a>
+        @endif
 
         <a href="{{ route('tenants.delete', $huurder) }}" class="list-group-item {{ active('tenants.delete', 'font-weight-bold') }} shadow-sm list-group-item-action">
             <i class="fas text-danger fa-user-slash fa-fw text-danger mr-2"></i> Verwijder huurder
