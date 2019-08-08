@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Tenants;
 
 use App\Http\Requests\Tenants\LockFormRequest;
 use App\Models\Tenant;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -14,7 +15,6 @@ use App\Http\Controllers\Controller;
  * @todo Complete validator
  * @todo Register routes
  * @todo Write controller logic
- * @todo Extends Tenant model for supporting bans.
  *
  * @package App\Http\Controllers\Tenants
  */
@@ -41,7 +41,7 @@ class LockController extends Controller
      */
     public function create(Tenant $tenant): Renderable
     {
-        // TODO
+        return view('tenants.lock.create', compact('tenant'));
     }
 
     /**

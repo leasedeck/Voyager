@@ -29,7 +29,7 @@
         </a>
 
         @if ($currentUser->can('lock', $huurder))
-            <a href="" class="list-group-item list-group-item-action">
+            <a href="{{ route('tenants.lock', $huurder) }}" class="{{ active('tenants.lock', 'font-weight-bold') }} list-group-item list-group-item-action">
                 <i class="fas fa-user-lock fa-fw text-secondary mr-2"></i> Huurder deactiveren
             </a>
         @elseif($currentUser->can('unlock', $huurder))

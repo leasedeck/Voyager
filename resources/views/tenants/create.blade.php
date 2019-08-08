@@ -7,7 +7,7 @@
             <div class="page-subtitle">Huurder toevoegen</div>
 
             <div class="d-flex page-options">
-                <a href="{{ route('tenants.overview') }}" class="btn btshadow btn-secondary">
+                <a href="{{ route('tenants.overview') }}" class="btn btn-shadow btn-secondary">
                     <i class="fe fe-list mr-2"></i> Overzicht
                 </a>
             </div>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\Tenants\LockController as TenantLockController;
 use App\Http\Controllers\Tenants\TenantController;
 use App\Http\Controllers\Users\AccountController;
 use App\Http\Controllers\Auth\PasswordSecurityController;
@@ -31,6 +32,9 @@ Route::get('/huurders/nieuw', [TenantController::class, 'create'])->name('tenant
 Route::post('/huurders/nieuw', [TenantController::class, 'store'])->name('tenants.store');
 Route::match(['get', 'delete'], '/huurders/verwijder/{tenant}', [TenantController::class, 'destroy'])->name('tenants.delete');
 Route::get('/huurders/{huurder}', [TenantController::class, 'show'])->name('tenants.show');
+
+// Huurder deactivate/activatie routes
+Route::get('/huurders/deactiveer/{tenant}', [TenantLockController::class, 'create'])->name('tenants.lock');
 
 // Notification routes
 Route::get('/notificaties/markAll', [NotificationController::class, 'markAll'])->name('notifications.markAll');

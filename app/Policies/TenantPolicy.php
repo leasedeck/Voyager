@@ -36,4 +36,10 @@ class TenantPolicy
     {
         return $user->hasAnyRole(['admin', 'webmaster']);
     }
+
+    public function lock(User $user, Tenant $tenant): bool
+    {
+        return $user->hasAnyRole(['admin', 'webmaster']) && $tenant->isNotBanned();
+
+    }
 }

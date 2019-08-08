@@ -5,14 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Cog\Contracts\Ban\Bannable as BannableContract;
+use Cog\Laravel\Ban\Traits\Bannable;
 
 /**
  * Class Tenant
  *
  * @package App\Models
  */
-class Tenant extends Model
+class Tenant extends Model implements BannableContract
 {
+    use Bannable;
+
     /**
      * The guarded fields for the internal mass-assignment system?
      *

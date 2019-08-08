@@ -32,6 +32,7 @@ class CreateTenantsTable extends Migration
             $table->string('adres');
             $table->string('postcode', 20);
             $table->string('stad');
+            $table->timestamp('banned_at')->nullable();
             $table->timestamps();
 
             // Indexes
