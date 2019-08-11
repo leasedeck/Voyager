@@ -8,6 +8,7 @@ use Exception;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -30,11 +31,13 @@ class LockController extends Controller
         $this->middleware(['auth', '2fa', 'portal:application', 'forbid-banned-user']);
 
         $this->middleware('can:lock,tenant')->only(['create', 'store']);
-        $this->middleware('can:unlock,tenant')->only('delete', 'update');
+        $this->middleware('can:unlock,tenant')->only('undo');
     }
 
     /**
      * Methode om de deactivatie weergave in de applicatie.
+     *
+     * @see \App\Policies\TenantPolicy::lock()
      *
      * @param  Tenant $tenant De databank entiteit van de huurder.
      * @return Renderable
@@ -46,6 +49,8 @@ class LockController extends Controller
 
     /**
      * Methode om de blokkade van de huurder op te slaan in de databank.
+     *
+     * @see \App\Policies\TenantPolicy::lock()
      *
      * @param  LockFormRequest  $request De requst instance die e validatie afhandeld en request data bijhoud
      * @param  Tenant           $tenant  De databank entiteit van de huurder.
@@ -67,24 +72,28 @@ class LockController extends Controller
     }
 
     /**
-     * Methode voor de blokkerings weergave van de huurder.
+     * Methode om de blokkering van de huurder ongedaan te maken in de databank.
      *
-     * @param  Tenant $tenant De databank entiteit van de huurder
-     * @return Renderable
-     */
-    public function delete(Tenant $tenant): Renderable
-    {
-        // TODO
-    }
-
-    /**
-     * Methode om de blokkering van de huurder op te slaan in de databank.
+     * @see \App\Policies\TenantPolicy::unlock()
      *
-     * @param  Tenant $tenant De databnk entiteit van de huurder
+     * @param Request $request De instantie dat alle request informatie bezit.
+     * @param  Tenant  $tenant  De databnk entiteit van de huurder
      * @return RedirectResponse
      */
-    public function update(Tenant $tenant): RedirectResponse
+    public function undo(Request $request, Tenant $tenant): RedirectResponse
     {
-        // TODO
+        try { // De blokkering van de huurder ongedaan te maken in de applicatie.
+            DB::transaction(static function () use ($request, $tenant): void {
+                $tenant->unban();
+
+                flash($tenant->naam . 'is terug geactiveerd als huurder in de applicatie.', 'success');
+                $request->user()->logActivity($tenant, 'Huurders', "Heeft {$tenant->naam} terug geactiveerd als huurder.");
+            });
+
+            return redirect()->route('tenants.show', $tenant);
+        } catch (Exception $e) { // Woops! Something went wrong (internally)
+            flash('Er is intern iets misgelopen met het activeren van de huurder.', 'danger');
+            return back(); // Leid de gebruiker terug naar de vorige pagina.
+        }
     }
 }

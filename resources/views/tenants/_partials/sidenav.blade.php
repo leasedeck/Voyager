@@ -33,7 +33,7 @@
                 <i class="fas fa-user-lock fa-fw text-secondary mr-2"></i> Huurder deactiveren
             </a>
         @elseif($currentUser->can('unlock', $huurder))
-            <a href="" class="list-group-item list-group-item-action">
+            <a href="{{ route('tenants.unlock', $huurder) }}" class="list-group-item list-group-item-action">
                 <i class="fas fa-unlock-alt fa-fw text-secondary mr-2"></i> Deactivatie opheffen
             </a>
         @endif

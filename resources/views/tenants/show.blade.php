@@ -15,6 +15,8 @@
     </div>
 
     <div class="container-fluid pb-3">
+        @include ('flash::message') {{-- Flash session view partial --}}
+
         <div class="row">
             <div class="col-3"> {{-- side navigation --}}
                 @include ('tenants._partials.sidenav', ['tenant' => $huurder])
