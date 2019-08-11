@@ -56,6 +56,7 @@ class LockController extends Controller
         try { // Probeer om de huurder te deactiveren
             DB::transaction(static function () use ($request, $tenant): void {
                 $tenant->ban($request->all());
+                $request->user()->logActivity($tenant, 'Huurders', "Heeft {$tenant->naam} gedeactiveerd als huurder in de applicatie.");
             });
 
             return redirect()->route('tenants.show', $tenant);
