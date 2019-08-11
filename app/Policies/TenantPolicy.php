@@ -37,9 +37,28 @@ class TenantPolicy
         return $user->hasAnyRole(['admin', 'webmaster']);
     }
 
+    /**
+     * Bepaal of de gebruiker een huurder kan deactiveren or niet.
+     *
+     * @param  User     $user   Databank entiteit van de aangemelde gebruiker.
+     * @param  Tenant   $tenant Databan entiteit van de huurder.
+     * @return bool
+     */
     public function lock(User $user, Tenant $tenant): bool
     {
         return $user->hasAnyRole(['admin', 'webmaster']) && $tenant->isNotBanned();
 
+    }
+
+    /**
+     * Bepaal of de aangemlde gebruiker een gedeactiveerde huurder terug kan activeren.
+     *
+     * @param  User     $user   Databank entiteit van de aangemelde gebruiker.
+     * @param  Tenant   $tenant Databank entiteit van de gegeven huurder.
+     * @return bool
+     */
+    public function unlock(User $user, Tenant $tenant): bool
+    {
+        return $user->hasAnyRole(['admin', 'webmaster']) && $tenant->isBanned();
     }
 }

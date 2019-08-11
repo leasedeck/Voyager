@@ -83,8 +83,9 @@ class TenantController extends Controller
     {
         $canEdit = $this->getAuthenticatedUser()->can('update', $huurder);
         $countries = Country::all(['id', 'name']);
+        $banInfo = $huurder->bans()->latest()->first();
 
-        return view('tenants.show', compact('canEdit', 'huurder', 'countries'));
+        return view('tenants.show', compact('canEdit', 'huurder', 'countries', 'banInfo'));
     }
 
     /**

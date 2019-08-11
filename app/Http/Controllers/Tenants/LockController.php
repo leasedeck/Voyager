@@ -4,15 +4,15 @@ namespace App\Http\Controllers\Tenants;
 
 use App\Http\Requests\Tenants\LockFormRequest;
 use App\Models\Tenant;
+use Exception;
 use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class LockController
  *
- * @todo Register policies (lock, unlock)
- * @todo Complete validator
  * @todo Register routes
  * @todo Write controller logic
  *
@@ -53,7 +53,16 @@ class LockController extends Controller
      */
     public function store(LockFormRequest $request, Tenant $tenant): RedirectResponse
     {
-        // TODO
+        try { // Probeer om de huurder te deactiveren
+            DB::transaction(static function () use ($request, $tenant): void {
+                $tenant->ban($request->all());
+            });
+
+            return redirect()->route('tenants.show', $tenant);
+        } catch (Exception $e) { // Woops something went wrong
+            flash('Er is intern iets misgelopen bij het deactiveren van de huurder.', 'danger');
+            return back(); // Leid de gebruiker terug naar de vorige pagina.
+        }
     }
 
     /**

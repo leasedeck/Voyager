@@ -35,6 +35,7 @@ Route::get('/huurders/{huurder}', [TenantController::class, 'show'])->name('tena
 
 // Huurder deactivate/activatie routes
 Route::get('/huurders/deactiveer/{tenant}', [TenantLockController::class, 'create'])->name('tenants.lock');
+Route::post('/huurders/deactiveer/{tenant}', [TenantLockController::class, 'store'])->name('tenants.lock.store');
 
 // Notification routes
 Route::get('/notificaties/markAll', [NotificationController::class, 'markAll'])->name('notifications.markAll');

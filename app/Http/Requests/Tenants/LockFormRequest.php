@@ -4,6 +4,11 @@ namespace App\Http\Requests\Tenants;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Class LockFormRequest
+ *
+ * @package App\Http\Requests\Tenants
+ */
 class LockFormRequest extends FormRequest
 {
     /**
@@ -11,9 +16,9 @@ class LockFormRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        return false;
+        return auth()->user()->can('lock', $this->tenant);
     }
 
     /**
@@ -21,10 +26,16 @@ class LockFormRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
-        return [
-            //
-        ];
+        return ['comment' => ['required', 'string']];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function messages(): array
+    {
+        return ['comment.*' => 'Beschrijf waarom de huurder wordt gedeactiveerd.'];
     }
 }

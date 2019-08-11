@@ -15,13 +15,15 @@
     </div>
 
     <div class="container-fluid pb-3">
+        @include('flash::message') {{-- Flash session view partial --}}
+
         <div class="row">
             <div class="col-3"> {{-- Sidebar --}}
                 @include ('tenants._partials.sidenav', ['huurder' => $tenant])
             </div> {{-- /// END sidebar --}}
 
             <div class="col-9"> {{-- Content --}}
-                <form method="POST" action="" class="card card-body shadow-sm border-0">
+                <form method="POST" action="{{ route('tenants.lock.store', $tenant) }}" class="card card-body shadow-sm border-0">
                     <h6 class="border-bottom border-gray pb-1 mb-3">{{ ucfirst($tenant->naam) }} als huurder deactiveren.</h6>
 
                     @csrf {{-- Form field protection --}}

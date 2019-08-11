@@ -60,7 +60,7 @@
                                             </a>
 
                                             @if ($currentUser->can('delete', $tenant))
-                                                <a href="" class="text-danger text-danger ml-1">
+                                                <a href="{{ route('tenants.delete', $tenant) }}" class="text-danger text-decoration-none text-danger ml-1">
                                                     <i class="fe fe-trash-2"></i>
                                                 </a>
                                             @endif

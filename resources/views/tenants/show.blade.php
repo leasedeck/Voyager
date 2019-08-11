@@ -28,6 +28,18 @@
                     @form($huurder)  {{-- Bind data to the form--}}
 
                     <fieldset @if (! $canEdit) disabled @endif>
+                        @if ($huurder->isBanned()) {{-- Deactivation alert message --}}
+                            <div class="alert alert-danger alert-important border-0" role="alert">
+                                <h5 class="alert-heading">
+                                    <i class="fe fe-alert-triangle mr-2"></i>
+                                    Deze huurder is gedeactiveerd door {{ $banInfo->createdBy->name }}
+                                </h5>
+
+                                <hr class="mt-0 mb-2">
+                                <span class="font-weight-bold">Reden:</span> {{ $banInfo->comment }}
+                            </div>
+                        @endif {{-- /// END deactivation alert message --}}
+
                         <div class="row mt-2">
                             <div class="col-3">
                                 <h5>Algemene informatie</h5>
