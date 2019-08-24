@@ -38,6 +38,7 @@
         "nunomaduro/collision": "^2.0",
         "nunomaduro/phpinsights": "^1.7",
         "phpunit/phpunit": "^8.0",
+        "sebastian/phpcpd": "^4.1",
         "sensiolabs/security-checker": "^6.0"
     },
     "config": {
@@ -50,11 +51,11 @@
             "dont-discover": []
         }
     },
-    "repositories": [ 
+    "repositories": [
         {
-            "type": "composer", 
-            "url": "https://satis.spatie.be/" 
-        } 
+            "type": "composer",
+            "url": "https://satis.spatie.be/"
+        }
     ],
     "autoload": {
         "psr-4": {
@@ -81,6 +82,9 @@
         ],
         "format": [
             "vendor/bin/php-cs-fixer fix"
+        ],
+        "phpcpd": [
+            "vendor/bin/phpcpd app bootstrap config database routes tests"
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",

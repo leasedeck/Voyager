@@ -19,6 +19,11 @@ class CreateLeasesTable extends Migration
         Schema::create('leases', static function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('huurder_id');
+            $table->unsignedBigInteger('status');
+            $table->date('eind_datum');
+            $table->date('start_datum');
+            $table->integer('aantal_personen');
+            $table->text('extra_informatie');
             $table->timestamps();
 
             // Indexes

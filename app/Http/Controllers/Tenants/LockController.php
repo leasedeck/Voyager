@@ -14,9 +14,6 @@ use Illuminate\Support\Facades\DB;
 /**
  * Class LockController
  *
- * @todo Register routes
- * @todo Write controller logic
- *
  * @package App\Http\Controllers\Tenants
  */
 class LockController extends Controller

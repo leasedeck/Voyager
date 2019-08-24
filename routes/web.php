@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\Tenants\LeaseController;
 use App\Http\Controllers\Tenants\LockController as TenantLockController;
 use App\Http\Controllers\Tenants\TenantController;
 use App\Http\Controllers\Users\AccountController;
@@ -38,6 +39,10 @@ Route::get('/huurders/deactiveer/{tenant}', [TenantLockController::class, 'creat
 Route::post('/huurders/deactiveer/{tenant}', [TenantLockController::class, 'store'])->name('tenants.lock.store');
 Route::get('/huurders/activeer/{tenant}', [TenantLockController::class, 'undo'])->name('tenants.unlock');
 
+// Huurder leases routes
+Route::get('/huurders/{tenant}/verhuringen', [LeaseController::class, 'index'])->name('tenants.leases.overview');
+Route::get('/huurders/{tenant}/verhuringen/nieuw', [LeaseController::class, 'create'])->name('tenants.leases.create');
+
 // Notification routes
 Route::get('/notificaties/markAll', [NotificationController::class, 'markAll'])->name('notifications.markAll');
 Route::get('/notificaties/markOne/{notification}', [NotificationController::class, 'markOne'])->name('notifications.markAsRead');
@@ -59,6 +64,9 @@ Route::get('/lokalen/{lokaal}/opmerkingen', [NotesController::class, 'index'])->
 Route::get('/lokalen/{lokaal}/opmerking/nieuw', [NotesController::class, 'create'])->name('lokalen.opmerkingen.nieuw');
 Route::post('/lokalen/{lokaal}/opmerking/opslaan', [NotesController::class, 'store'])->name('lokalen.opmerkingen.store');
 Route::delete('/opmerking/verwijder/{note}', [NotesController::class, 'destroy'])->name('lokaal.opmerking.destroy');
+
+// Verhuring routes
+Route::post('/huurder/{tenant}/verhuring', [LeaseController::class, 'store'])->name('tenant.lease.store');
 
 // Contacts routes
 Route::get('/contacten/nieuw', [ContactController::class, 'create'])->name('contacts.create');

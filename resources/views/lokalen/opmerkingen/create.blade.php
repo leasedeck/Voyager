@@ -31,7 +31,7 @@
 
                             @if ($errors->has('opmerking'))
                                 <li><i class="fe fe-x-circle mr-2"></i> {{ $errors->first('opmerking') }}</li>
-                            @enndif
+                            @endif
                         </ul>
                     </div>
                 @endif

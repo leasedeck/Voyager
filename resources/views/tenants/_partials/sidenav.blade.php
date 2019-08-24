@@ -12,7 +12,7 @@
             <i class="fas fa-fw mr-2 text-secondary fa-sticky-note"></i> Notities
         </a>
 
-        <a class="list-group-item-action list-group-item">
+        <a href="{{ route('tenants.leases.overview', $huurder) }}" class="list-group-item-action {{ active('tenants.leases*', 'font-weight-bold') }} list-group-item">
             <i class="fas fa-list fa-fw text-secondary mr-2"></i>Verhuringen
         </a>
     </div>
