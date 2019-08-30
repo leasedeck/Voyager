@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\Lease;
 use App\Models\Note;
 use App\Models\Tenant;
 use App\Models\User;
 use App\Models\Contact;
+use App\Policies\LeasePolicy;
 use App\Policies\OpmerkingenPolicy;
 use App\Policies\TenantPolicy;
 use App\Policies\UserPolicy;
@@ -32,6 +34,7 @@ class AuthServiceProvider extends ServiceProvider
         Lokalen::class  => LokaalPolicy::class,
         Note::class     => OpmerkingenPolicy::class,
         Tenant::class   => TenantPolicy::class,
+        Lease::class    => LeasePolicy::class,
     ];
 
     /**

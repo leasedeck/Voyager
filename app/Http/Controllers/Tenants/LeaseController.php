@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Tenants;
 
 use App\Http\Requests\Tenants\LeaseFormRequest;
 use App\Models\Lease;
+use App\Models\Tags;
 use App\Models\Tenant;
 use App\Repositories\LeaseRepository;
 use Illuminate\Contracts\Support\Renderable;
@@ -41,7 +42,7 @@ class LeaseController extends Controller
      */
     public function index(Tenant $tenant): Renderable
     {
-        $leases = $tenant->verhuringen()->paginate();
+        $leases = $tenant->verhuringen()->latest()->paginate();
         return view('lease.tenants.overview', compact('tenant', 'leases'));
     }
 
@@ -74,6 +75,7 @@ class LeaseController extends Controller
     {
         DB::transaction(static function () use ($input, $tenant): void {
             $lease = new Lease($input->all());
+
             $tenant->verhuringen()->save($lease);
         });
     }

@@ -48,6 +48,49 @@
                     </div>
                 @else {{-- Er zijn verhuringen gevonden --}}
                     <div class="card card-body border-0 shadow-sm">
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th class="border-top-0" scope="col">Periode</th>
+                                        <th class="border-top-0" scope="col">Status</th>
+                                        <th class="border-top-0" scope="col">Opgevolgd door</th>
+                                        <th class="border-top-0" scope="col">Aantal personen</th>
+                                        <th class="border-top-0" scope="col">&nbsp;</th> {{-- Column dedicated to the function shortcuts --}}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($leases as $lease) {{-- LOOP trough leases --}}
+                                       <tr>
+                                           <td class="font-weight-bold">{{ $lease->periode }}</td>
+                                           <td>
+                                               <span class="badge badge-{{ strtolower($lease->klasse->name) }}">
+                                                    {{ $lease->klasse->name }}
+                                               </span>
+                                           </td>
+                                           <td>{{ $lease->verantwoordelijke->naam ?? 'Onbekend' }}</td>
+                                           <td>{{ $lease->aantal_personen }} Personen</td>
+
+                                           <td> {{-- Options --}}
+                                               <span class="float-right">
+                                                   <a href="" class="text-muted text-decoration-none">
+                                                       <i class="fe fe-eye"></i>
+                                                   </a>
+
+                                                   @if ($currentUser->can('delete', $lease))
+                                                        <a href="" class="text-danger text-decoration-none ml-1">
+                                                            <i class="fe fe-trash-2"></i>
+                                                        </a>
+                                                   @endif
+                                               </span>
+                                           </td>{{-- /// Options --}}
+                                       </tr>
+                                    @endforeach {{-- /// END --}}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        {{ $leases->links() }} {{-- Paginatiion view instance --}}
                     </div>
                 @endif
             </div> {{-- /// END content --}}

@@ -28,6 +28,7 @@ class CreateLeasesTable extends Migration
 
             // Indexes
             $table->foreign('huurder_id')->references('id')->on('tenants')->onDelete('cascade');
+            $table->foreign('status')->references('id')->on('tags');
         });
     }
 
