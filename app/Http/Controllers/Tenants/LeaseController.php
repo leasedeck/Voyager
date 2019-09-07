@@ -8,6 +8,7 @@ use App\Models\Tags;
 use App\Models\Tenant;
 use App\Repositories\LeaseRepository;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -75,8 +76,9 @@ class LeaseController extends Controller
     {
         DB::transaction(static function () use ($input, $tenant): void {
             $lease = new Lease($input->all());
-
             $tenant->verhuringen()->save($lease);
         });
+
+        return redirect()->route('lease.show');
     }
 }
