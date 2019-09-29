@@ -36,17 +36,20 @@
                     </div>
                 </div>
 
-                <form method="GET" action="" class="border-0 shadow-sm form-search ml-2">
-                    <input type="text" name="term" value="" placeholder="Zoeken" class="form-search border-0 form-control">
-                </form>
+                    <form method="GET" action="" class="form-inline border-0 shadow-sm form-search ml-2">
+                        <div class="form-group has-search">
+                            <span class="fe fe-search form-control-feedback"></span>
+                            <input type="text" name="term" value="" placeholder="Zoeken" class="form-search border-0 form-control">
+                        </div>
+                    </form>
             </div>
         </div>
     </div>
 
     <div class="container-fluid pb-3">
         @include('flash::message')
-        
-        @if ($contacts->total() === 0) 
+
+        @if ($contacts->total() === 0)
             <div class="blankslate bg-white shadow-sm">
                 <h3 class="text-brown">Geen contacten gevonden!</h3>
                 <p class="pt-2">
@@ -89,11 +92,11 @@
                                     </td>
 
                                     <td>
-                                        @if ($contact->organisatie && ! $$contact->organisatie_functie) 
+                                        @if ($contact->organisatie && ! $$contact->organisatie_functie)
                                             <span class="font-italic">Onbekend</span>
                                         @elseif (! $contact->organisatie)
                                             <span class="font-italic">n.v.t</span>
-                                        @else 
+                                        @else
                                             {{ $contact->organisatie_functie }}
                                         @endif
                                     </td>

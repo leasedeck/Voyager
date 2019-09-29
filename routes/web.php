@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\Lease\ManagementController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Tenants\LeaseController;
 use App\Http\Controllers\Tenants\LockController as TenantLockController;
@@ -38,6 +39,9 @@ Route::get('/huurders/{huurder}', [TenantController::class, 'show'])->name('tena
 Route::get('/huurders/deactiveer/{tenant}', [TenantLockController::class, 'create'])->name('tenants.lock');
 Route::post('/huurders/deactiveer/{tenant}', [TenantLockController::class, 'store'])->name('tenants.lock.store');
 Route::get('/huurders/activeer/{tenant}', [TenantLockController::class, 'undo'])->name('tenants.unlock');
+
+// Routeringen voor verhuringen
+Route::get('verhuringen', [ManagementController::class, 'index'])->name('leases.overview');
 
 // Huurder leases routes
 Route::get('/huurders/{tenant}/verhuringen', [LeaseController::class, 'index'])->name('tenants.leases.overview');

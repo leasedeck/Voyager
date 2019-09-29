@@ -15,9 +15,25 @@ use App\Http\Controllers\Controller;
  */
 class ManagementController extends Controller
 {
+    /**
+     * ManagementController constructor.
+     *
+     * @return void
+     */
     public function __construct()
     {
+        $this->middleware(['auth', '2fa', 'forbid-banned-user']);
+    }
 
+    /**
+     * Methode voor de overzichts pagina van alle verhuringen.
+     *
+     * @param  Lease $leases De databank model voor alle verhuringen.
+     * @return Renderable
+     */
+    public function index(Lease $leases): Renderable
+    {
+        return view('lease.index', compact($leases));
     }
 
     public function show(Lease $lease): Renderable
