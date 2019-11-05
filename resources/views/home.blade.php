@@ -84,6 +84,9 @@
         <div class="card card-body border-0 shadow-sm">
             <h6 class="border-bottom border-gray pb-1 mb-3">
                 <i class="text-brown fe fe-home mr-1"></i> Nieuwe aanvragen
+                <a href="{{ route('leases.overview') }}" class="text-decoration-none text-primary small float-right">
+                    <i class="fe fe-list mr-1"></i> Alle verhuringen
+                </a>
             </h6>
         </div>
     </div>

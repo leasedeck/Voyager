@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Lease;
 
 use App\Models\Lease;
-use DebugBar\DataCollector\Renderable;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
