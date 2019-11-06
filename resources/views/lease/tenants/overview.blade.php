@@ -65,7 +65,7 @@
                                 <tbody>
                                     @foreach ($leases as $lease) {{-- LOOP trough leases --}}
                                        <tr>
-                                           <td class="font-weight-bold">{{ $lease->periode }}</td>
+                                           <td class="font-weight-bold">{{ $lease->periode }} <span class="text-muted ml-1 small">({{ $lease->start_datum->diffInDays($lease->eind_datum) }} dagen)</span></td>
                                            <td>
                                                <span class="badge badge-{{ strtolower($lease->klasse->name) }}">
                                                     {{ $lease->klasse->name }}
