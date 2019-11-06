@@ -19,68 +19,100 @@
     <div class="container-fluid">
         <div class="row"> {{-- Widgets --}}
             <div class="col-3"> {{-- lokalen widget --}}
-                <div class="card border-0 shadow-sm mb-4 p-2">
-                    <div class="d-flex align-items-center">
-                        <span class="stamp stamp-md shadow-sm bg-brown mr-3">
-                            <i class="fe fe-home"></i>
-                        </span>
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body mb-1 p-2">
+                        <div class="d-flex align-items-center">
+                            <span class="stamp stamp-md shadow-sm bg-brown mr-3">
+                                <i class="fe fe-home"></i>
+                            </span>
 
-                        <div>
-                            <h5 class="m-0">0 <small>lokalen</small></h5>
-                            <small class="text-muted"></small>
+                            <div>
+                                <h5 class="m-0">0 <small>lokalen</small></h5>
+                                <small class="text-muted"></small>
+                            </div>
                         </div>
+                    </div> {{-- /// END lokalen widget --}}
+
+                    <div class="card-footer border-top-0 p-1 text-center bg-widget font-weight-bolder">
+                        <a href="{{ route('lokalen.index') }}" class="text-decoration-none text-muted">
+                            Bekijk alle lokalen <i class="fe fe-chevrons-right"></i>
+                        </a>
                     </div>
-                </div> {{-- /// END lokalen widget --}}
+                </div>
             </div> {{-- /// END widgets --}}
 
             <div class="col-3">
-                <div class="card border-0 shadow-sm mb-4 p-2">
-                    <div class="d-flex align-items-center">
-                        <span class="stamp stamp-md shadow-sm bg-brown mr-3">
-                            <i class="fe fe-calendar"></i>
-                        </span>
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body mb-1 p-2">
+                        <div class="d-flex align-items-center">
+                            <span class="stamp stamp-md shadow-sm bg-brown mr-3">
+                                <i class="fe fe-calendar"></i>
+                            </span>
 
-                        <div>
-                            <h5 class="m-0">0 <small>Verhuringen</small></h5>
-                            <small class="text-muted"></small>
+                            <div>
+                                <h5 class="m-0">0 <small>Verhuringen</small></h5>
+                                <small class="text-muted"></small>
+                            </div>
                         </div>
+                    </div>
+
+                    <div class="card-footer p-1 border-top-0 text-center bg-widget font-weight-bolder">
+                        <a href="{{ route('leases.overview') }}" class="text-decoration-none text-muted">
+                            Bekijk alle verhuringen <i class="fe fe-chevrons-right"></i>
+                        </a>
                     </div>
                 </div>
             </div>
 
             <div class="col-3">
-                <div class="card border-0 shadow-sm mb-4 p-2"> {{-- Huurders widget --}}
-                    <div class="d-flex align-items-center">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body mb-1 p-2"> {{-- Huurders widget --}}
+                        <div class="d-flex align-items-center">
                         <span class="stamp stamp-md shadow-sm bg-brown mr-3">
                             <i class="fe fe-users"></i>
                         </span>
 
-                        <div>
-                            <h5 class="m-0">0 <small>Huurders</small></h5>
-                            <small class="text-muted"></small>
+                            <div>
+                                <h5 class="m-0">0 <small>Huurders</small></h5>
+                                <small class="text-muted"></small>
+                            </div>
                         </div>
+                    </div> {{-- /// ENd huurder widget --}}
+
+                    <div class="card-footer p-1 border-top-0 text-center bg-widget font-weight-bolder">
+                        <a href="{{ route('tenants.overview') }}" class="text-decoration-none text-muted">
+                            Bekijk alle huurders <i class="fe fe-chevrons-right"></i>
+                        </a>
                     </div>
-                </div> {{-- /// ENd huurder widget --}}
+                </div>
             </div>
 
             <div class="col-3">
-                <div class="card border-0 shadow-sm mb-4 p-2">
-                    <div class="d-flex align-items-center">
-                        <span class="stamp stamp-md shadow-sm bg-brown mr-3">
-                            <i class="fe fe-alert-triangle"></i>
-                        </span>
+                <div class="card shadow-sm border-0">
+                    <div class="card-body mb-1 p-2">
+                        <div class="d-flex align-items-center">
+                            <span class="stamp stamp-md shadow-sm bg-brown mr-3">
+                                <i class="fe fe-alert-triangle"></i>
+                            </span>
 
-                        <div>
-                            <h5 class="m-0">0 <small>werkpunten</small></h5>
-                            <small class="text-muted"></small>
+                            <div>
+                                <h5 class="m-0">0 <small>werkpunten</small></h5>
+                                <small class="text-muted"></small>
+                            </div>
                         </div>
+                    </div>
+
+                    <div class="card-footer border-top-0 p-1 text-center bg-widget font-weight-bolder">
+                        <a href="" class="text-decoration-none text-muted">
+                            Bekijk alle werkpunten <i class="fe fe-chevrons-right"></i>
+                        </a>
                     </div>
                 </div>
             </div>
         </div> {{-- /// END widgets --}}
     </div>
 
-    <div class="container-fluid pt-0 pb-3">
+    <div class="container-fluid py-4">
         <div class="card card-body border-0 shadow-sm">
             <h6 class="border-bottom border-gray pb-1 mb-3">
                 <i class="text-brown fe fe-home mr-1"></i> Nieuwe aanvragen
