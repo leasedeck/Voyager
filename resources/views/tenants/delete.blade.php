@@ -38,12 +38,6 @@
                     <hr class="mt-0">
 
                     <div class="form-row">
-                        <div class="form-group col-4">
-                            <label for="bevestiging" class="sr-only">bevestiging</label>
-                            <input id="bevestiging" type="password" class="form-control @error('bevestiging', 'is-invalid')" placeholder="Wachtwoord ter controle" @input('bevestiging')>
-                            @error('bevestiging')
-                        </div>
-
                         <div class="form-group col-12 mb-0">
                             <button type="submit" class="btn btn-danger">
                                 <i class="fe fe-trash-2 mr-2"></i> verwijder
