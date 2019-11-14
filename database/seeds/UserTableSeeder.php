@@ -10,9 +10,8 @@ use Illuminate\Database\Seeder;
  */
 class UserTableSeeder extends Seeder
 {
-    const WEBMASTER = 'webmaster'; // Role name for webmasters in the application.
-
-    const RVB = 'admin';     // Role name for board members in the application.
+    public const WEBMASTER = 'webmaster'; // Role name for webmasters in the application.
+    public const RVB       = 'admin';     // Role name for board members in the application.
 
     /**
      * Run the database seeds.

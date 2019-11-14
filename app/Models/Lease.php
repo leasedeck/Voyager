@@ -41,6 +41,16 @@ class Lease extends Model
     }
 
     /**
+     * Data relatie voor de gegevens van de huurder.
+     *
+     * @return BelongsTo
+     */
+    public function huurder(): BelongsTo
+    {
+        return $this->belongsTo(Tenant::class);
+    }
+
+    /**
      * method to fetch the lease period in the applicatition.
      *
      * @return string
