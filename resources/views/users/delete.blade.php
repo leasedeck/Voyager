@@ -41,11 +41,6 @@
                     <hr class="mt-0">
 
                     <div class="form-row">
-                        <div class="form-group col-6">
-                            <input type="password" placeholder="Uw wachtwoord ter bevestiging" class="form-control @error('wachtwoord', 'is-invalid')" @input('wachtwoord')>
-                            @error('wachtwoord')
-                        </div>
-
                         <div class="form-group col-12 mb-0">
                             <button type="submit" class="btn btn-danger">Verwijder</button>
                             <a href="{{ route('users.index') }}" class="btn btn-light">Annuleer</a>
