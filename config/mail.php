@@ -12,7 +12,7 @@ return [
     | your application here. By default, Laravel is setup for SMTP mail.
     |
     | Supported: "smtp", "sendmail", "mailgun", "ses",
-    |            "postmark" "log", "array"
+    |            "postmark", "log", "array"
     |
     */
 
@@ -113,6 +113,7 @@ return [
     */
 
     'markdown' => [
+
         'theme' => 'default',
 
         'paths' => [
