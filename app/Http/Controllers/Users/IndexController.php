@@ -74,17 +74,6 @@ class IndexController extends Controller
     }
 
     /**
-     * Method for searching specific user account in the application.
-     *
-     * @param  Request $input THe request class that holds all the request information.
-     * @return Renderable
-     */
-    public function search(Request $request, User $users): Renderable
-    {
-        return view('users.index', ['users' => $users->search($request->term)->paginate(), 'requestType' => 'search']);
-    }
-
-    /**
      * Method for storing the new user in the application.
      *
      * @param  InformationValidator $input The form request class that handles the input validation.
