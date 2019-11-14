@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers\Users;
 
-use Gate;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Users\InformationValidator;
 use App\Models\User;
-use Illuminate\Support\Str;
+use App\Notifications\LoginCreated;
+use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Notifications\LoginCreated;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Contracts\Support\Renderable;
-use App\Http\Requests\Users\InformationValidator;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role;
 
 /**
@@ -28,6 +27,7 @@ class IndexController extends Controller
     public function __construct()
     {
         $this->middleware(['auth', '2fa', 'role:admin|webmaster', 'forbid-banned-user', 'portal:kiosk']);
+        $this->middleware('password.confirm')->only('destroy');
     }
 
     /**
@@ -71,17 +71,6 @@ class IndexController extends Controller
     {
         $roles = $roles->pluck('name', 'name');
         return view('users.create', compact('roles'));
-    }
-
-    /**
-     * Method for searching specific user account in the application.
-     *
-     * @param  Request $input THe request class that holds all the request information.
-     * @return Renderable
-     */
-    public function search(Request $request, User $users): Renderable
-    {
-        return view('users.index', ['users' => $users->search($request->term)->paginate(), 'requestType' => 'search']);
     }
 
     /**
@@ -140,26 +129,18 @@ class IndexController extends Controller
      */
     public function destroy(Request $request, User $user)
     {
-        // 1) Request type is GET. So we need to display the confirmation view.
-        // 2) Determine whether the user is deleted or not.
-        // 3) Determine that the action needs to be logged or not.
-
         if ($request->isMethod('GET')) { // (1)
             return view('users.delete', compact('user'));
         }
 
-        $request->validate(['wachtwoord' => 'required', 'string']);
+        // Delete the actual user in the application.
+        $user->delete();
 
-        if (Hash::check($request->wachtwoord, $this->getAuthenticatedUser()->getAuthPassword()) && $user->delete()) { // (2)
-            if (Gate::denies('same-user')) { // (3)
-                $this->getAuthenticatedUser()->logActivity($user, 'Gebruikers', "Heeft de gebruiker {$user->name} verwijderd in de applicatie.");
-            }
-
-            flash("De gebruiker {$user->name} is verwijderd in de applicatie.")->success()->important();
-            return redirect()->route('users.index');
+        if (Gate::denies('same-user')) { // (3)
+            $this->getAuthenticatedUser()->logActivity($user, 'Gebruikers', "Heeft de gebruiker {$user->name} verwijderd in de applicatie.");
         }
 
-        flash("Wij konden de gebruiker {$user->name} niet verwijderen in de applicatie.")->error()->important();
-        return redirect()->route('users.destroy', $user);
+        flash("De gebruiker {$user->name} is verwijderd in de applicatie.")->success()->important();
+        return redirect()->route('users.index');
     }
 }

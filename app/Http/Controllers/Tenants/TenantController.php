@@ -28,6 +28,7 @@ class TenantController extends Controller
     public function __construct()
     {
         $this->middleware(['auth', '2fa', 'portal:application', 'forbid-banned-user']);
+        $this->middleware('password.confirm')->only('destroy');
     }
 
     /**
@@ -100,9 +101,6 @@ class TenantController extends Controller
         if ($request->isMethod('GET')) {
             return view('tenants.delete', compact('tenant'));
         }
-
-        // DELETE logic
-        $request->validate(['bevestiging' => new MatchUserPassword($request->user())]);
 
         try { // To delete the tenant in the application.
             DB::transaction(static function () use ($tenant, $request): void {

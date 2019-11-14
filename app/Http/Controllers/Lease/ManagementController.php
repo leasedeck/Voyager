@@ -33,22 +33,7 @@ class ManagementController extends Controller
      */
     public function index(Lease $leases): Renderable
     {
-        return view('lease.index', compact($leases));
-    }
-
-    public function show(Lease $lease): Renderable
-    {
-
-    }
-
-    /**
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     *
-     * @param  Lease $lease
-     * @return Renderable|RedirectResponse
-     */
-    public function delete(Lease $lease)
-    {
-        $this->authorize('delete', $lease);
+        $leases = $leases->paginate();
+        return view('lease.index', compact('leases'));
     }
 }

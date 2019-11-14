@@ -13,6 +13,10 @@
 @import "../../node_modules/bootstrap-markdown/css/bootstrap-markdown.min";
 @import "~primer-blankslate/index.scss";
 
+.bg-widget {
+    background-color: #F7FAFC;
+}
+
 .has-search .form-control {
     padding-left: 2.375rem;
 }

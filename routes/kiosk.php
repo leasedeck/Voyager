@@ -5,6 +5,7 @@ use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\Users\LockController;
 use App\Http\Controllers\Users\IndexController;
 use App\Http\Controllers\Alerts\KioskController;
+use App\Http\Controllers\Users\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +22,7 @@ Route::get('/kiosk', [HomeController::class, 'kiosk'])->name('kiosk.dashboard');
 
 // User routes
 Route::match(['get', 'delete'], '/verwijder/gebruiker/{user}', [IndexController::class, 'destroy'])->name('users.destroy');
-Route::get('/gebruikers/zoek', [IndexController::class, 'search'])->name('users.search');
+Route::get('/gebruikers/zoek', [SearchController::class, 'index'])->name('users.search');
 Route::get('/gebruiker/{user}', [IndexController::class, 'show'])->name('users.show');
 Route::patch('/gebruikers/{user}', [IndexController::class, 'update'])->name('users.update');
 Route::get('/gebruikers/nieuw', [IndexController::class, 'create'])->name('users.create');
