@@ -39,7 +39,7 @@
                             <th class="border-top-0" scope="col">Huurder</th>
                             <th class="border-top-0" scope="col">Aantal personen</th>
                             <th class="border-top-0" scope="col">Aangevraagd op</th>
-                            <th class="border-top-0" scoep="col">&nbsp;</th>
+                            <th class="border-top-0" scope="col">&nbsp;</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -61,11 +61,11 @@
 
                                 <td> {{-- Options --}}
                                     <span class="float-right">
-                                        <a href="" class="text-decoration-none text-secondary mr-2">
+                                        <a href="{{ route('tenants.show', $lease->huurder) }}" class="text-decoration-none text-secondary mr-2">
                                             <i class="fe fe-user"></i>
                                         </a>
 
-                                        <a href="" class="text-decoration-none text-secondary mr-1">
+                                        <a href="{{ route('lease.show', $lease) }}" class="text-decoration-none text-secondary mr-1">
                                             <i class="fe fe-eye"></i>
                                         </a>
                                         <a href="" class="text-danger text-decoration-none">
