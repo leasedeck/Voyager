@@ -36,4 +36,14 @@ class ManagementController extends Controller
         $leases = $leases->paginate();
         return view('lease.index', compact('leases'));
     }
+
+    /**
+     *
+     * @param  Lease $lease
+     * @return Renderable
+     */
+    public function show(Lease $lease): Renderable
+    {
+
+    }
 }
