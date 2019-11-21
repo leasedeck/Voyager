@@ -2,7 +2,7 @@
     <i class="fe fe-home mr-1"></i> Dashboard
 </a>
 
-<a class="nav-link {{ active('leases.*') }}" href="{{ route('leases.overview') }}">
+<a class="nav-link {{ active(['leases.*', 'lease.*']) }}" href="{{ route('leases.overview') }}">
     <i class="fe fe-list mr-1"></i> Verhuringen
     <small>(0)</small>
 </a>

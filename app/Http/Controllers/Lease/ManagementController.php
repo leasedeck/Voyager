@@ -38,8 +38,9 @@ class ManagementController extends Controller
     }
 
     /**
+     * Methode om de gegevens van een verhuring op te halen in de applicatie.
      *
-     * @param  Lease $lease
+     * @param  Lease $lease De entiteit van de verhuring in de databank opslag.
      * @return Renderable
      */
     public function show(Lease $lease): Renderable

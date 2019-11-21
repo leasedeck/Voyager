@@ -42,6 +42,7 @@ Route::get('/huurders/activeer/{tenant}', [TenantLockController::class, 'undo'])
 
 // Routeringen voor verhuringen
 Route::get('verhuringen', [ManagementController::class, 'index'])->name('leases.overview');
+Route::get('verhuring/{lease}', [ManagementController::class, 'show'])->name('lease.show');
 
 // Huurder leases routes
 Route::get('/huurders/{tenant}/verhuringen', [LeaseController::class, 'index'])->name('tenants.leases.overview');
