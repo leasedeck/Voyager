@@ -35,11 +35,27 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-                <ul class="navbar-nav mr-auto">
-                    &nbsp;
-                </ul>
-
                 <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="{{ config('app.url') }}" id="createDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fe fe-plus"></i>
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="createDropdown">
+                            <a class="dropdown-item" href="">
+                                <i class="fe fe-list mr-1 text-muted"></i> Verhuring
+                            </a>
+
+                            <a class="dropdown-item" href="">
+                                <i class="fe fe-user mr-1 text-muted"></i> Huurder
+                            </a>
+
+                            <a class="dropdown-item" href="">
+                                <i class="fe fe-home mr-1 text-muted"></i> Lokaal
+                            </a>
+                        </div>
+                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('notifications.index') }}">
                             <i class="fe fe-bell mr-1"></i>

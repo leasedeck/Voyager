@@ -22,7 +22,7 @@ class ManagementController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth', '2fa', 'forbid-banned-user']);
+        $this->middleware(['auth', '2fa', 'forbid-banned-user', 'portal:application']);
     }
 
     /**
@@ -45,6 +45,6 @@ class ManagementController extends Controller
      */
     public function show(Lease $lease): Renderable
     {
-
+        return view('lease.show', compact('lease'));
     }
 }
