@@ -41879,9 +41879,9 @@ $(document).ready(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Gebruiker\Documents\voyager-sgv\resources\js\auth.js */"./resources/js/auth.js");
-__webpack_require__(/*! C:\Users\Gebruiker\Documents\voyager-sgv\resources\sass\auth.scss */"./resources/sass/auth.scss");
-module.exports = __webpack_require__(/*! C:\Users\Gebruiker\Documents\voyager-sgv\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/tjoosten/Documents/voyager-sijot/resources/js/auth.js */"./resources/js/auth.js");
+__webpack_require__(/*! /Users/tjoosten/Documents/voyager-sijot/resources/sass/auth.scss */"./resources/sass/auth.scss");
+module.exports = __webpack_require__(/*! /Users/tjoosten/Documents/voyager-sijot/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ }),

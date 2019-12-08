@@ -19,11 +19,11 @@
                 </a>
 
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Open werkpunten <span class="small text-muted">(0)</span></a>
-                    <a class="dropdown-item" href="#">Gesloten werkpunten <span class="small text-muted">(0)</span></a>
-                    <a class="dropdown-item" href="#">Toegewezen werkpunten <span class="small text-muted">(0)</span></a>
+                    <a class="dropdown-item" href="#">Open werkpunten</a>
+                    <a class="dropdown-item" href="#">Gesloten werkpunten</a>
+                    <a class="dropdown-item" href="{{ route('lokalen.werkpunten', ['lokaal' => $lokaal]) }}">Toegewezen werkpunten</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Alle werkpunten <span class="small text-muted">(0)</span></a>
+                    <a class="dropdown-item" href="{{ route('lokalen.werkpunten', $lokaal) }}">Alle werkpunten</a>
                 </div>
             </li>
         @endif

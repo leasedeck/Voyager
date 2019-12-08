@@ -12,6 +12,7 @@ use App\Http\Controllers\Auth\PasswordSecurityController;
 use App\Http\Controllers\Contacts\ContactController;
 use App\Http\Controllers\LokalenController;
 use App\Http\Controllers\Lokalen\NotesController;
+use App\Http\Controllers\Lokalen\Werkpunten\IndexController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,6 +61,9 @@ Route::post('/lokalen/nieuw', [LokalenController::class, 'store'])->name('lokale
 Route::get('/lokalen/{lokaal}', [LokalenController::class, 'show'])->name('lokalen.show');
 Route::patch('/lokalen/{lokaal}', [LokalenController::class, 'update'])->name('lokalen.update');
 Route::match(['get', 'delete'], '/lokalen/verwijder/{lokaal}', [LokalenController::class, 'destroy'])->name('lokalen.delete');
+
+// Lokalen werkpunten routes
+Route::get('/lokaal/{lokaal}/werkpunten/{type?}', [IndexController::class, 'index'])->name('lokalen.werkpunten');
 
 // Lokalen opmerkingen routes
 Route::get('/lokalen/opmerking/{note}', [NotesController::class, 'show'])->name('lokalen.opmerkingen.show');
